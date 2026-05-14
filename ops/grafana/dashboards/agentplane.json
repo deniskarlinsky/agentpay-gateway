@@ -1,0 +1,74 @@
+{
+  "title": "AgentPay — Decision Plane",
+  "uid": "agentplane-v1",
+  "schemaVersion": 38,
+  "version": 1,
+  "refresh": "30s",
+  "panels": [
+    {
+      "id": 1,
+      "type": "timeseries",
+      "title": "Cost per Case (USD) — median / p95 / max",
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
+      "targets": [
+        {
+          "expr": "agentpay_case_cost_usd",
+          "legendFormat": "cost"
+        }
+      ],
+      "description": "Populated in Iteration 6 when cost tracking is wired."
+    },
+    {
+      "id": 2,
+      "type": "piechart",
+      "title": "Decision Rate by Outcome",
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 0 },
+      "targets": [
+        {
+          "expr": "sum by (outcome) (agentpay_decision_total)",
+          "legendFormat": "{{outcome}}"
+        }
+      ],
+      "description": "Populated in Iteration 6."
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Compensation Rate",
+      "gridPos": { "h": 4, "w": 6, "x": 0, "y": 8 },
+      "targets": [
+        {
+          "expr": "sum(agentpay_saga_compensated_total) / sum(agentpay_saga_terminal_total)",
+          "legendFormat": "rate"
+        }
+      ],
+      "description": "Populated in Iteration 6."
+    },
+    {
+      "id": 4,
+      "type": "timeseries",
+      "title": "Specialist Latency p95 (ms)",
+      "gridPos": { "h": 8, "w": 12, "x": 6, "y": 8 },
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(agentpay_specialist_latency_ms_bucket[5m])) by (agent, le))",
+          "legendFormat": "{{agent}}"
+        }
+      ],
+      "description": "Populated in Iteration 6."
+    },
+    {
+      "id": 5,
+      "type": "stat",
+      "title": "Eval Pass Rate",
+      "gridPos": { "h": 4, "w": 6, "x": 18, "y": 8 },
+      "targets": [
+        {
+          "expr": "agentpay_eval_pass_rate",
+          "legendFormat": "rate"
+        }
+      ],
+      "description": "Populated in Iteration 6."
+    }
+  ]
+}

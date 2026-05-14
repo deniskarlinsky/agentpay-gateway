@@ -1,0 +1,53 @@
+[versions]
+java                       = "21"
+spring-boot                = "3.5.4"
+spring-dependency-mgmt     = "1.1.7"
+spring-ai                  = "1.1.5"
+postgres-driver            = "42.7.4"
+pgvector                   = "0.1.6"
+flyway                     = "10.20.1"
+nimbus-jose-jwt            = "9.40"
+testcontainers             = "1.20.4"
+bucket4j                   = "8.10.1"
+mcp-annotations            = "0.8.0"
+spotless                   = "7.0.3"
+
+[libraries]
+# Spring Boot starters — versions managed by Spring Boot BOM
+spring-boot-starter-web       = { module = "org.springframework.boot:spring-boot-starter-web" }
+spring-boot-starter-actuator  = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-test      = { module = "org.springframework.boot:spring-boot-starter-test" }
+# Used from iteration 2 onwards — declared here to pin via BOM
+spring-boot-starter-security              = { module = "org.springframework.boot:spring-boot-starter-security" }
+spring-boot-starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
+spring-boot-starter-data-jpa              = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
+spring-boot-starter-data-redis            = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-kafka                              = { module = "org.springframework.kafka:spring-kafka" }
+# Database
+postgresql      = { module = "org.postgresql:postgresql",        version.ref = "postgres-driver" }
+pgvector        = { module = "com.pgvector:pgvector",            version.ref = "pgvector" }
+flyway-core     = { module = "org.flywaydb:flyway-core",         version.ref = "flyway" }
+flyway-postgres = { module = "org.flywaydb:flyway-database-postgresql", version.ref = "flyway" }
+# Security
+nimbus-jose-jwt = { module = "com.nimbusds:nimbus-jose-jwt",     version.ref = "nimbus-jose-jwt" }
+# MCP annotations (pinned explicitly; pulled transitively by spring-ai-starter-mcp-server-webmvc)
+mcp-annotations = { module = "org.springaicommunity:mcp-annotations", version.ref = "mcp-annotations" }
+# Rate limiting
+bucket4j-core  = { module = "com.bucket4j:bucket4j-core",       version.ref = "bucket4j" }
+bucket4j-redis = { module = "com.bucket4j:bucket4j-redis",       version.ref = "bucket4j" }
+# Spring AI BOM — versions managed by Spring AI BOM imported in each service
+spring-ai-bom                      = { module = "org.springframework.ai:spring-ai-bom",                      version.ref = "spring-ai" }
+spring-ai-starter-model-anthropic  = { module = "org.springframework.ai:spring-ai-starter-model-anthropic" }
+spring-ai-starter-mcp-server-webmvc = { module = "org.springframework.ai:spring-ai-starter-mcp-server-webmvc" }
+spring-ai-starter-mcp-client       = { module = "org.springframework.ai:spring-ai-starter-mcp-client" }
+spring-ai-pgvector-store           = { module = "org.springframework.ai:spring-ai-pgvector-store" }
+# Testcontainers
+testcontainers-bom      = { module = "org.testcontainers:testcontainers-bom",  version.ref = "testcontainers" }
+testcontainers-junit    = { module = "org.testcontainers:junit-jupiter" }
+testcontainers-postgres = { module = "org.testcontainers:postgresql" }
+testcontainers-kafka    = { module = "org.testcontainers:kafka" }
+
+[plugins]
+spring-boot               = { id = "org.springframework.boot",      version.ref = "spring-boot" }
+spring-dependency-mgmt    = { id = "io.spring.dependency-management", version.ref = "spring-dependency-mgmt" }
+spotless                  = { id = "com.diffplug.spotless",          version.ref = "spotless" }

@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: buyer-client
+  main:
+    web-application-type: none
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
