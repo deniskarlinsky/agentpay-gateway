@@ -6,7 +6,7 @@ GRADLEW = ./gradlew
 # ── Infrastructure ────────────────────────────────────────────────────────────
 
 up:
-	$(GRADLEW) :services:sanctions-mcp:bootJar :services:mock-psp:bootJar
+	$(GRADLEW) :services:sanctions-mcp:bootJar :services:mock-psp:bootJar :services:gateway:bootJar
 	$(COMPOSE) up -d
 	@echo "Stack is up. Use 'make logs SERVICE=<name>' to follow logs."
 	$(COMPOSE) ps

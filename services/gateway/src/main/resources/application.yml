@@ -1,6 +1,10 @@
 spring:
   application:
     name: gateway
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
 
 server:
   port: 8080
@@ -13,3 +17,17 @@ management:
   endpoint:
     health:
       show-details: always
+
+agentpay:
+  gateway:
+    issuer: agentpay-gateway
+    signing-key-pem: ${GATEWAY_SIGNING_KEY_PEM:}
+    signing-key-path: .local/gateway-key.pem
+    max-ttl-seconds: 300
+    trace-url-template: "http://localhost:3000/trace/{case_id}"
+  rate-limit:
+    requests-per-minute-per-agent: 60
+
+logging:
+  level:
+    com.agentpay.gateway: INFO

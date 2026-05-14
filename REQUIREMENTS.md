@@ -667,7 +667,7 @@ Each scenario MUST be implemented as an end-to-end integration test under `servi
 
 ### 11.1 Code
 
-- [ ] `services/gateway/`
+- [x] `services/gateway/`
 - [ ] `services/orchestrator/`
 - [ ] `services/orchestrator/src/main/resources/prompts/risk.md`
 - [ ] `services/orchestrator/src/main/resources/prompts/compliance.md`

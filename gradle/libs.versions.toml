@@ -7,7 +7,7 @@ postgres-driver            = "42.7.4"
 pgvector                   = "0.1.6"
 flyway                     = "10.20.1"
 nimbus-jose-jwt            = "9.40"
-testcontainers             = "1.20.4"
+testcontainers             = "2.0.5"
 bucket4j                   = "8.10.1"
 mcp-annotations            = "0.8.0"
 spotless                   = "7.0.3"
@@ -43,9 +43,9 @@ spring-ai-starter-mcp-client       = { module = "org.springframework.ai:spring-a
 spring-ai-pgvector-store           = { module = "org.springframework.ai:spring-ai-pgvector-store" }
 # Testcontainers
 testcontainers-bom      = { module = "org.testcontainers:testcontainers-bom",  version.ref = "testcontainers" }
-testcontainers-junit    = { module = "org.testcontainers:junit-jupiter" }
-testcontainers-postgres = { module = "org.testcontainers:postgresql" }
-testcontainers-kafka    = { module = "org.testcontainers:kafka" }
+testcontainers-junit    = { module = "org.testcontainers:testcontainers-junit-jupiter" }
+testcontainers-postgres = { module = "org.testcontainers:testcontainers-postgresql" }
+testcontainers-kafka    = { module = "org.testcontainers:testcontainers-kafka" }
 
 [plugins]
 spring-boot               = { id = "org.springframework.boot",      version.ref = "spring-boot" }
