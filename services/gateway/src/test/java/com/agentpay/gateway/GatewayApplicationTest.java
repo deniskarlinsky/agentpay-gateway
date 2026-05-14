@@ -1,6 +1,5 @@
 package com.agentpay.gateway;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -8,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.agentpay.gateway.api.IntentTokenResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.security.KeyPairGenerator;
@@ -82,19 +80,23 @@ class GatewayApplicationTest {
         .andExpect(jsonPath("$.keys[0].use").value("sig"))
         .andExpect(jsonPath("$.keys[0].n").exists())
         .andExpect(jsonPath("$.keys[0].e").exists())
-        .andExpect(content().string(org.hamcrest.Matchers.not(org.hamcrest.Matchers.containsString("\"d\""))));
+        .andExpect(
+            content()
+                .string(org.hamcrest.Matchers.not(org.hamcrest.Matchers.containsString("\"d\""))));
   }
 
   @Test
   void scenarioDAmountExceedsCapReturns403() throws Exception {
     String token = issueToken("agent-D", "merchant-acme", "50.00", "USD", 300);
 
-    String body = json.writeValueAsString(java.util.Map.of(
-        "case_id", "case-d-1",
-        "merchant_id", "merchant-acme",
-        "amount", "75.00",
-        "currency", "USD",
-        "description", "over cap"));
+    String body =
+        json.writeValueAsString(
+            java.util.Map.of(
+                "case_id", "case-d-1",
+                "merchant_id", "merchant-acme",
+                "amount", "75.00",
+                "currency", "USD",
+                "description", "over cap"));
 
     mvc.perform(
             post("/payments")
@@ -108,12 +110,14 @@ class GatewayApplicationTest {
   @Test
   void scenarioETokenReplayReturns403() throws Exception {
     String token = issueToken("agent-E", "merchant-acme", "50.00", "USD", 300);
-    String body = json.writeValueAsString(java.util.Map.of(
-        "case_id", "case-e-1",
-        "merchant_id", "merchant-acme",
-        "amount", "10.00",
-        "currency", "USD",
-        "description", "first use"));
+    String body =
+        json.writeValueAsString(
+            java.util.Map.of(
+                "case_id", "case-e-1",
+                "merchant_id", "merchant-acme",
+                "amount", "10.00",
+                "currency", "USD",
+                "description", "first use"));
 
     mvc.perform(
             post("/payments")
@@ -124,12 +128,14 @@ class GatewayApplicationTest {
         .andExpect(jsonPath("$.case_id").value("case-e-1"))
         .andExpect(jsonPath("$.status").value("ACCEPTED"));
 
-    String body2 = json.writeValueAsString(java.util.Map.of(
-        "case_id", "case-e-2",
-        "merchant_id", "merchant-acme",
-        "amount", "10.00",
-        "currency", "USD",
-        "description", "replay"));
+    String body2 =
+        json.writeValueAsString(
+            java.util.Map.of(
+                "case_id", "case-e-2",
+                "merchant_id", "merchant-acme",
+                "amount", "10.00",
+                "currency", "USD",
+                "description", "replay"));
 
     mvc.perform(
             post("/payments")
@@ -142,14 +148,16 @@ class GatewayApplicationTest {
 
   @Test
   void rateLimitReturns429AfterSixtyOneIntentTokenRequests() throws Exception {
-    String body = json.writeValueAsString(java.util.Map.of(
-        "agent_id", "agent-rl",
-        "agent_pubkey", agentPubkeyPem,
-        "merchant_id", "m",
-        "amount_cap", "1.00",
-        "currency", "USD",
-        "scope", "p",
-        "ttl_seconds", 60));
+    String body =
+        json.writeValueAsString(
+            java.util.Map.of(
+                "agent_id", "agent-rl",
+                "agent_pubkey", agentPubkeyPem,
+                "merchant_id", "m",
+                "amount_cap", "1.00",
+                "currency", "USD",
+                "scope", "p",
+                "ttl_seconds", 60));
 
     for (int i = 0; i < 60; i++) {
       mvc.perform(post("/intent-tokens").contentType(MediaType.APPLICATION_JSON).content(body))
@@ -163,30 +171,35 @@ class GatewayApplicationTest {
 
   @Test
   void ttlOverFiveMinutesIsRejected() throws Exception {
-    String body = json.writeValueAsString(java.util.Map.of(
-        "agent_id", "agent-ttl",
-        "agent_pubkey", agentPubkeyPem,
-        "merchant_id", "m",
-        "amount_cap", "1.00",
-        "currency", "USD",
-        "scope", "p",
-        "ttl_seconds", 301));
+    String body =
+        json.writeValueAsString(
+            java.util.Map.of(
+                "agent_id", "agent-ttl",
+                "agent_pubkey", agentPubkeyPem,
+                "merchant_id", "m",
+                "amount_cap", "1.00",
+                "currency", "USD",
+                "scope", "p",
+                "ttl_seconds", 301));
 
     mvc.perform(post("/intent-tokens").contentType(MediaType.APPLICATION_JSON).content(body))
         .andExpect(status().isBadRequest())
         .andExpect(jsonPath("$.error_code").value("TTL_TOO_LONG"));
   }
 
-  private String issueToken(String agentId, String merchantId, String amountCap, String currency, int ttl)
+  private String issueToken(
+      String agentId, String merchantId, String amountCap, String currency, int ttl)
       throws Exception {
-    String body = json.writeValueAsString(java.util.Map.of(
-        "agent_id", agentId,
-        "agent_pubkey", agentPubkeyPem2,
-        "merchant_id", merchantId,
-        "amount_cap", amountCap,
-        "currency", currency,
-        "scope", "p",
-        "ttl_seconds", ttl));
+    String body =
+        json.writeValueAsString(
+            java.util.Map.of(
+                "agent_id", agentId,
+                "agent_pubkey", agentPubkeyPem2,
+                "merchant_id", merchantId,
+                "amount_cap", amountCap,
+                "currency", currency,
+                "scope", "p",
+                "ttl_seconds", ttl));
 
     MvcResult result =
         mvc.perform(post("/intent-tokens").contentType(MediaType.APPLICATION_JSON).content(body))

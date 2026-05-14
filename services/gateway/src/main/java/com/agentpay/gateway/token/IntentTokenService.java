@@ -49,8 +49,7 @@ public class IntentTokenService {
     }
     if (request.ttlSeconds() > properties.maxTtlSeconds()) {
       throw new ValidationException(
-          "TTL_TOO_LONG",
-          "ttl_seconds must be ≤ " + properties.maxTtlSeconds());
+          "TTL_TOO_LONG", "ttl_seconds must be ≤ " + properties.maxTtlSeconds());
     }
 
     String jkt = computeJkt(request.agentPubkey());
@@ -111,5 +110,4 @@ public class IntentTokenService {
       }
     }
   }
-
 }

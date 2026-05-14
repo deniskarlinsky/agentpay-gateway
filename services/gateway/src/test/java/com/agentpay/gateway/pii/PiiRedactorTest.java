@@ -21,7 +21,8 @@ class PiiRedactorTest {
   @Test
   void redactsPanEmbeddedInJson() {
     String input = "{\"card\":\"4111111111111111\",\"amount\":42}";
-    assertThat(PiiRedactor.redact(input)).isEqualTo("{\"card\":\"***REDACTED-PAN***\",\"amount\":42}");
+    assertThat(PiiRedactor.redact(input))
+        .isEqualTo("{\"card\":\"***REDACTED-PAN***\",\"amount\":42}");
   }
 
   @Test
@@ -31,7 +32,8 @@ class PiiRedactorTest {
 
   @Test
   void doesNotTouchUnrelatedDigits() {
-    assertThat(PiiRedactor.redact("amount=42.50 case=case-7f2a")).isEqualTo("amount=42.50 case=case-7f2a");
+    assertThat(PiiRedactor.redact("amount=42.50 case=case-7f2a"))
+        .isEqualTo("amount=42.50 case=case-7f2a");
   }
 
   @Test

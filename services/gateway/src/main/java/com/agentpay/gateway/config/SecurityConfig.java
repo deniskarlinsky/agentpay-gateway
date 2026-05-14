@@ -22,12 +22,18 @@ public class SecurityConfig {
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
             auth ->
-                auth.requestMatchers("/actuator/**").permitAll()
-                    .requestMatchers("/.well-known/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/intent-tokens").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/payments").authenticated()
-                    .anyRequest().denyAll())
-        .oauth2ResourceServer(oauth -> oauth.jwt(org.springframework.security.config.Customizer.withDefaults()))
+                auth.requestMatchers("/actuator/**")
+                    .permitAll()
+                    .requestMatchers("/.well-known/**")
+                    .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/intent-tokens")
+                    .permitAll()
+                    .requestMatchers(HttpMethod.POST, "/payments")
+                    .authenticated()
+                    .anyRequest()
+                    .denyAll())
+        .oauth2ResourceServer(
+            oauth -> oauth.jwt(org.springframework.security.config.Customizer.withDefaults()))
         .build();
   }
 

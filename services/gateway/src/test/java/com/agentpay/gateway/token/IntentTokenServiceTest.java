@@ -12,6 +12,7 @@ import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jwt.SignedJWT;
 import java.math.BigDecimal;
+import java.nio.file.Path;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPublicKey;
 import java.time.Clock;
@@ -21,7 +22,6 @@ import java.util.Base64;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import java.nio.file.Path;
 
 class IntentTokenServiceTest {
 
@@ -33,7 +33,8 @@ class IntentTokenServiceTest {
 
   @BeforeEach
   void setUp(@TempDir Path tmp) throws Exception {
-    props = new GatewayProperties("agentpay-gateway", "", tmp.resolve("k.pem").toString(), 300, "x");
+    props =
+        new GatewayProperties("agentpay-gateway", "", tmp.resolve("k.pem").toString(), 300, "x");
     signingKey = SigningKeyLoader.load(props);
     fixed = Clock.fixed(Instant.parse("2026-05-14T10:00:00Z"), ZoneOffset.UTC);
     service = new IntentTokenService(props, signingKey, fixed);
@@ -49,7 +50,13 @@ class IntentTokenServiceTest {
   void issuesTokenWithAllRequiredClaims() throws Exception {
     IntentTokenRequest req =
         new IntentTokenRequest(
-            "agent-1", agentPubkeyPem, "merchant-acme", new BigDecimal("50.00"), "USD", "purchase:sku-42", 300);
+            "agent-1",
+            agentPubkeyPem,
+            "merchant-acme",
+            new BigDecimal("50.00"),
+            "USD",
+            "purchase:sku-42",
+            300);
 
     IntentTokenResponse resp = service.issue(req);
 
@@ -97,8 +104,7 @@ class IntentTokenServiceTest {
   @Test
   void rejectsInvalidPubkey() {
     IntentTokenRequest req =
-        new IntentTokenRequest(
-            "agent-1", "not-a-pem", "m", new BigDecimal("1"), "USD", "p", 60);
+        new IntentTokenRequest("agent-1", "not-a-pem", "m", new BigDecimal("1"), "USD", "p", 60);
     assertThatThrownBy(() -> service.issue(req))
         .isInstanceOf(ValidationException.class)
         .extracting("errorCode")

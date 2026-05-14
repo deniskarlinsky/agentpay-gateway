@@ -49,7 +49,8 @@ public class PaymentService {
     // 3. Currency must match.
     String tokenCurrency = token.getClaimAsString("currency");
     if (request.currency() == null || !request.currency().equals(tokenCurrency)) {
-      throw new ScopeException("CURRENCY_MISMATCH", "payment currency does not match token currency");
+      throw new ScopeException(
+          "CURRENCY_MISMATCH", "payment currency does not match token currency");
     }
 
     // 4. amount ≤ amount_cap (Scenario D).
@@ -64,7 +65,10 @@ public class PaymentService {
     if (request.amount().compareTo(cap) > 0) {
       throw new ScopeException(
           "SCOPE_AMOUNT_EXCEEDED",
-          "payment amount " + request.amount().toPlainString() + " exceeds cap " + cap.toPlainString());
+          "payment amount "
+              + request.amount().toPlainString()
+              + " exceeds cap "
+              + cap.toPlainString());
     }
 
     // 5. Replay — atomic SET NX EX. Must be last; we only consume jti if everything else checks out

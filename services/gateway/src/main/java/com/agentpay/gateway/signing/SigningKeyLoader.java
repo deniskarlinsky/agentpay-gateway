@@ -117,7 +117,8 @@ public final class SigningKeyLoader {
 
   private static String toPkcs8Pem(RSAPrivateKey priv) {
     byte[] der = priv.getEncoded();
-    String b64 = Base64.getMimeEncoder(64, "\n".getBytes(StandardCharsets.UTF_8)).encodeToString(der);
+    String b64 =
+        Base64.getMimeEncoder(64, "\n".getBytes(StandardCharsets.UTF_8)).encodeToString(der);
     return "-----BEGIN PRIVATE KEY-----\n" + b64 + "\n-----END PRIVATE KEY-----\n";
   }
 }

@@ -51,8 +51,7 @@ class SigningKeyLoaderTest {
   @Test
   void publicJwksContainsNoPrivateMaterial(@TempDir Path tmp) {
     GatewayProperties props =
-        new GatewayProperties(
-            "agentpay-gateway", "", tmp.resolve("k.pem").toString(), 300, "x");
+        new GatewayProperties("agentpay-gateway", "", tmp.resolve("k.pem").toString(), 300, "x");
     RSAKey key = SigningKeyLoader.load(props);
 
     assertThat(SigningKeyLoader.publicJwks(key).toString())

@@ -33,7 +33,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
  *
  * <ol>
  *   <li>Whitelist path check — actuator, .well-known, and error dispatch paths pass through.
- *   <li>Identifier resolution per endpoint (request body for /intent-tokens, JWT sub for /payments).
+ *   <li>Identifier resolution per endpoint (request body for /intent-tokens, JWT sub for
+ *       /payments).
  *   <li>If resolution fails on a non-whitelisted path → HTTP 400.
  *   <li>Otherwise consume one token; HTTP 429 with Retry-After on exhaustion.
  * </ol>

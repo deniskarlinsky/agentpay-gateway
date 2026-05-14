@@ -17,8 +17,8 @@ import org.springframework.stereotype.Component;
 
 /**
  * Per-agent token bucket store, Lettuce-backed. Bucket4j classic refill (60 tokens/min, capacity
- * 60). REQUIREMENTS.md says "sliding window"; the playbook explicitly permits Bucket4j as a
- * stable, approximating alternative.
+ * 60). REQUIREMENTS.md says "sliding window"; the playbook explicitly permits Bucket4j as a stable,
+ * approximating alternative.
  */
 @Component
 public class BucketRegistry {
@@ -31,8 +31,7 @@ public class BucketRegistry {
     RedisURI uri = RedisURI.create(redisProps.getHost(), redisProps.getPort());
     this.redisClient = RedisClient.create(uri);
     this.proxyManager =
-        LettuceBasedProxyManager.builderFor(redisClient.connect(ByteArrayCodec.INSTANCE))
-            .build();
+        LettuceBasedProxyManager.builderFor(redisClient.connect(ByteArrayCodec.INSTANCE)).build();
     int rpm = props.requestsPerMinutePerAgent();
     this.configuration =
         BucketConfiguration.builder()

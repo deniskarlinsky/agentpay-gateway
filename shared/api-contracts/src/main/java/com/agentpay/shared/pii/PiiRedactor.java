@@ -17,8 +17,7 @@ public final class PiiRedactor {
 
   // IBAN: 2-letter ISO country code, 2 check digits, 11–30 BBAN chars (letters/digits).
   // Anchored on word boundaries so it does not chew through arbitrary uppercase identifiers.
-  private static final Pattern IBAN =
-      Pattern.compile("\\b[A-Z]{2}\\d{2}[A-Z0-9]{11,30}\\b");
+  private static final Pattern IBAN = Pattern.compile("\\b[A-Z]{2}\\d{2}[A-Z0-9]{11,30}\\b");
 
   private PiiRedactor() {}
 

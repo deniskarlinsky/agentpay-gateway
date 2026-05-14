@@ -1,20 +1,21 @@
 plugins {
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.spring.dependency.mgmt) apply false
-    alias(libs.plugins.spotless)
-}
-
-spotless {
-    lineEndings = com.diffplug.spotless.LineEnding.UNIX
-    java {
-        target("services/**/*.java", "shared/**/*.java", "evals/**/*.java")
-        googleJavaFormat()
-        removeUnusedImports()
-    }
+    alias(libs.plugins.spotless) apply false
 }
 
 subprojects {
     apply(plugin = "java")
+    apply(plugin = "com.diffplug.spotless")
+
+    configure<com.diffplug.gradle.spotless.SpotlessExtension> {
+        lineEndings = com.diffplug.spotless.LineEnding.UNIX
+        java {
+            target("src/**/*.java")
+            googleJavaFormat()
+            removeUnusedImports()
+        }
+    }
 
     configure<JavaPluginExtension> {
         toolchain {
