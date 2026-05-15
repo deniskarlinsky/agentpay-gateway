@@ -1,0 +1,377 @@
+> Task :shared:api-contracts:generateAvroProtocol NO-SOURCE
+> Task :services:orchestrator:processResources UP-TO-DATE
+> Task :shared:api-contracts:generateAvroJava UP-TO-DATE
+> Task :services:orchestrator:processTestResources UP-TO-DATE
+> Task :shared:api-contracts:compileJava UP-TO-DATE
+> Task :shared:api-contracts:processResources NO-SOURCE
+> Task :shared:api-contracts:classes UP-TO-DATE
+> Task :shared:api-contracts:jar UP-TO-DATE
+> Task :services:orchestrator:compileJava UP-TO-DATE
+> Task :services:orchestrator:classes UP-TO-DATE
+
+> Task :services:orchestrator:compileTestJava
+Note: C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator\src\test\java\com\agentpay\orchestrator\e2e\IntegrationTestBase.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+
+> Task :services:orchestrator:testClasses
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+2026-05-15T10:37:17.770+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-15T10:37:17.783+03:00  INFO 21740 --- [orchestrator] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-05-15T10:37:17.842+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:17.842+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:18.094+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:18.094+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:18.262+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:18.262+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:19.096+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:19.096+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:19.159+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:19.159+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:20.124+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:20.124+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:20.172+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:20.172+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:21.124+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:21.124+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:21.191+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:21.191+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:22.109+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:22.109+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:22.196+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:22.196+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:23.146+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:23.146+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:23.194+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:23.194+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:24.145+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:24.145+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:24.195+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:24.195+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:24.981+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:24.981+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:25.210+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:25.210+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:25.884+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:25.884+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:26.211+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:26.212+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:26.920+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:26.920+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:27.212+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:27.212+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:27.744+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:27.744+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:28.213+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:28.213+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+> Task :services:orchestrator:test
+
+2026-05-15T10:37:28.792+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:28.792+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:29.263+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:29.263+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:29.631+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:29.631+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:30.266+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:30.266+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:30.658+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:30.658+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:31.270+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:31.270+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:31.659+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:31.659+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:32.275+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:32.275+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:32.545+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:32.545+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:33.277+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:33.277+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:33.560+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:33.560+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:34.279+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:34.279+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:34.516+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:34.516+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:35.280+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:35.280+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:35.567+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:35.567+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:36.280+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:36.280+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:36.570+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:36.570+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:37.283+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:37.284+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:37.584+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:37.584+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:38.288+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:38.288+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:38.611+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:38.611+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:39.325+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:39.325+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:39.618+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:39.618+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:40.331+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:40.331+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:40.628+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:40.628+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:41.353+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:41.353+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:61953) could not be established. Node may not be available.
+2026-05-15T10:37:41.634+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:41.634+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:41.983+03:00  WARN 21740 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08001
+2026-05-15T10:37:41.983+03:00 ERROR 21740 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30005ms (total=0, active=0, idle=0, waiting=0)
+2026-05-15T10:37:41.983+03:00 ERROR 21740 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : Подсоединение по адресу localhost:61951 отклонено. Проверьте что хост и порт указаны правильно и что postmaster принимает TCP/IP-подсоединения.
+2026-05-15T10:37:41.985+03:00 ERROR 21740 --- [orchestrator] [   scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.9.jar:6.2.9]
+	at com.agentpay.orchestrator.saga.OutboxPublisher$$SpringCGLIB$$0.drain(<generated>) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.15.2.jar:1.15.2]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:85) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-6.2.9.jar:6.2.9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30005ms (total=0, active=0, idle=0, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.9.jar:6.2.9]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.9.jar:6.2.9]
+	... 22 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30005ms (total=0, active=0, idle=0, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:714) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:184) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:142) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-6.3.1.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	... 29 common frames omitted
+Caused by: org.postgresql.util.PSQLException: Подсоединение по адресу localhost:61951 отклонено. Проверьте что хост и порт указаны правильно и что postmaster принимает TCP/IP-подсоединения.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:352) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:273) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.Driver.makeConnection(Driver.java:446) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.4.jar:42.7.4]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:368) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:752) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:731) ~[HikariCP-6.3.1.jar:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	... 3 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:690) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:751) ~[na:na]
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:260) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.PGStream.<init>(PGStream.java:121) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:140) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:268) ~[postgresql-42.7.4.jar:42.7.4]
+	... 14 common frames omitted
+
+2026-05-15T10:37:41.987+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Closing the Kafka producer with timeoutMillis = 30000 ms.
+2026-05-15T10:37:41.989+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-15T10:37:41.989+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-15T10:37:41.989+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-05-15T10:37:41.989+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-15T10:37:41.990+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.a.kafka.common.utils.AppInfoParser     : App info kafka.producer for orchestrator-producer-1 unregistered
+2026-05-15T10:37:41.992+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-15T10:37:41.993+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-15T10:37:42.337+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-05-15T10:37:42.637+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:42.637+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:43.523+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:43.523+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:44.534+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:44.534+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:45.408+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:45.408+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:46.334+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:46.334+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:47.203+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:47.203+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:48.245+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:48.245+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:49.151+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:49.151+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:50.172+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:50.172+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:51.175+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:51.175+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:52.185+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:52.185+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:53.190+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:53.190+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:54.174+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:54.174+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:55.176+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:55.176+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:56.045+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:56.045+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:57.047+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:57.047+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:58.097+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:58.097+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:37:59.071+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:37:59.071+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:00.101+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:00.101+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:01.139+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:01.139+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:02.140+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:02.141+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:03.174+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:03.174+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:04.183+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:04.184+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:05.066+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:05.066+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:05.990+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:05.990+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:06.975+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:06.975+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:07.933+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:07.933+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:08.784+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:08.784+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:09.797+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:09.797+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:10.728+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:10.728+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:11.758+03:00  INFO 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:38:11.759+03:00  WARN 21740 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:62000) could not be established. Node may not be available.
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Shutdown phase 1073741823 ends with 1 bean still running after timeout of 30000ms: [taskScheduler]
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [   scheduling-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Closing the Kafka producer with timeoutMillis = 30000 ms.
+2026-05-15T10:38:12.357+03:00 ERROR 21740 --- [orchestrator] [   scheduling-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Interrupted while joining ioThread
+
+java.lang.InterruptedException: null
+	at java.base/java.lang.Object.wait0(Native Method) ~[na:na]
+	at java.base/java.lang.Object.wait(Object.java:366) ~[na:na]
+	at java.base/java.lang.Thread.join(Thread.java:2072) ~[na:na]
+	at org.apache.kafka.clients.producer.KafkaProducer.close(KafkaProducer.java:1406) ~[kafka-clients-3.9.1.jar:na]
+	at org.apache.kafka.clients.producer.KafkaProducer.close(KafkaProducer.java:1377) ~[kafka-clients-3.9.1.jar:na]
+	at org.springframework.kafka.core.DefaultKafkaProducerFactory.doCreateTxProducer(DefaultKafkaProducerFactory.java:923) ~[spring-kafka-3.3.8.jar:3.3.8]
+	at org.springframework.kafka.core.DefaultKafkaProducerFactory.createTransactionalProducer(DefaultKafkaProducerFactory.java:867) ~[spring-kafka-3.3.8.jar:3.3.8]
+	at org.springframework.kafka.core.DefaultKafkaProducerFactory.doCreateProducer(DefaultKafkaProducerFactory.java:778) ~[spring-kafka-3.3.8.jar:3.3.8]
+	at org.springframework.kafka.core.DefaultKafkaProducerFactory.createProducer(DefaultKafkaProducerFactory.java:768) ~[spring-kafka-3.3.8.jar:3.3.8]
+	at org.springframework.kafka.core.KafkaTemplate.executeInTransaction(Unknown Source) ~[spring-kafka-3.3.8.jar:3.3.8]
+	at com.agentpay.orchestrator.saga.OutboxPublisher.drain(OutboxPublisher.java:53) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.9.jar:6.2.9]
+	at com.agentpay.orchestrator.saga.OutboxPublisher$$SpringCGLIB$$0.drain(<generated>) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.15.2.jar:1.15.2]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:85) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-6.2.9.jar:6.2.9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [   scheduling-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Proceeding to force close the producer since pending requests could not be completed within timeout 30000 ms.
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [   scheduling-1] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [   scheduling-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [   scheduling-1] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [   scheduling-1] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [   scheduling-1] o.a.kafka.common.utils.AppInfoParser     : App info kafka.producer for orchestrator-producer-1 unregistered
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2026-05-15T10:38:12.357+03:00  INFO 21740 --- [orchestrator] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2026-05-15T10:38:12.357+03:00  WARN 21740 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-2 - Connection org.postgresql.jdbc.PgConnection@6bb35b0e marked as broken because of SQLSTATE(08006), ErrorCode(0)
+
+org.postgresql.util.PSQLException: Ошибка ввода/вывода при отправке бэкенду
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:399) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:330) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.jdbc.PgConnection.executeTransactionCommand(PgConnection.java:981) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.jdbc.PgConnection.rollback(PgConnection.java:1024) ~[postgresql-42.7.4.jar:42.7.4]
+	at com.zaxxer.hikari.pool.ProxyConnection.rollback(ProxyConnection.java:386) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyConnection.rollback(HikariProxyConnection.java) ~[HikariCP-6.3.1.jar:na]
+	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:127) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.rollback(JdbcResourceLocalTransactionCoordinatorImpl.java:289) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.rollback(TransactionImpl.java:142) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.springframework.orm.jpa.JpaTransactionManager.doRollback(JpaTransactionManager.java:589) ~[spring-orm-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processRollback(AbstractPlatformTransactionManager.java:897) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.rollback(AbstractPlatformTransactionManager.java:866) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.completeTransactionAfterThrowing(TransactionAspectSupport.java:716) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:384) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.9.jar:6.2.9]
+	at com.agentpay.orchestrator.saga.OutboxPublisher$$SpringCGLIB$$0.drain(<generated>) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.15.2.jar:1.15.2]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:85) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-6.2.9.jar:6.2.9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endRead(NioSocketImpl.java:243) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.implRead(NioSocketImpl.java:323) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.read(NioSocketImpl.java:346) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl$1.read(NioSocketImpl.java:796) ~[na:na]
+	at java.base/java.net.Socket$SocketInputStream.read(Socket.java:1099) ~[na:na]
+	at org.postgresql.core.VisibleBufferedInputStream.readMore(VisibleBufferedInputStream.java:192) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:159) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.VisibleBufferedInputStream.ensureBytes(VisibleBufferedInputStream.java:144) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.VisibleBufferedInputStream.read(VisibleBufferedInputStream.java:76) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.PGStream.receiveChar(PGStream.java:476) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2174) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372) ~[postgresql-42.7.4.jar:42.7.4]
+	... 31 common frames omitted
+
+
+[Incubating] Problems report is available at: file:///C:/Users/denis/IdeaProjects/agentpay-gateway/build/reports/problems/problems-report.html
+
+BUILD SUCCESSFUL in 1m 16s
+8 actionable tasks: 2 executed, 6 up-to-date
+EXIT=0

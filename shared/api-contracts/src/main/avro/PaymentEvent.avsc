@@ -1,0 +1,25 @@
+{
+  "type": "record",
+  "name": "PaymentEvent",
+  "namespace": "com.agentpay.shared.events",
+  "doc": "Terminal Saga state-transition event. Exactly one is published per case on its terminal transition (FR-O-009).",
+  "fields": [
+    {
+      "name": "event_type",
+      "type": {
+        "type": "enum",
+        "name": "PaymentEventType",
+        "symbols": ["COMPLETED", "DECLINED", "COMPENSATED"]
+      },
+      "doc": "Which terminal outcome this event represents."
+    },
+    { "name": "case_id",        "type": "string",                    "doc": "Saga case identifier." },
+    { "name": "agent_id",       "type": "string",                    "doc": "Acting buyer agent (intent token sub)." },
+    { "name": "merchant_id",    "type": "string",                    "doc": "Acting merchant (intent token aud)." },
+    { "name": "amount",         "type": "string",                    "doc": "Amount as canonical decimal string (e.g. \"42.50\"); avoids floating-point in event schemas." },
+    { "name": "currency",       "type": "string",                    "doc": "ISO 4217 alpha-3 code." },
+    { "name": "terminal_state", "type": "string",                    "doc": "Saga state at terminal commit." },
+    { "name": "reason_class",   "type": ["null", "string"], "default": null, "doc": "Optional reason classifier (e.g. COMPLIANCE_SANCTIONS_MATCH, PSP_FAILURE)." },
+    { "name": "occurred_at",    "type": { "type": "long", "logicalType": "timestamp-millis" }, "doc": "Wall-clock time the terminal transition was persisted." }
+  ]
+}

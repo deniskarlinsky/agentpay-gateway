@@ -1,0 +1,1014 @@
+Initialized native services in: C:\Users\denis\scoop\apps\gradle\current\.gradle\native
+Initialized jansi services in: C:\Users\denis\scoop\apps\gradle\current\.gradle\native
+The client will now receive all logging from the daemon (pid: 40196). The daemon log file: C:\Users\denis\scoop\apps\gradle\current\.gradle\daemon\8.12.1\daemon-40196.out.log
+Starting 3rd build in daemon [uptime: 8 mins 53.916 secs, performance: 100%, GC rate: 0.00/s, heap usage: 1% of 2 GiB, non-heap usage: 17% of 512 MiB]
+Using 16 worker leases.
+Now considering [C:\Users\denis\IdeaProjects\agentpay-gateway] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'C:\Users\denis\IdeaProjects\agentpay-gateway\settings.gradle.kts'.
+Using local directory build cache for the root build (location = C:\Users\denis\scoop\apps\gradle\current\.gradle\caches\build-cache-1, remove unused entries = after 7 days).
+Projects loaded. Root project using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\build.gradle.kts'.
+Included projects: [root project 'agentpay-gateway', project ':evals', project ':services', project ':shared', project ':services:buyer-client', project ':services:gateway', project ':services:mock-psp', project ':services:orchestrator', project ':services:sanctions-mcp', project ':shared:api-contracts']
+
+> Configure project :
+Evaluating root project 'agentpay-gateway' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\build.gradle.kts'.
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.4', apply: false]
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7', apply: false]
+Resolved plugin [id: 'com.diffplug.spotless', version: '7.0.3', apply: false]
+
+> Configure project :evals
+Evaluating project ':evals' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\evals\build.gradle.kts'.
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.4']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Applying dependency management to configuration 'annotationProcessor' in project 'evals'
+Applying dependency management to configuration 'apiElements' in project 'evals'
+Applying dependency management to configuration 'archives' in project 'evals'
+Applying dependency management to configuration 'bootArchives' in project 'evals'
+Applying dependency management to configuration 'compileClasspath' in project 'evals'
+Applying dependency management to configuration 'compileOnly' in project 'evals'
+Applying dependency management to configuration 'default' in project 'evals'
+Applying dependency management to configuration 'developmentOnly' in project 'evals'
+Applying dependency management to configuration 'implementation' in project 'evals'
+Applying dependency management to configuration 'mainSourceElements' in project 'evals'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'evals'
+Applying dependency management to configuration 'runtimeClasspath' in project 'evals'
+Applying dependency management to configuration 'runtimeElements' in project 'evals'
+Applying dependency management to configuration 'runtimeOnly' in project 'evals'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'evals'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'evals'
+Applying dependency management to configuration 'testCompileClasspath' in project 'evals'
+Applying dependency management to configuration 'testCompileOnly' in project 'evals'
+Applying dependency management to configuration 'testImplementation' in project 'evals'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'evals'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'evals'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'evals'
+
+> Configure project :services
+Evaluating project ':services' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\services\build.gradle'.
+
+> Configure project :shared
+Evaluating project ':shared' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\shared\build.gradle'.
+
+> Configure project :services:buyer-client
+Evaluating project ':services:buyer-client' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\services\buyer-client\build.gradle.kts'.
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.4']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Applying dependency management to configuration 'annotationProcessor' in project 'buyer-client'
+Applying dependency management to configuration 'apiElements' in project 'buyer-client'
+Applying dependency management to configuration 'archives' in project 'buyer-client'
+Applying dependency management to configuration 'bootArchives' in project 'buyer-client'
+Applying dependency management to configuration 'compileClasspath' in project 'buyer-client'
+Applying dependency management to configuration 'compileOnly' in project 'buyer-client'
+Applying dependency management to configuration 'default' in project 'buyer-client'
+Applying dependency management to configuration 'developmentOnly' in project 'buyer-client'
+Applying dependency management to configuration 'implementation' in project 'buyer-client'
+Applying dependency management to configuration 'mainSourceElements' in project 'buyer-client'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'buyer-client'
+Applying dependency management to configuration 'runtimeClasspath' in project 'buyer-client'
+Applying dependency management to configuration 'runtimeElements' in project 'buyer-client'
+Applying dependency management to configuration 'runtimeOnly' in project 'buyer-client'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'buyer-client'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'buyer-client'
+Applying dependency management to configuration 'testCompileClasspath' in project 'buyer-client'
+Applying dependency management to configuration 'testCompileOnly' in project 'buyer-client'
+Applying dependency management to configuration 'testImplementation' in project 'buyer-client'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'buyer-client'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'buyer-client'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'buyer-client'
+
+> Configure project :services:gateway
+Evaluating project ':services:gateway' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\services\gateway\build.gradle.kts'.
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.4']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Applying dependency management to configuration 'annotationProcessor' in project 'gateway'
+Applying dependency management to configuration 'apiElements' in project 'gateway'
+Applying dependency management to configuration 'archives' in project 'gateway'
+Applying dependency management to configuration 'bootArchives' in project 'gateway'
+Applying dependency management to configuration 'compileClasspath' in project 'gateway'
+Applying dependency management to configuration 'compileOnly' in project 'gateway'
+Applying dependency management to configuration 'default' in project 'gateway'
+Applying dependency management to configuration 'developmentOnly' in project 'gateway'
+Applying dependency management to configuration 'implementation' in project 'gateway'
+Applying dependency management to configuration 'mainSourceElements' in project 'gateway'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'gateway'
+Applying dependency management to configuration 'runtimeClasspath' in project 'gateway'
+Applying dependency management to configuration 'runtimeElements' in project 'gateway'
+Applying dependency management to configuration 'runtimeOnly' in project 'gateway'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'gateway'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'gateway'
+Applying dependency management to configuration 'testCompileClasspath' in project 'gateway'
+Applying dependency management to configuration 'testCompileOnly' in project 'gateway'
+Applying dependency management to configuration 'testImplementation' in project 'gateway'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'gateway'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'gateway'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'gateway'
+
+> Configure project :services:mock-psp
+Evaluating project ':services:mock-psp' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\services\mock-psp\build.gradle.kts'.
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.4']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Applying dependency management to configuration 'annotationProcessor' in project 'mock-psp'
+Applying dependency management to configuration 'apiElements' in project 'mock-psp'
+Applying dependency management to configuration 'archives' in project 'mock-psp'
+Applying dependency management to configuration 'bootArchives' in project 'mock-psp'
+Applying dependency management to configuration 'compileClasspath' in project 'mock-psp'
+Applying dependency management to configuration 'compileOnly' in project 'mock-psp'
+Applying dependency management to configuration 'default' in project 'mock-psp'
+Applying dependency management to configuration 'developmentOnly' in project 'mock-psp'
+Applying dependency management to configuration 'implementation' in project 'mock-psp'
+Applying dependency management to configuration 'mainSourceElements' in project 'mock-psp'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'mock-psp'
+Applying dependency management to configuration 'runtimeClasspath' in project 'mock-psp'
+Applying dependency management to configuration 'runtimeElements' in project 'mock-psp'
+Applying dependency management to configuration 'runtimeOnly' in project 'mock-psp'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'mock-psp'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'mock-psp'
+Applying dependency management to configuration 'testCompileClasspath' in project 'mock-psp'
+Applying dependency management to configuration 'testCompileOnly' in project 'mock-psp'
+Applying dependency management to configuration 'testImplementation' in project 'mock-psp'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'mock-psp'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'mock-psp'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'mock-psp'
+
+> Configure project :services:orchestrator
+Evaluating project ':services:orchestrator' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator\build.gradle.kts'.
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.4']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Applying dependency management to configuration 'annotationProcessor' in project 'orchestrator'
+Applying dependency management to configuration 'apiElements' in project 'orchestrator'
+Applying dependency management to configuration 'archives' in project 'orchestrator'
+Applying dependency management to configuration 'bootArchives' in project 'orchestrator'
+Applying dependency management to configuration 'compileClasspath' in project 'orchestrator'
+Applying dependency management to configuration 'compileOnly' in project 'orchestrator'
+Applying dependency management to configuration 'default' in project 'orchestrator'
+Applying dependency management to configuration 'developmentOnly' in project 'orchestrator'
+Applying dependency management to configuration 'implementation' in project 'orchestrator'
+Applying dependency management to configuration 'mainSourceElements' in project 'orchestrator'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'orchestrator'
+Applying dependency management to configuration 'runtimeClasspath' in project 'orchestrator'
+Applying dependency management to configuration 'runtimeElements' in project 'orchestrator'
+Applying dependency management to configuration 'runtimeOnly' in project 'orchestrator'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'orchestrator'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'orchestrator'
+Applying dependency management to configuration 'testCompileClasspath' in project 'orchestrator'
+Applying dependency management to configuration 'testCompileOnly' in project 'orchestrator'
+Applying dependency management to configuration 'testImplementation' in project 'orchestrator'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'orchestrator'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'orchestrator'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'orchestrator'
+
+> Configure project :services:sanctions-mcp
+Evaluating project ':services:sanctions-mcp' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\services\sanctions-mcp\build.gradle.kts'.
+Resolved plugin [id: 'org.springframework.boot', version: '3.5.4']
+Resolved plugin [id: 'io.spring.dependency-management', version: '1.1.7']
+Applying dependency management to configuration 'annotationProcessor' in project 'sanctions-mcp'
+Applying dependency management to configuration 'apiElements' in project 'sanctions-mcp'
+Applying dependency management to configuration 'archives' in project 'sanctions-mcp'
+Applying dependency management to configuration 'bootArchives' in project 'sanctions-mcp'
+Applying dependency management to configuration 'compileClasspath' in project 'sanctions-mcp'
+Applying dependency management to configuration 'compileOnly' in project 'sanctions-mcp'
+Applying dependency management to configuration 'default' in project 'sanctions-mcp'
+Applying dependency management to configuration 'developmentOnly' in project 'sanctions-mcp'
+Applying dependency management to configuration 'implementation' in project 'sanctions-mcp'
+Applying dependency management to configuration 'mainSourceElements' in project 'sanctions-mcp'
+Applying dependency management to configuration 'productionRuntimeClasspath' in project 'sanctions-mcp'
+Applying dependency management to configuration 'runtimeClasspath' in project 'sanctions-mcp'
+Applying dependency management to configuration 'runtimeElements' in project 'sanctions-mcp'
+Applying dependency management to configuration 'runtimeOnly' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testAndDevelopmentOnly' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testAnnotationProcessor' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testCompileClasspath' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testCompileOnly' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testImplementation' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testResultsElementsForTest' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testRuntimeClasspath' in project 'sanctions-mcp'
+Applying dependency management to configuration 'testRuntimeOnly' in project 'sanctions-mcp'
+
+> Configure project :shared:api-contracts
+Evaluating project ':shared:api-contracts' using build file 'C:\Users\denis\IdeaProjects\agentpay-gateway\shared\api-contracts\build.gradle.kts'.
+Resolved plugin [id: 'org.gradle.java-library']
+Resolved plugin [id: 'com.github.davidmc24.gradle.plugin.avro', version: '1.9.1']
+All projects evaluated.
+Task path ':services:orchestrator:test' matched project ':services:orchestrator'
+Task name matched 'test'
+Selected primary task 'test' from project :services:orchestrator
+Resolving global dependency management for project 'orchestrator'
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Excluding []
+Tasks to be executed: [task ':shared:api-contracts:generateAvroProtocol', task ':shared:api-contracts:generateAvroJava', task ':shared:api-contracts:compileJava', task ':services:orchestrator:compileJava', task ':services:orchestrator:processResources', task ':services:orchestrator:classes', task ':services:orchestrator:compileTestJava', task ':services:orchestrator:processTestResources', task ':services:orchestrator:testClasses', task ':shared:api-contracts:processResources', task ':shared:api-contracts:classes', task ':shared:api-contracts:jar', task ':services:orchestrator:test']
+Tasks that were excluded: []
+Resolve mutations for :shared:api-contracts:generateAvroProtocol (Thread[#691,Execution worker,5,main]) started.
+Resolve mutations for :services:orchestrator:processResources (Thread[#692,Execution worker Thread 2,5,main]) started.
+:shared:api-contracts:generateAvroProtocol (Thread[#691,Execution worker,5,main]) started.
+:services:orchestrator:processResources (Thread[#692,Execution worker Thread 2,5,main]) started.
+
+> Task :shared:api-contracts:generateAvroProtocol NO-SOURCE
+Skipping task ':shared:api-contracts:generateAvroProtocol' as it has no source files and no previous output files.
+Resolve mutations for :shared:api-contracts:generateAvroJava (Thread[#691,Execution worker,5,main]) started.
+:shared:api-contracts:generateAvroJava (Thread[#691,Execution worker,5,main]) started.
+
+> Task :shared:api-contracts:generateAvroJava UP-TO-DATE
+Build cache key for task ':shared:api-contracts:generateAvroJava' is d4d82f6295e3a1c73181da0ae2949ee0
+Skipping task ':shared:api-contracts:generateAvroJava' as it is up-to-date.
+Resolve mutations for :shared:api-contracts:compileJava (Thread[#691,Execution worker,5,main]) started.
+:shared:api-contracts:compileJava (Thread[#691,Execution worker,5,main]) started.
+
+> Task :shared:api-contracts:compileJava UP-TO-DATE
+Build cache key for task ':shared:api-contracts:compileJava' is 89956575c4d5b56aa692a3e322327d77
+Skipping task ':shared:api-contracts:compileJava' as it is up-to-date.
+No compile result for :shared:api-contracts:compileJava
+work action resolve main (project :shared:api-contracts) (Thread[#691,Execution worker,5,main]) started.
+Resolve mutations for :shared:api-contracts:processResources (Thread[#693,Execution worker Thread 3,5,main]) started.
+:shared:api-contracts:processResources (Thread[#693,Execution worker Thread 3,5,main]) started.
+
+> Task :shared:api-contracts:processResources NO-SOURCE
+Skipping task ':shared:api-contracts:processResources' as it has no source files and no previous output files.
+Resolve mutations for :shared:api-contracts:classes (Thread[#693,Execution worker Thread 3,5,main]) started.
+:shared:api-contracts:classes (Thread[#693,Execution worker Thread 3,5,main]) started.
+
+> Task :shared:api-contracts:classes UP-TO-DATE
+Skipping task ':shared:api-contracts:classes' as it has no actions.
+Resolve mutations for :shared:api-contracts:jar (Thread[#693,Execution worker Thread 3,5,main]) started.
+:shared:api-contracts:jar (Thread[#693,Execution worker Thread 3,5,main]) started.
+
+> Task :shared:api-contracts:jar UP-TO-DATE
+Caching disabled for task ':shared:api-contracts:jar' because:
+  Not worth caching
+Skipping task ':shared:api-contracts:jar' as it is up-to-date.
+work action resolve api-contracts.jar (project :shared:api-contracts) (Thread[#693,Execution worker Thread 3,5,main]) started.
+
+> Task :services:orchestrator:processResources
+Caching disabled for task ':services:orchestrator:processResources' because:
+  Not worth caching
+Task ':services:orchestrator:processResources' is not up-to-date because:
+  Input property 'rootSpec$1' file C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator\src\main\resources\application.yml has changed.
+Resolve mutations for :services:orchestrator:compileJava (Thread[#692,Execution worker Thread 2,5,main]) started.
+:services:orchestrator:compileJava (Thread[#692,Execution worker Thread 2,5,main]) started.
+
+> Task :services:orchestrator:compileJava UP-TO-DATE
+Custom actions are attached to task ':services:orchestrator:compileJava'.
+Build cache key for task ':services:orchestrator:compileJava' is 96fd621b9b0ab81eac657f21bc4d667b
+Skipping task ':services:orchestrator:compileJava' as it is up-to-date.
+No compile result for :services:orchestrator:compileJava
+Resolve mutations for :services:orchestrator:classes (Thread[#692,Execution worker Thread 2,5,main]) started.
+:services:orchestrator:classes (Thread[#692,Execution worker Thread 2,5,main]) started.
+
+> Task :services:orchestrator:classes
+Skipping task ':services:orchestrator:classes' as it has no actions.
+Resolve mutations for :services:orchestrator:compileTestJava (Thread[#692,Execution worker Thread 2,5,main]) started.
+:services:orchestrator:compileTestJava (Thread[#692,Execution worker Thread 2,5,main]) started.
+
+> Task :services:orchestrator:compileTestJava UP-TO-DATE
+Custom actions are attached to task ':services:orchestrator:compileTestJava'.
+Build cache key for task ':services:orchestrator:compileTestJava' is f376891cc7a9c3301a7f1e803e85daff
+Skipping task ':services:orchestrator:compileTestJava' as it is up-to-date.
+No compile result for :services:orchestrator:compileTestJava
+Resolve mutations for :services:orchestrator:processTestResources (Thread[#692,Execution worker Thread 2,5,main]) started.
+:services:orchestrator:processTestResources (Thread[#692,Execution worker Thread 2,5,main]) started.
+
+> Task :services:orchestrator:processTestResources UP-TO-DATE
+Caching disabled for task ':services:orchestrator:processTestResources' because:
+  Not worth caching
+Skipping task ':services:orchestrator:processTestResources' as it is up-to-date.
+Resolve mutations for :services:orchestrator:testClasses (Thread[#690,included builds,5,main]) started.
+:services:orchestrator:testClasses (Thread[#690,included builds,5,main]) started.
+
+> Task :services:orchestrator:testClasses UP-TO-DATE
+Skipping task ':services:orchestrator:testClasses' as it has no actions.
+Resolve mutations for :services:orchestrator:test (Thread[#690,included builds,5,main]) started.
+:services:orchestrator:test (Thread[#690,included builds,5,main]) started.
+Gradle Test Executor 3 started executing tests.
+
+> Task :services:orchestrator:test
+Build cache key for task ':services:orchestrator:test' is 12fd6185345f94a472172c8836f56078
+Task ':services:orchestrator:test' is not up-to-date because:
+  Task has failed previously.
+Starting process 'Gradle Test Executor 3'. Working directory: C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator Command: C:\Program Files\Java\jdk-21.0.10\bin\java.exe -Dorg.gradle.internal.worker.tmpdir=C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator\build\tmp\test\work @C:\Users\denis\scoop\apps\gradle\current\.gradle\.tmp\gradle-worker-classpath4102955376456078155txt -Xmx512m -Dfile.encoding=UTF-8 -Duser.country=RU -Duser.language=ru -Duser.variant -ea worker.org.gradle.process.internal.worker.GradleWorkerMain 'Gradle Test Executor 3'
+Successfully started process 'Gradle Test Executor 3'
+
+Gradle Test Executor 3 STANDARD_OUT
+    10:29:35.653 [Test worker] INFO org.testcontainers.images.PullPolicy -- Image pull policy will be performed by: DefaultPullPolicy()
+    10:29:35.653 [Test worker] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+    10:29:35.676 [Test worker] INFO org.testcontainers.DockerClientFactory -- Testcontainers version: 2.0.5
+    10:29:35.822 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+    10:29:36.148 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+    10:29:36.149 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+    10:29:36.163 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+      Server Version: 29.0.1
+      API Version: 1.52
+      Operating System: Docker Desktop
+      Total Memory: 15564 MB
+      Labels: 
+        com.docker.desktop.address=npipe://\\.\pipe\docker_cli
+    10:29:36.280 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Creating container for image: testcontainers/ryuk:0.14.0
+    10:29:36.448 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 is starting: e28da2f064e90bc3e4e6937ee7a63db922750d5ffb193566ff4f5e688e8ea0bf
+    10:29:36.813 [Test worker] INFO tc.testcontainers/ryuk:0.14.0 -- Container testcontainers/ryuk:0.14.0 started in PT0.5327138S
+    10:29:36.816 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+    10:29:36.817 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+    10:29:36.817 [Test worker] INFO org.testcontainers.DockerClientFactory -- ✔︎ Docker server version should be at least 1.6.0
+    10:29:36.817 [Test worker] INFO tc.pgvector/pgvector:pg16 -- Creating container for image: pgvector/pgvector:pg16
+    10:29:36.879 [Test worker] INFO tc.pgvector/pgvector:pg16 -- Container pgvector/pgvector:pg16 is starting: c5be05555f83e0ea719dc6a8afe884b4b579a68e6732f4a6a010b199ac031e1e
+    10:29:37.793 [Test worker] INFO tc.pgvector/pgvector:pg16 -- Container pgvector/pgvector:pg16 started in PT0.9755732S
+    10:29:37.793 [Test worker] INFO tc.pgvector/pgvector:pg16 -- Container is started (JDBC URL: jdbc:postgresql://localhost:64843/agentpay?loggerLevel=OFF)
+    10:29:37.799 [Test worker] INFO org.testcontainers.ext.ScriptUtils -- Executing database script from init/01-init-test.sql
+    10:29:37.890 [Test worker] INFO org.testcontainers.ext.ScriptUtils -- Executed database script from init/01-init-test.sql in 90 ms.
+    10:29:37.890 [Test worker] INFO tc.apache/kafka:3.7.1 -- Creating container for image: apache/kafka:3.7.1
+    10:29:37.964 [Test worker] INFO tc.apache/kafka:3.7.1 -- Container apache/kafka:3.7.1 is starting: dd63fd511e77c05a7b03702c6df2ba1dec5312c54eec22b94c80c94bfd37ec8b
+    10:29:40.022 [Test worker] INFO tc.apache/kafka:3.7.1 -- Container apache/kafka:3.7.1 started in PT2.1320992S
+
+ScenarioA_HappyPathIT STANDARD_OUT
+    10:29:40.076 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.agentpay.orchestrator.e2e.ScenarioA_HappyPathIT]: ScenarioA_HappyPathIT does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+    10:29:40.147 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.agentpay.orchestrator.OrchestratorApplication for test class com.agentpay.orchestrator.e2e.ScenarioA_HappyPathIT
+
+      .   ____          _            __ _ _
+     /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+    ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+     \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+      '  |____| .__|_| |_|_| |_\__, | / / / /
+     =========|_|==============|___/=/_/_/_/
+
+     :: Spring Boot ::                (v3.5.4)
+
+    2026-05-15T10:29:40.859+03:00  INFO 42960 --- [orchestrator] [    Test worker] c.a.o.e2e.ScenarioA_HappyPathIT          : Starting ScenarioA_HappyPathIT using Java 21.0.10 with PID 42960 (started by denis in C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator)
+    2026-05-15T10:29:40.863+03:00  INFO 42960 --- [orchestrator] [    Test worker] c.a.o.e2e.ScenarioA_HappyPathIT          : No active profile set, falling back to 1 default profile: "default"
+    2026-05-15T10:29:41.509+03:00  INFO 42960 --- [orchestrator] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+    2026-05-15T10:29:41.559+03:00  INFO 42960 --- [orchestrator] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 43 ms. Found 3 JPA repository interfaces.
+    2026-05-15T10:29:42.104+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+    2026-05-15T10:29:42.117+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2026-05-15T10:29:42.117+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.43]
+    2026-05-15T10:29:42.197+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+    2026-05-15T10:29:42.197+03:00  INFO 42960 --- [orchestrator] [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1321 ms
+    2026-05-15T10:29:42.509+03:00  INFO 42960 --- [orchestrator] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+    2026-05-15T10:29:42.541+03:00  INFO 42960 --- [orchestrator] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@4f93303f
+    2026-05-15T10:29:42.542+03:00  INFO 42960 --- [orchestrator] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+    2026-05-15T10:29:42.575+03:00  INFO 42960 --- [orchestrator] [    Test worker] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://localhost:64843/agentpay?loggerLevel=OFF (PostgreSQL 16.13)
+    2026-05-15T10:29:42.602+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Schema history table "public"."flyway_schema_history" does not exist yet
+    2026-05-15T10:29:42.605+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.012s)
+    2026-05-15T10:29:42.616+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.f.c.i.s.JdbcTableSchemaHistory         : Creating Schema History table "public"."flyway_schema_history" ...
+    2026-05-15T10:29:42.651+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.f.core.internal.command.DbMigrate      : Current version of schema "public": << Empty Schema >>
+    2026-05-15T10:29:42.661+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.f.core.internal.command.DbMigrate      : Migrating schema "public" to version "1 - init"
+    2026-05-15T10:29:42.692+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.f.core.internal.command.DbMigrate      : Successfully applied 1 migration to schema "public", now at version v1 (execution time 00:00.014s)
+    2026-05-15T10:29:42.773+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+    2026-05-15T10:29:42.814+03:00  INFO 42960 --- [orchestrator] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.22.Final
+    2026-05-15T10:29:42.841+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+    2026-05-15T10:29:43.036+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+    2026-05-15T10:29:43.094+03:00  INFO 42960 --- [orchestrator] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+    	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+    	Database driver: undefined/unknown
+    	Database version: 16.13
+    	Autocommit mode: undefined/unknown
+    	Isolation level: undefined/unknown
+    	Minimum pool size: undefined/unknown
+    	Maximum pool size: undefined/unknown
+    2026-05-15T10:29:43.821+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+    2026-05-15T10:29:43.850+03:00  INFO 42960 --- [orchestrator] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+    2026-05-15T10:29:44.042+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+    2026-05-15T10:29:45.362+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+    2026-05-15T10:29:45.456+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 55998 (http) with context path '/'
+    2026-05-15T10:29:45.462+03:00  INFO 42960 --- [orchestrator] [    Test worker] c.a.o.e2e.ScenarioA_HappyPathIT          : Started ScenarioA_HappyPathIT in 4.853 seconds (process running for 10.468)
+
+ScenarioA_HappyPathIT > happyPathReachesCommittedAndPublishesExactlyOneEvent() STANDARD_ERROR
+    Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+    WARNING: A Java agent has been loaded dynamically (C:\Users\denis\scoop\apps\gradle\current\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.17.6\17b32fd9f57deef02842f7f05abc4ad8127fe34e\byte-buddy-agent-1.17.6.jar)
+    WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+    WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+    WARNING: Dynamic loading of agents will be disallowed by default in a future release
+
+Java HotSpot(TM) 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+
+> Task :services:orchestrator:test
+
+ScenarioA_HappyPathIT > happyPathReachesCommittedAndPublishesExactlyOneEvent() STANDARD_OUT
+    2026-05-15T10:29:45.841+03:00  INFO 42960 --- [orchestrator] [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2026-05-15T10:29:45.841+03:00  INFO 42960 --- [orchestrator] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2026-05-15T10:29:45.841+03:00  INFO 42960 --- [orchestrator] [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+    2026-05-15T10:29:46.150+03:00  INFO 42960 --- [orchestrator] [   scheduling-1] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+    	acks = -1
+    	auto.include.jmx.reporter = true
+    	batch.size = 16384
+    	bootstrap.servers = [localhost:64847]
+    	buffer.memory = 33554432
+    	client.dns.lookup = use_all_dns_ips
+    	client.id = orchestrator-producer-1
+    	compression.gzip.level = -1
+    	compression.lz4.level = 9
+    	compression.type = none
+    	compression.zstd.level = 3
+    	connections.max.idle.ms = 540000
+    	delivery.timeout.ms = 120000
+    	enable.idempotence = true
+    	enable.metrics.push = true
+    	interceptor.classes = []
+    	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+    	linger.ms = 0
+    	max.block.ms = 60000
+    	max.in.flight.requests.per.connection = 5
+    	max.request.size = 1048576
+    	metadata.max.age.ms = 300000
+    	metadata.max.idle.ms = 300000
+    	metadata.recovery.strategy = none
+    	metric.reporters = []
+    	metrics.num.samples = 2
+    	metrics.recording.level = INFO
+    	metrics.sample.window.ms = 30000
+    	partitioner.adaptive.partitioning.enable = true
+    	partitioner.availability.timeout.ms = 0
+    	partitioner.class = null
+    	partitioner.ignore.keys = false
+    	receive.buffer.bytes = 32768
+    	reconnect.backoff.max.ms = 1000
+    	reconnect.backoff.ms = 50
+    	request.timeout.ms = 30000
+    	retries = 2147483647
+    	retry.backoff.max.ms = 1000
+    	retry.backoff.ms = 100
+    	sasl.client.callback.handler.class = null
+    	sasl.jaas.config = null
+    	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+    	sasl.kerberos.min.time.before.relogin = 60000
+    	sasl.kerberos.service.name = null
+    	sasl.kerberos.ticket.renew.jitter = 0.05
+    	sasl.kerberos.ticket.renew.window.factor = 0.8
+    	sasl.login.callback.handler.class = null
+    	sasl.login.class = null
+    	sasl.login.connect.timeout.ms = null
+    	sasl.login.read.timeout.ms = null
+    	sasl.login.refresh.buffer.seconds = 300
+    	sasl.login.refresh.min.period.seconds = 60
+    	sasl.login.refresh.window.factor = 0.8
+    	sasl.login.refresh.window.jitter = 0.05
+    	sasl.login.retry.backoff.max.ms = 10000
+    	sasl.login.retry.backoff.ms = 100
+    	sasl.mechanism = GSSAPI
+    	sasl.oauthbearer.clock.skew.seconds = 30
+    	sasl.oauthbearer.expected.audience = null
+    	sasl.oauthbearer.expected.issuer = null
+    	sasl.oauthbearer.header.urlencode = false
+    	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+    	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+    	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+    	sasl.oauthbearer.jwks.endpoint.url = null
+    	sasl.oauthbearer.scope.claim.name = scope
+    	sasl.oauthbearer.sub.claim.name = sub
+    	sasl.oauthbearer.token.endpoint.url = null
+    	security.protocol = PLAINTEXT
+    	security.providers = null
+    	send.buffer.bytes = 131072
+    	socket.connection.setup.timeout.max.ms = 30000
+    	socket.connection.setup.timeout.ms = 10000
+    	ssl.cipher.suites = null
+    	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+    	ssl.endpoint.identification.algorithm = https
+    	ssl.engine.factory.class = null
+    	ssl.key.password = null
+    	ssl.keymanager.algorithm = SunX509
+    	ssl.keystore.certificate.chain = null
+    	ssl.keystore.key = null
+    	ssl.keystore.location = null
+    	ssl.keystore.password = null
+    	ssl.keystore.type = JKS
+    	ssl.protocol = TLSv1.3
+    	ssl.provider = null
+    	ssl.secure.random.implementation = null
+    	ssl.trustmanager.algorithm = PKIX
+    	ssl.truststore.certificates = null
+    	ssl.truststore.location = null
+    	ssl.truststore.password = null
+    	ssl.truststore.type = JKS
+    	transaction.timeout.ms = 60000
+    	transactional.id = orchestrator-tx-0
+    	value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+
+    2026-05-15T10:29:46.186+03:00  INFO 42960 --- [orchestrator] [   scheduling-1] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+    2026-05-15T10:29:46.194+03:00  INFO 42960 --- [orchestrator] [   scheduling-1] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Instantiated a transactional producer.
+    2026-05-15T10:29:46.220+03:00  INFO 42960 --- [orchestrator] [   scheduling-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+    2026-05-15T10:29:46.220+03:00  INFO 42960 --- [orchestrator] [   scheduling-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+    2026-05-15T10:29:46.220+03:00  INFO 42960 --- [orchestrator] [   scheduling-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1778830186220
+    2026-05-15T10:29:46.220+03:00  INFO 42960 --- [orchestrator] [   scheduling-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Invoking InitProducerId for the first time in order to acquire a producer ID
+    2026-05-15T10:29:46.492+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Cluster ID: 4L6g3nShT-eMCtK--X86sw
+    2026-05-15T10:29:46.621+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Discovered transaction coordinator localhost:64847 (id: 1 rack: null)
+    2026-05-15T10:29:46.732+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Discovered transaction coordinator localhost:64847 (id: 1 rack: null)
+    2026-05-15T10:29:46.838+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Discovered transaction coordinator localhost:64847 (id: 1 rack: null)
+    2026-05-15T10:29:47.061+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] o.a.k.c.p.internals.TransactionManager   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] ProducerId set to 0 with epoch 0
+    2026-05-15T10:29:47.073+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] The metadata response from the cluster reported a recoverable issue with correlation id 14 : {payment.events=UNKNOWN_TOPIC_OR_PARTITION}
+    2026-05-15T10:29:47.316+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+    	allow.auto.create.topics = true
+    	auto.commit.interval.ms = 5000
+    	auto.include.jmx.reporter = true
+    	auto.offset.reset = earliest
+    	bootstrap.servers = [localhost:64847]
+    	check.crcs = true
+    	client.dns.lookup = use_all_dns_ips
+    	client.id = consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1
+    	client.rack = 
+    	connections.max.idle.ms = 540000
+    	default.api.timeout.ms = 60000
+    	enable.auto.commit = true
+    	enable.metrics.push = true
+    	exclude.internal.topics = true
+    	fetch.max.bytes = 52428800
+    	fetch.max.wait.ms = 500
+    	fetch.min.bytes = 1
+    	group.id = scenario-a-24061918-796f-4f78-b456-b2dde92aaab3
+    	group.instance.id = null
+    	group.protocol = classic
+    	group.remote.assignor = null
+    	heartbeat.interval.ms = 3000
+    	interceptor.classes = []
+    	internal.leave.group.on.close = true
+    	internal.throw.on.fetch.stable.offset.unsupported = false
+    	isolation.level = read_committed
+    	key.deserializer = class org.apache.kafka.common.serialization.StringDeserializer
+    	max.partition.fetch.bytes = 1048576
+    	max.poll.interval.ms = 300000
+    	max.poll.records = 500
+    	metadata.max.age.ms = 300000
+    	metadata.recovery.strategy = none
+    	metric.reporters = []
+    	metrics.num.samples = 2
+    	metrics.recording.level = INFO
+    	metrics.sample.window.ms = 30000
+    	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor, class org.apache.kafka.clients.consumer.CooperativeStickyAssignor]
+    	receive.buffer.bytes = 65536
+    	reconnect.backoff.max.ms = 1000
+    	reconnect.backoff.ms = 50
+    	request.timeout.ms = 30000
+    	retry.backoff.max.ms = 1000
+    	retry.backoff.ms = 100
+    	sasl.client.callback.handler.class = null
+    	sasl.jaas.config = null
+    	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+    	sasl.kerberos.min.time.before.relogin = 60000
+    	sasl.kerberos.service.name = null
+    	sasl.kerberos.ticket.renew.jitter = 0.05
+    	sasl.kerberos.ticket.renew.window.factor = 0.8
+    	sasl.login.callback.handler.class = null
+    	sasl.login.class = null
+    	sasl.login.connect.timeout.ms = null
+    	sasl.login.read.timeout.ms = null
+    	sasl.login.refresh.buffer.seconds = 300
+    	sasl.login.refresh.min.period.seconds = 60
+    	sasl.login.refresh.window.factor = 0.8
+    	sasl.login.refresh.window.jitter = 0.05
+    	sasl.login.retry.backoff.max.ms = 10000
+    	sasl.login.retry.backoff.ms = 100
+    	sasl.mechanism = GSSAPI
+    	sasl.oauthbearer.clock.skew.seconds = 30
+    	sasl.oauthbearer.expected.audience = null
+    	sasl.oauthbearer.expected.issuer = null
+    	sasl.oauthbearer.header.urlencode = false
+    	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+    	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+    	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+    	sasl.oauthbearer.jwks.endpoint.url = null
+    	sasl.oauthbearer.scope.claim.name = scope
+    	sasl.oauthbearer.sub.claim.name = sub
+    	sasl.oauthbearer.token.endpoint.url = null
+    	security.protocol = PLAINTEXT
+    	security.providers = null
+    	send.buffer.bytes = 131072
+    	session.timeout.ms = 45000
+    	socket.connection.setup.timeout.max.ms = 30000
+    	socket.connection.setup.timeout.ms = 10000
+    	ssl.cipher.suites = null
+    	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+    	ssl.endpoint.identification.algorithm = https
+    	ssl.engine.factory.class = null
+    	ssl.key.password = null
+    	ssl.keymanager.algorithm = SunX509
+    	ssl.keystore.certificate.chain = null
+    	ssl.keystore.key = null
+    	ssl.keystore.location = null
+    	ssl.keystore.password = null
+    	ssl.keystore.type = JKS
+    	ssl.protocol = TLSv1.3
+    	ssl.provider = null
+    	ssl.secure.random.implementation = null
+    	ssl.trustmanager.algorithm = PKIX
+    	ssl.truststore.certificates = null
+    	ssl.truststore.location = null
+    	ssl.truststore.password = null
+    	ssl.truststore.type = JKS
+    	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+    2026-05-15T10:29:47.320+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.t.i.KafkaMetricsCollector        : initializing Kafka metrics collector
+    2026-05-15T10:29:47.346+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 3.9.1
+    2026-05-15T10:29:47.346+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: f745dfdcee2b9851
+    2026-05-15T10:29:47.346+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1778830187346
+    2026-05-15T10:29:47.350+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.i.ClassicKafkaConsumer         : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Subscribed to topic(s): payment.events
+    2026-05-15T10:29:47.358+03:00  INFO 42960 --- [orchestrator] [    Test worker] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Cluster ID: 4L6g3nShT-eMCtK--X86sw
+    2026-05-15T10:29:47.495+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Discovered group coordinator localhost:64847 (id: 2147483646 rack: null)
+    2026-05-15T10:29:47.500+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] (Re-)joining group
+    2026-05-15T10:29:47.513+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Request joining group due to: need to re-join with the given member-id: consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1-d35584cb-3644-4bee-87d1-7d1718be297b
+    2026-05-15T10:29:47.513+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] (Re-)joining group
+    2026-05-15T10:29:47.520+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Successfully joined group with generation Generation{generationId=1, memberId='consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1-d35584cb-3644-4bee-87d1-7d1718be297b', protocol='range'}
+    2026-05-15T10:29:47.525+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Finished assignment for group at generation 1: {consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1-d35584cb-3644-4bee-87d1-7d1718be297b=Assignment(partitions=[payment.events-0])}
+    2026-05-15T10:29:47.533+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Successfully synced group in generation Generation{generationId=1, memberId='consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1-d35584cb-3644-4bee-87d1-7d1718be297b', protocol='range'}
+    2026-05-15T10:29:47.533+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Notifying assignor about the new Assignment(partitions=[payment.events-0])
+    2026-05-15T10:29:47.534+03:00  INFO 42960 --- [orchestrator] [    Test worker] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Adding newly assigned partitions: payment.events-0
+    2026-05-15T10:29:47.541+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Found no committed offset for partition payment.events-0
+    2026-05-15T10:29:47.547+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Resetting offset for partition payment.events-0 to position FetchPosition{offset=0, offsetEpoch=Optional.empty, currentLeader=LeaderAndEpoch{leader=Optional[localhost:64847 (id: 1 rack: null)], epoch=0}}.
+    2026-05-15T10:29:47.586+03:00  INFO 42960 --- [orchestrator] [    Test worker] k.c.c.i.ConsumerRebalanceListenerInvoker : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Revoke previously assigned partitions payment.events-0
+    2026-05-15T10:29:47.586+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Member consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1-d35584cb-3644-4bee-87d1-7d1718be297b sending LeaveGroup request to coordinator localhost:64847 (id: 2147483646 rack: null) due to the consumer is being closed
+    2026-05-15T10:29:47.587+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Resetting generation and member id due to: consumer pro-actively leaving the group
+    2026-05-15T10:29:47.587+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1, groupId=scenario-a-24061918-796f-4f78-b456-b2dde92aaab3] Request joining group due to: consumer pro-actively leaving the group
+    2026-05-15T10:29:48.070+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+    2026-05-15T10:29:48.070+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+    2026-05-15T10:29:48.070+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+    2026-05-15T10:29:48.070+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+    2026-05-15T10:29:48.073+03:00  INFO 42960 --- [orchestrator] [    Test worker] o.a.kafka.common.utils.AppInfoParser     : App info kafka.consumer for consumer-scenario-a-24061918-796f-4f78-b456-b2dde92aaab3-1 unregistered
+
+ScenarioA_HappyPathIT STANDARD_OUT
+    2026-05-15T10:29:48.130+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.ProxyConnection   : HikariPool-1 - Connection org.postgresql.jdbc.PgConnection@a56925e marked as broken because of SQLSTATE(08006), ErrorCode(0)
+
+    org.postgresql.util.PSQLException: Ошибка ввода/вывода при отправке бэкенду
+    	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:399) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137) ~[postgresql-42.7.4.jar:42.7.4]
+    	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52) ~[HikariCP-6.3.1.jar:na]
+    	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java) ~[HikariCP-6.3.1.jar:na]
+    	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:251) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:172) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.<init>(JdbcValuesResultSetImpl.java:74) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.resolveJdbcValuesSource(JdbcSelectExecutorStandardImpl.java:355) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:137) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:102) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.executeQuery(JdbcSelectExecutor.java:91) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:165) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$1(ConcreteSqmSelectQueryPlan.java:149) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:439) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:359) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:380) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:143) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.Query.getResultList(Query.java:120) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.springframework.data.jpa.repository.query.JpaQueryExecution$CollectionExecution.doExecute(JpaQueryExecution.java:130) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:93) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:160) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:148) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:170) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:149) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at jdk.proxy3/jdk.proxy3.$Proxy184.findUnpublished(Unknown Source) ~[na:na]
+    	at com.agentpay.orchestrator.saga.OutboxPublisher.drain(OutboxPublisher.java:49) ~[main/:na]
+    	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+    	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at com.agentpay.orchestrator.saga.OutboxPublisher$$SpringCGLIB$$0.drain(<generated>) ~[main/:na]
+    	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+    	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.15.2.jar:1.15.2]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:85) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-6.2.9.jar:6.2.9]
+    	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
+    	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
+    	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+    	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+    	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+    	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+    Caused by: java.io.EOFException: null
+    	at org.postgresql.core.PGStream.receiveChar(PGStream.java:478) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2174) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372) ~[postgresql-42.7.4.jar:42.7.4]
+    	... 65 common frames omitted
+
+    2026-05-15T10:29:48.142+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08006
+    2026-05-15T10:29:48.142+03:00 ERROR 42960 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : Ошибка ввода/вывода при отправке бэкенду
+    2026-05-15T10:29:48.157+03:00 ERROR 42960 --- [orchestrator] [   scheduling-1] o.s.t.i.TransactionInterceptor           : Application exception overridden by rollback exception
+
+    org.springframework.dao.DataAccessResourceFailureException: JDBC exception executing SQL [select eoe1_0.id,eoe1_0.case_id,eoe1_0.created_at,eoe1_0.partition_key,eoe1_0.payload,eoe1_0.published_at,eoe1_0.topic from event_outbox eoe1_0 where eoe1_0.published_at is null order by eoe1_0.id fetch first ? rows only] [Ошибка ввода/вывода при отправке бэкенду] [n/a]
+    	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:278) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:256) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:560) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:343) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:136) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at jdk.proxy3/jdk.proxy3.$Proxy184.findUnpublished(Unknown Source) ~[na:na]
+    	at com.agentpay.orchestrator.saga.OutboxPublisher.drain(OutboxPublisher.java:49) ~[main/:na]
+    	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+    	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at com.agentpay.orchestrator.saga.OutboxPublisher$$SpringCGLIB$$0.drain(<generated>) ~[main/:na]
+    	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+    	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.15.2.jar:1.15.2]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:85) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-6.2.9.jar:6.2.9]
+    	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
+    	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
+    	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+    	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+    	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+    	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+    Caused by: org.hibernate.exception.JDBCConnectionException: JDBC exception executing SQL [select eoe1_0.id,eoe1_0.case_id,eoe1_0.created_at,eoe1_0.partition_key,eoe1_0.payload,eoe1_0.published_at,eoe1_0.topic from event_outbox eoe1_0 where eoe1_0.published_at is null order by eoe1_0.id fetch first ? rows only] [Ошибка ввода/вывода при отправке бэкенду] [n/a]
+    	at org.hibernate.exception.internal.SQLStateConversionDelegate.convert(SQLStateConversionDelegate.java:100) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:269) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:172) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.<init>(JdbcValuesResultSetImpl.java:74) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.resolveJdbcValuesSource(JdbcSelectExecutorStandardImpl.java:355) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:137) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:102) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.executeQuery(JdbcSelectExecutor.java:91) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:165) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$1(ConcreteSqmSelectQueryPlan.java:149) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:439) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:359) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:380) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:143) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.query.Query.getResultList(Query.java:120) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.springframework.data.jpa.repository.query.JpaQueryExecution$CollectionExecution.doExecute(JpaQueryExecution.java:130) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.jpa.repository.query.JpaQueryExecution.execute(JpaQueryExecution.java:93) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.doExecute(AbstractJpaQuery.java:160) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.jpa.repository.query.AbstractJpaQuery.execute(AbstractJpaQuery.java:148) ~[spring-data-jpa-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:170) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:149) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-3.5.2.jar:3.5.2]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138) ~[spring-tx-6.2.9.jar:6.2.9]
+    	... 30 common frames omitted
+    Caused by: org.postgresql.util.PSQLException: Ошибка ввода/вывода при отправке бэкенду
+    	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:399) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:517) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:434) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:194) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.jdbc.PgPreparedStatement.executeQuery(PgPreparedStatement.java:137) ~[postgresql-42.7.4.jar:42.7.4]
+    	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52) ~[HikariCP-6.3.1.jar:na]
+    	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java) ~[HikariCP-6.3.1.jar:na]
+    	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:251) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	... 58 common frames omitted
+    Caused by: java.io.EOFException: null
+    	at org.postgresql.core.PGStream.receiveChar(PGStream.java:478) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2174) ~[postgresql-42.7.4.jar:42.7.4]
+    	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372) ~[postgresql-42.7.4.jar:42.7.4]
+    	... 65 common frames omitted
+
+    2026-05-15T10:29:48.159+03:00 ERROR 42960 --- [orchestrator] [   scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+    org.springframework.orm.jpa.JpaSystemException: Unable to rollback against JDBC Connection
+    	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:348) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:256) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.orm.jpa.JpaTransactionManager.doRollback(JpaTransactionManager.java:593) ~[spring-orm-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.support.AbstractPlatformTransactionManager.processRollback(AbstractPlatformTransactionManager.java:897) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.support.AbstractPlatformTransactionManager.rollback(AbstractPlatformTransactionManager.java:866) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionAspectSupport.completeTransactionAfterThrowing(TransactionAspectSupport.java:716) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:384) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.9.jar:6.2.9]
+    	at com.agentpay.orchestrator.saga.OutboxPublisher$$SpringCGLIB$$0.drain(<generated>) ~[main/:na]
+    	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+    	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+    	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.15.2.jar:1.15.2]
+    	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:85) ~[spring-context-6.2.9.jar:6.2.9]
+    	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-6.2.9.jar:6.2.9]
+    	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
+    	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
+    	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+    	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+    	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+    	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+    Caused by: org.hibernate.TransactionException: Unable to rollback against JDBC Connection
+    	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:137) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.rollback(JdbcResourceLocalTransactionCoordinatorImpl.java:289) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.hibernate.engine.transaction.internal.TransactionImpl.rollback(TransactionImpl.java:142) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	at org.springframework.orm.jpa.JpaTransactionManager.doRollback(JpaTransactionManager.java:589) ~[spring-orm-6.2.9.jar:6.2.9]
+    	... 22 common frames omitted
+    Caused by: java.sql.SQLException: Connection is closed
+    	at com.zaxxer.hikari.pool.ProxyConnection$ClosedConnection.lambda$getClosedConnection$0(ProxyConnection.java:559) ~[HikariCP-6.3.1.jar:na]
+    	at jdk.proxy4/jdk.proxy4.$Proxy131.rollback(Unknown Source) ~[na:na]
+    	at com.zaxxer.hikari.pool.ProxyConnection.rollback(ProxyConnection.java:386) ~[HikariCP-6.3.1.jar:na]
+    	at com.zaxxer.hikari.pool.HikariProxyConnection.rollback(HikariProxyConnection.java) ~[HikariCP-6.3.1.jar:na]
+    	at org.hibernate.resource.jdbc.internal.AbstractLogicalConnectionImplementor.rollback(AbstractLogicalConnectionImplementor.java:127) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+    	... 25 common frames omitted
+
+    2026-05-15T10:29:48.221+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@4f93303f (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.221+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@4d75092f (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.222+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@74b9418b (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.222+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@43ed8441 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.222+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@54d2955d (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.223+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@310bd299 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.223+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@f00682a (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.223+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@20e02a07 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.225+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@6439ddc2 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
+    2026-05-15T10:29:48.448+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+    2026-05-15T10:29:48.450+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node -1 disconnected.
+    2026-05-15T10:29:48.695+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+    2026-05-15T10:29:48.695+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Cancelled in-flight API_VERSIONS request with correlation id 19 due to node 1 being disconnected (elapsed time since creation: 133ms, elapsed time since send: 133ms, throttle time: 0ms, request timeout: 30000ms)
+
+Gradle Test Executor 3 finished executing tests.
+2026-05-15T10:29:48.728+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-05-15T10:29:48.741+03:00  INFO 42960 --- [orchestrator] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-05-15T10:29:48.885+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:48.885+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:49.345+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:49.345+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:50.251+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:50.251+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:51.271+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:51.271+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:52.297+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:52.297+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:53.302+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:53.302+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:54.181+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:54.181+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:55.193+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:55.193+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:56.195+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:56.195+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:57.206+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:57.206+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:58.210+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:58.211+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:29:59.214+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:29:59.215+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:00.216+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:00.216+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:01.224+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:01.224+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:02.240+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:02.240+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:03.252+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:03.252+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:04.256+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:04.256+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:05.260+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:05.261+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:06.268+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:06.268+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:07.280+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:07.280+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:08.281+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:08.281+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:09.290+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:09.290+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:10.290+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:10.291+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:11.293+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:11.293+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:12.305+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:12.305+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:13.311+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:13.311+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:14.312+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:14.312+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:15.325+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:15.325+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:16.328+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:16.328+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:17.338+03:00  INFO 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Node 1 disconnected.
+2026-05-15T10:30:17.338+03:00  WARN 42960 --- [orchestrator] [ator-producer-1] org.apache.kafka.clients.NetworkClient   : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Connection to node 1 (localhost/127.0.0.1:64847) could not be established. Node may not be available.
+2026-05-15T10:30:18.225+03:00  WARN 42960 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 0, SQLState: 08001
+2026-05-15T10:30:18.225+03:00 ERROR 42960 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : HikariPool-1 - Connection is not available, request timed out after 30003ms (total=0, active=0, idle=0, waiting=0)
+2026-05-15T10:30:18.225+03:00 ERROR 42960 --- [orchestrator] [   scheduling-1] o.h.engine.jdbc.spi.SqlExceptionHelper   : Подсоединение по адресу localhost:64843 отклонено. Проверьте что хост и порт указаны правильно и что postmaster принимает TCP/IP-подсоединения.
+2026-05-15T10:30:18.226+03:00 ERROR 42960 --- [orchestrator] [   scheduling-1] o.s.s.s.TaskUtils$LoggingErrorHandler    : Unexpected error occurred in scheduled task
+
+org.springframework.transaction.CannotCreateTransactionException: Could not open JPA EntityManager for transaction
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:466) ~[spring-orm-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.2.9.jar:6.2.9]
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728) ~[spring-aop-6.2.9.jar:6.2.9]
+	at com.agentpay.orchestrator.saga.OutboxPublisher$$SpringCGLIB$$0.drain(<generated>) ~[main/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.runInternal(ScheduledMethodRunnable.java:130) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.lambda$run$2(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at io.micrometer.observation.Observation.observe(Observation.java:498) ~[micrometer-observation-1.15.2.jar:1.15.2]
+	at org.springframework.scheduling.support.ScheduledMethodRunnable.run(ScheduledMethodRunnable.java:124) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.config.Task$OutcomeTrackingRunnable.run(Task.java:85) ~[spring-context-6.2.9.jar:6.2.9]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-6.2.9.jar:6.2.9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.runAndReset(FutureTask.java:358) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:305) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+Caused by: org.hibernate.exception.JDBCConnectionException: Unable to acquire JDBC Connection [HikariPool-1 - Connection is not available, request timed out after 30003ms (total=0, active=0, idle=0, waiting=0)] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:51) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:129) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getPhysicalConnection(LogicalConnectionManagedImpl.java:156) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.getConnectionForTransactionManagement(LogicalConnectionManagedImpl.java:286) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.begin(LogicalConnectionManagedImpl.java:294) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.transaction.backend.jdbc.internal.JdbcResourceLocalTransactionCoordinatorImpl$TransactionDriverControlImpl.begin(JdbcResourceLocalTransactionCoordinatorImpl.java:232) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.engine.transaction.internal.TransactionImpl.begin(TransactionImpl.java:83) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.beginTransaction(HibernateJpaDialect.java:176) ~[spring-orm-6.2.9.jar:6.2.9]
+	at org.springframework.orm.jpa.JpaTransactionManager.doBegin(JpaTransactionManager.java:420) ~[spring-orm-6.2.9.jar:6.2.9]
+	... 22 common frames omitted
+Caused by: java.sql.SQLTransientConnectionException: HikariPool-1 - Connection is not available, request timed out after 30003ms (total=0, active=0, idle=0, waiting=0)
+	at com.zaxxer.hikari.pool.HikariPool.createTimeoutException(HikariPool.java:714) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:184) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.getConnection(HikariPool.java:142) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:127) ~[HikariCP-6.3.1.jar:na]
+	at org.hibernate.engine.jdbc.connections.internal.DatasourceConnectionProviderImpl.getConnection(DatasourceConnectionProviderImpl.java:126) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.internal.NonContextualJdbcConnectionAccess.obtainConnection(NonContextualJdbcConnectionAccess.java:46) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	at org.hibernate.resource.jdbc.internal.LogicalConnectionManagedImpl.acquireConnectionIfNeeded(LogicalConnectionManagedImpl.java:126) ~[hibernate-core-6.6.22.Final.jar:6.6.22.Final]
+	... 29 common frames omitted
+Caused by: org.postgresql.util.PSQLException: Подсоединение по адресу localhost:64843 отклонено. Проверьте что хост и порт указаны правильно и что postmaster принимает TCP/IP-подсоединения.
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:352) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:54) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:273) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.Driver.makeConnection(Driver.java:446) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.Driver.connect(Driver.java:298) ~[postgresql-42.7.4.jar:42.7.4]
+	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:368) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:205) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:752) ~[HikariCP-6.3.1.jar:na]
+	at com.zaxxer.hikari.pool.HikariPool$PoolEntryCreator.call(HikariPool.java:731) ~[HikariCP-6.3.1.jar:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[na:na]
+	... 3 common frames omitted
+Caused by: java.net.ConnectException: Connection refused: getsockopt
+	at java.base/sun.nio.ch.Net.pollConnect(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.Net.pollConnectNow(Net.java:690) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.timedFinishConnect(NioSocketImpl.java:542) ~[na:na]
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:592) ~[na:na]
+	at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:327) ~[na:na]
+	at java.base/java.net.Socket.connect(Socket.java:751) ~[na:na]
+	at org.postgresql.core.PGStream.createSocket(PGStream.java:260) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.PGStream.<init>(PGStream.java:121) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:140) ~[postgresql-42.7.4.jar:42.7.4]
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:268) ~[postgresql-42.7.4.jar:42.7.4]
+	... 14 common frames omitted
+
+2026-05-15T10:30:18.227+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=orchestrator-producer-1, transactionalId=orchestrator-tx-0] Closing the Kafka producer with timeoutMillis = 30000 ms.
+2026-05-15T10:30:18.229+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Metrics scheduler closed
+2026-05-15T10:30:18.229+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.metrics.JmxReporter
+2026-05-15T10:30:18.229+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+2026-05-15T10:30:18.229+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] o.apache.kafka.common.metrics.Metrics    : Metrics reporters closed
+2026-05-15T10:30:18.229+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] o.a.kafka.common.utils.AppInfoParser     : App info kafka.producer for orchestrator-producer-1 unregistered
+2026-05-15T10:30:18.233+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-05-15T10:30:18.234+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-05-15T10:30:18.445+03:00  INFO 42960 --- [orchestrator] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+> Task :services:orchestrator:test
+Finished generating test XML results (0.003 secs) into: C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator\build\test-results\test
+Generating HTML test report...
+Finished generating test html results (0.004 secs) into: C:\Users\denis\IdeaProjects\agentpay-gateway\services\orchestrator\build\reports\tests\test
+Stored cache entry for task ':services:orchestrator:test' with cache key 12fd6185345f94a472172c8836f56078
+
+BUILD SUCCESSFUL in 45s
+8 actionable tasks: 2 executed, 6 up-to-date
+Watched directory hierarchies: [C:\Users\denis\IdeaProjects\agentpay-gateway]
+EXIT=0
