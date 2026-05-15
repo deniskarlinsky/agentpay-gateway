@@ -4,6 +4,7 @@ import com.agentpay.gateway.api.PaymentRequest;
 import com.agentpay.gateway.api.PaymentResponse;
 import com.agentpay.gateway.config.GatewayProperties;
 import com.agentpay.gateway.error.ScopeException;
+import com.agentpay.gateway.orchestrator.OrchestratorClient;
 import com.agentpay.gateway.replay.ReplayStore;
 import java.math.BigDecimal;
 import java.time.Clock;
@@ -21,11 +22,17 @@ public class PaymentService {
 
   private final ReplayStore replayStore;
   private final GatewayProperties properties;
+  private final OrchestratorClient orchestrator;
   private final Clock clock;
 
-  public PaymentService(ReplayStore replayStore, GatewayProperties properties, Clock clock) {
+  public PaymentService(
+      ReplayStore replayStore,
+      GatewayProperties properties,
+      OrchestratorClient orchestrator,
+      Clock clock) {
     this.replayStore = replayStore;
     this.properties = properties;
+    this.orchestrator = orchestrator;
     this.clock = clock;
   }
 
@@ -86,19 +93,20 @@ public class PaymentService {
 
     String caseId = resolveCaseId(request.caseId());
 
-    // TODO (Iter 3, FR-O-001..009): forward to orchestrator over HTTP. Body has already passed
-    // through the PII redaction filter at this point.
-    log.info(
-        "WOULD FORWARD payment case_id={} agent={} merchant={} amount={} currency={} jti={}",
-        caseId,
-        token.getSubject(),
-        tokenAud,
-        request.amount().toPlainString(),
-        request.currency(),
-        jti);
+    // Body has already passed through the PII redaction filter at this point.
+    OrchestratorClient.Response forwarded =
+        orchestrator.forward(
+            new OrchestratorClient.Request(
+                caseId,
+                token.getSubject(),
+                tokenAud,
+                request.amount(),
+                request.currency(),
+                UUID.fromString(jti),
+                request.description()));
 
     String traceUrl = properties.traceUrlTemplate().replace("{case_id}", caseId);
-    return new PaymentResponse(caseId, "ACCEPTED", traceUrl);
+    return new PaymentResponse(caseId, forwarded.status(), traceUrl);
   }
 
   private static String firstAudience(Object claim) {

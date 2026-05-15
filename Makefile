@@ -6,7 +6,7 @@ GRADLEW = ./gradlew
 # ── Infrastructure ────────────────────────────────────────────────────────────
 
 up:
-	$(GRADLEW) :services:sanctions-mcp:bootJar :services:mock-psp:bootJar :services:gateway:bootJar
+	$(GRADLEW) :services:sanctions-mcp:bootJar :services:mock-psp:bootJar :services:gateway:bootJar :services:orchestrator:bootJar
 	$(COMPOSE) up -d
 	@echo "Stack is up. Use 'make logs SERVICE=<name>' to follow logs."
 	$(COMPOSE) ps
@@ -22,8 +22,11 @@ build:
 # ── Demo ─────────────────────────────────────────────────────────────────────
 
 demo:
-	@echo "Running happy-path and compliance-fail scenarios..."
-	@echo "(not implemented yet — available in Iteration 5)"
+	@echo "Iter 3 demo — happy path end-to-end via stub supervisor (Scenario A)."
+	@echo "Drives a payment from intent-token through Saga to COMMITTED, including"
+	@echo "Postgres persistence and a Kafka PaymentEvent. The polished CLI demo with"
+	@echo "compliance-fail arrives in Iter 5 (buyer-client)."
+	$(GRADLEW) :services:orchestrator:test --tests "com.agentpay.orchestrator.e2e.ScenarioA_HappyPathIT"
 
 # ── Tests ────────────────────────────────────────────────────────────────────
 

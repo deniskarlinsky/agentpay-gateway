@@ -11,6 +11,12 @@ testcontainers             = "2.0.5"
 bucket4j                   = "8.10.1"
 mcp-annotations            = "0.8.0"
 spotless                   = "7.0.3"
+# Apache Avro runtime — pin explicitly so the davidmc24 Avro plugin does not pick its own.
+avro                       = "1.11.3"
+# WireMock for orchestrator integration tests (real local HTTP, no docker).
+wiremock                   = "3.10.0"
+# Avro Gradle plugin — see [plugins].avro below for context + revisit TODO.
+avro-plugin                = "1.9.1"
 
 [libraries]
 # Spring Boot starters — versions managed by Spring Boot BOM
@@ -46,8 +52,18 @@ testcontainers-bom      = { module = "org.testcontainers:testcontainers-bom",  v
 testcontainers-junit    = { module = "org.testcontainers:testcontainers-junit-jupiter" }
 testcontainers-postgres = { module = "org.testcontainers:testcontainers-postgresql" }
 testcontainers-kafka    = { module = "org.testcontainers:testcontainers-kafka" }
+# Apache Avro runtime — pinned explicitly so the davidmc24 plugin can't pick its own.
+avro                    = { module = "org.apache.avro:avro",                   version.ref = "avro" }
+# WireMock 3.x standalone — relocated deps avoid Jetty version conflicts with Spring Boot.
+# JUnit 5 extension is built in (com.github.tomakehurst.wiremock.junit5.WireMockExtension).
+wiremock                = { module = "org.wiremock:wiremock-standalone",        version.ref = "wiremock" }
 
 [plugins]
 spring-boot               = { id = "org.springframework.boot",      version.ref = "spring-boot" }
 spring-dependency-mgmt    = { id = "io.spring.dependency-management", version.ref = "spring-dependency-mgmt" }
 spotless                  = { id = "com.diffplug.spotless",          version.ref = "spotless" }
+# TODO (Iter 7, ADR-010 candidate): com.github.davidmc24.gradle.plugin.avro is unmaintained
+# (donated to Apache Avro project, no official Apache plugin yet). 1.9.1 is the last release
+# (Nov 2022); works with Avro 1.11.x runtime and Gradle 8.x. Re-evaluate when Apache publishes
+# an official replacement.
+avro                      = { id = "com.github.davidmc24.gradle.plugin.avro", version.ref = "avro-plugin" }

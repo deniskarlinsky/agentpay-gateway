@@ -25,6 +25,8 @@ agentpay:
     signing-key-path: .local/gateway-key.pem
     max-ttl-seconds: 300
     trace-url-template: "http://localhost:3000/trace/{case_id}"
+  orchestrator:
+    url: ${ORCHESTRATOR_URL:http://orchestrator:8081}
   rate-limit:
     requests-per-minute-per-agent: 60
 

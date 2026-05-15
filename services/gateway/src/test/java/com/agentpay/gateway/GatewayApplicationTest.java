@@ -7,12 +7,21 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import com.agentpay.gateway.orchestrator.OrchestratorClient;
+import com.agentpay.gateway.orchestrator.OrchestratorUnavailableException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,6 +29,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.testcontainers.containers.GenericContainer;
@@ -61,6 +71,19 @@ class GatewayApplicationTest {
 
   @Autowired private MockMvc mvc;
   @Autowired private ObjectMapper json;
+
+  // Orchestrator stubbed at the bean level — no real HTTP call leaves the gateway during tests.
+  @MockitoBean private OrchestratorClient orchestratorClient;
+
+  @BeforeEach
+  void stubOrchestratorHappyPath() {
+    when(orchestratorClient.forward(any()))
+        .thenAnswer(
+            inv -> {
+              OrchestratorClient.Request req = inv.getArgument(0);
+              return new OrchestratorClient.Response(req.caseId(), "COMMITTED", false);
+            });
+  }
 
   @Test
   void agentCardEndpointReturnsExpectedSkills() throws Exception {
@@ -126,7 +149,10 @@ class GatewayApplicationTest {
                 .content(body))
         .andExpect(status().isAccepted())
         .andExpect(jsonPath("$.case_id").value("case-e-1"))
-        .andExpect(jsonPath("$.status").value("ACCEPTED"));
+        // Status now mirrors the orchestrator's terminal state (forwarded verbatim).
+        .andExpect(jsonPath("$.status").value("COMMITTED"));
+    // Forward must have been invoked exactly once (Scenario E first call).
+    verify(orchestratorClient, times(1)).forward(any());
 
     String body2 =
         json.writeValueAsString(
@@ -144,6 +170,34 @@ class GatewayApplicationTest {
                 .content(body2))
         .andExpect(status().isForbidden())
         .andExpect(jsonPath("$.error_code").value("TOKEN_REPLAYED"));
+  }
+
+  @Test
+  void orchestratorUnavailableReturns502() throws Exception {
+    String token = issueToken("agent-502", "merchant-acme", "50.00", "USD", 300);
+    // doThrow(...).when(...) avoids invoking the @BeforeEach thenAnswer stub during setup —
+    // when(forward(any())) actually calls forward(null) to register, which would NPE inside
+    // the happy-path lambda when it dereferences req.caseId().
+    doThrow(new OrchestratorUnavailableException("connection refused"))
+        .when(orchestratorClient)
+        .forward(any());
+
+    String body =
+        json.writeValueAsString(
+            java.util.Map.of(
+                "case_id", "case-502-1",
+                "merchant_id", "merchant-acme",
+                "amount", "10.00",
+                "currency", "USD",
+                "description", "downstream down"));
+
+    mvc.perform(
+            post("/payments")
+                .header("Authorization", "Bearer " + token)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(body))
+        .andExpect(status().isBadGateway())
+        .andExpect(jsonPath("$.error_code").value("ORCHESTRATOR_UNAVAILABLE"));
   }
 
   @Test

@@ -2,6 +2,38 @@ spring:
   application:
     name: orchestrator
 
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:agentpay}
+    username: ${POSTGRES_USER:agentpay}
+    password: ${POSTGRES_PASSWORD:agentpay}
+    hikari:
+      maximum-pool-size: 10
+
+  jpa:
+    hibernate:
+      ddl-auto: validate  # Flyway owns schema (V1__init.sql)
+    open-in-view: false
+    properties:
+      hibernate.jdbc.time_zone: UTC
+
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP:localhost:9094}
+    producer:
+      # NFR-R-003: transactional producer. Used by OutboxPublisher to drain event_outbox
+      # rows; rows that fail to publish stay unmarked and the next poll retries.
+      transaction-id-prefix: orchestrator-tx-
+      acks: all
+      # Values are Avro-encoded PaymentEvent bytes (KafkaTemplate<String, byte[]>).
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+      properties:
+        enable.idempotence: true
+
 server:
   port: 8081
 
@@ -13,3 +45,21 @@ management:
   endpoint:
     health:
       show-details: always
+
+agentpay:
+  mock-psp:
+    url: ${MOCK_PSP_URL:http://mock-psp:8091}
+  saga:
+    # NFR-R-002: SagaRecoveryRunner picks up non-terminal cases on startup. This bound is
+    # how long the Scenario G test waits for recovery to converge.
+    recovery-timeout-seconds: 10
+  outbox:
+    # See OutboxPublisher TODO for tuning context (Iter 6, observability).
+    poll-interval-ms: 200
+  events:
+    topic: payment.events
+
+logging:
+  level:
+    com.agentpay.orchestrator: INFO
+    org.flywaydb: INFO

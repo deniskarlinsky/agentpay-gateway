@@ -668,7 +668,7 @@ Each scenario MUST be implemented as an end-to-end integration test under `servi
 ### 11.1 Code
 
 - [x] `services/gateway/`
-- [ ] `services/orchestrator/`
+- [x] `services/orchestrator/`
 - [ ] `services/orchestrator/src/main/resources/prompts/risk.md`
 - [ ] `services/orchestrator/src/main/resources/prompts/compliance.md`
 - [ ] `services/orchestrator/src/main/resources/prompts/routing.md`
@@ -676,7 +676,7 @@ Each scenario MUST be implemented as an end-to-end integration test under `servi
 - [x] `services/sanctions-mcp/`
 - [x] `services/mock-psp/`
 - [ ] `services/buyer-client/`
-- [ ] `shared/api-contracts/`
+- [x] `shared/api-contracts/`
 
 ### 11.2 Tests
 
