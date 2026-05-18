@@ -10,8 +10,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.agentpay.orchestrator.decision.Supervisor;
+import com.agentpay.orchestrator.domain.ComplianceVerdict;
 import com.agentpay.orchestrator.domain.Decision;
+import com.agentpay.orchestrator.domain.Outcome;
 import com.agentpay.orchestrator.domain.PaymentContext;
+import com.agentpay.orchestrator.domain.RouteRecommendation;
 import com.agentpay.orchestrator.domain.SagaState;
 import com.agentpay.orchestrator.persistence.CaseEntity;
 import com.agentpay.orchestrator.persistence.CaseRepository;
@@ -27,6 +30,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -90,10 +94,11 @@ class PaymentSagaUnitTest {
     lenient()
         .when(supervisor.decide(any()))
         .thenReturn(
-            new Decision(
-                Decision.Outcome.APPROVED,
-                new Decision.RouteRecommendation("psp-c", "route-1"),
-                "stub"));
+            Decision.approved(
+                0,
+                new ComplianceVerdict(Outcome.PASS, List.of(), "stub: clear"),
+                new RouteRecommendation("psp-c", "route-1", 0.95f, 30, "stub"),
+                List.of("stub")));
     lenient()
         .when(psp.charge(any()))
         .thenReturn(new MockPspClient.ChargeResponse("case-1", "psp-c", true, "AUTH-1", null, 45));
@@ -101,7 +106,7 @@ class PaymentSagaUnitTest {
 
   @Test
   void happyPathReachesCommitted() {
-    saga.start(ctx("case-1"));
+    saga.start(ctx("case-1"), UUID.randomUUID());
 
     assertThat(stored.getState()).isEqualTo(SagaState.COMMITTED);
     // INITIATED → HELD → REVIEWING → APPROVED → ROUTED → COMMITTED  (the initial INITIATED
@@ -126,7 +131,7 @@ class PaymentSagaUnitTest {
     when(psp.charge(any()))
         .thenReturn(new MockPspClient.ChargeResponse("case-2", "psp-c", false, null, "AC01", 0));
 
-    saga.start(ctx("case-2"));
+    saga.start(ctx("case-2"), UUID.randomUUID());
 
     assertThat(stored.getState()).isEqualTo(SagaState.COMPENSATED);
     assertThat(outboxRows).hasSize(1);
@@ -140,11 +145,11 @@ class PaymentSagaUnitTest {
 
   @Test
   void duplicateStartIsIdempotent() {
-    saga.start(ctx("case-3"));
+    saga.start(ctx("case-3"), UUID.randomUUID());
     int rowsAfterFirst = transitionRows.size();
     int outboxAfterFirst = outboxRows.size();
 
-    PaymentSaga.StartResult second = saga.start(ctx("case-3"));
+    PaymentSaga.StartResult second = saga.start(ctx("case-3"), UUID.randomUUID());
 
     assertThat(second.duplicate()).isTrue();
     assertThat(second.state()).isEqualTo(SagaState.COMMITTED);
@@ -203,6 +208,6 @@ class PaymentSagaUnitTest {
 
   private PaymentContext ctx(String caseId) {
     return new PaymentContext(
-        caseId, "agent-1", "merchant-1", new BigDecimal("42.50"), "USD", UUID.randomUUID(), "test");
+        caseId, "agent-1", "merchant-1", new BigDecimal("42.50"), "USD", "test", Map.of());
   }
 }

@@ -31,8 +31,9 @@ public class InternalPaymentsController {
                 req.merchantId,
                 req.amount,
                 req.currency,
-                req.intentTokenJti,
-                req.description));
+                req.description,
+                java.util.Map.of()),
+            req.intentTokenJti);
     // FR-O-007 idempotency: HTTP 202 in both cases (new + duplicate). The `duplicate` flag in the
     // body distinguishes "we just started this" from "you already started this and here's where
     // it is" without changing HTTP semantics.

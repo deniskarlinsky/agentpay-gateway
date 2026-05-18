@@ -37,7 +37,7 @@ class InternalPaymentsControllerTest {
 
   @Test
   void newCaseReturnsAcceptedDuplicateFalse() throws Exception {
-    when(saga.start(any()))
+    when(saga.start(any(), any()))
         .thenReturn(new PaymentSaga.StartResult("case-1", SagaState.COMMITTED, false));
 
     mockMvc
@@ -50,7 +50,7 @@ class InternalPaymentsControllerTest {
 
   @Test
   void duplicateCaseReturnsAcceptedDuplicateTrue() throws Exception {
-    when(saga.start(any()))
+    when(saga.start(any(), any()))
         .thenReturn(new PaymentSaga.StartResult("case-1", SagaState.COMMITTED, true));
 
     mockMvc

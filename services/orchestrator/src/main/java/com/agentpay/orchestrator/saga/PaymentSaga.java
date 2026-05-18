@@ -14,6 +14,7 @@ import com.agentpay.orchestrator.psp.MockPspClient;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,8 +78,12 @@ public class PaymentSaga {
 
   /**
    * Idempotent start (FR-O-007): duplicate case_id returns the current state with duplicate=true.
+   *
+   * <p>The intent-token jti is captured here (separately from PaymentContext) so the §7.2.2
+   * PaymentContext stays in line with REQUIREMENTS.md — the jti is a cases-table column, not part
+   * of what the decision plane sees.
    */
-  public StartResult start(PaymentContext ctx) {
+  public StartResult start(PaymentContext ctx, UUID intentTokenJti) {
     var existing = cases.findById(ctx.caseId());
     if (existing.isPresent()) {
       log.info(
@@ -87,7 +92,7 @@ public class PaymentSaga {
           existing.get().getState());
       return new StartResult(ctx.caseId(), existing.get().getState(), true);
     }
-    self.createInitiated(ctx);
+    self.createInitiated(ctx, intentTokenJti);
     driveForward(ctx.caseId());
     SagaState terminal = cases.findById(ctx.caseId()).orElseThrow().getState();
     return new StartResult(ctx.caseId(), terminal, false);
@@ -126,13 +131,13 @@ public class PaymentSaga {
   }
 
   private void applyDecision(CaseEntity c) {
-    // TODO (Iter 4): persist the Decision (route + scores) so resume after crash uses the same
+    // TODO (Iter 4b.2): persist the Decision (route + scores) so resume after crash uses the same
     // route. Stub supervisor is deterministic so re-derivation is currently safe.
     Decision d = supervisor.decide(toContext(c));
     switch (d.outcome()) {
       case APPROVED ->
           self.recordTransition(
-              c.getCaseId(), SagaState.REVIEWING, SagaState.APPROVED, d.rationale());
+              c.getCaseId(), SagaState.REVIEWING, SagaState.APPROVED, joinRationale(d.rationale()));
       case DECLINED ->
           self.recordTerminal(c, SagaState.REVIEWING, SagaState.DECLINED, "DECISION_DECLINED");
       case REVIEW ->
@@ -146,7 +151,9 @@ public class PaymentSaga {
 
   private void commitOrCompensate(CaseEntity c) {
     Decision d = supervisor.decide(toContext(c));
-    var route = d.route();
+    // route is present iff outcome == APPROVED; commitOrCompensate is only reached from ROUTED
+    // which is only reached from APPROVED, so unwrap is safe.
+    var route = d.route().orElseThrow(() -> new IllegalStateException("ROUTED case missing route"));
     var response =
         psp.charge(
             new MockPspClient.ChargeRequest(
@@ -159,8 +166,12 @@ public class PaymentSaga {
     }
   }
 
+  private static String joinRationale(java.util.List<String> rationale) {
+    return rationale.isEmpty() ? "" : String.join(" | ", rationale);
+  }
+
   @Transactional("transactionManager")
-  void createInitiated(PaymentContext ctx) {
+  void createInitiated(PaymentContext ctx, UUID intentTokenJti) {
     OffsetDateTime now = OffsetDateTime.ofInstant(clock.instant(), ZoneOffset.UTC);
     CaseEntity entity =
         new CaseEntity(
@@ -170,7 +181,7 @@ public class PaymentSaga {
             ctx.amount(),
             ctx.currency(),
             SagaState.INITIATED,
-            ctx.intentTokenJti(),
+            intentTokenJti,
             now);
     cases.save(entity);
     transitions.save(
@@ -217,14 +228,16 @@ public class PaymentSaga {
   }
 
   private PaymentContext toContext(CaseEntity c) {
+    // Iter 4b.2 will populate agentMetadata (buyer.name/country, merchant.name/country, etc.)
+    // during a CaseEnrichment step. Empty map for now keeps the Iter 3 stub Supervisor happy.
     return new PaymentContext(
         c.getCaseId(),
         c.getAgentId(),
         c.getMerchantId(),
         c.getAmount(),
         c.getCurrency(),
-        c.getIntentTokenJti(),
-        null);
+        null,
+        java.util.Map.of());
   }
 
   public record StartResult(String caseId, SagaState state, boolean duplicate) {}

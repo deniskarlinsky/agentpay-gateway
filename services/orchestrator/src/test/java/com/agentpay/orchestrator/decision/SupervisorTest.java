@@ -3,9 +3,10 @@ package com.agentpay.orchestrator.decision;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.agentpay.orchestrator.domain.Decision;
+import com.agentpay.orchestrator.domain.DecisionOutcome;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 class SupervisorTest {
@@ -21,11 +22,11 @@ class SupervisorTest {
                     "merchant-1",
                     new BigDecimal("42.50"),
                     "USD",
-                    UUID.randomUUID(),
-                    "stub"));
+                    "stub",
+                    Map.of()));
 
-    assertThat(d.outcome()).isEqualTo(Decision.Outcome.APPROVED);
-    assertThat(d.route()).isNotNull();
-    assertThat(d.route().pspId()).isEqualTo("psp-c");
+    assertThat(d.outcome()).isEqualTo(DecisionOutcome.APPROVED);
+    assertThat(d.route()).isPresent();
+    assertThat(d.route().get().pspId()).isEqualTo("psp-c");
   }
 }

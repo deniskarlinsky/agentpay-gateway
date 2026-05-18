@@ -2,6 +2,19 @@ spring:
   application:
     name: orchestrator
 
+  ai:
+    # FR-A-COMMON: Anthropic provider for the three specialist agents (Iter 4b.1).
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:}
+    # FR-A-C-002: MCP client wires the sanctions tool consumed by ComplianceAgent.
+    # NFR-S-007: allowlist by URL; the only configured server here is the local sanctions-mcp.
+    mcp:
+      client:
+        streamable-http:
+          connections:
+            sanctions:
+              url: ${SANCTIONS_MCP_URL:http://sanctions-mcp:8090}
+
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:agentpay}
     username: ${POSTGRES_USER:agentpay}
@@ -47,6 +60,20 @@ management:
       show-details: always
 
 agentpay:
+  # FR-A-COMMON-003: per-agent model selection. Sonnet 4.6 for reasoning, Haiku 4.5 for routing.
+  # ADR-007: no Opus.
+  models:
+    risk: claude-sonnet-4-6
+    compliance: claude-sonnet-4-6
+    routing: claude-haiku-4-5
+  # NFR-COST-002: per-model token rates ($/MTok). Cost per case is computed by ModelRates.
+  rates:
+    claude-sonnet-4-6:
+      input-per-mtok: 3.00
+      output-per-mtok: 15.00
+    claude-haiku-4-5:
+      input-per-mtok: 1.00
+      output-per-mtok: 5.00
   mock-psp:
     url: ${MOCK_PSP_URL:http://mock-psp:8091}
   saga:

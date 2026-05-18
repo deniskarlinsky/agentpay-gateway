@@ -4,12 +4,11 @@ plugins {
 }
 
 // Spring Dependency-Management overrides Gradle's native platform() BOM import (see Iter 2
-// fix-up). Re-declare the testcontainers BOM here so version.ref pins resolve correctly.
-// Second module to do this (gateway is the first). Intentionally not extracted into a
-// convention plugin yet — two ≠ pattern; three is where extraction earns its complexity.
+// fix-up). Re-declare BOMs here so version.ref pins resolve correctly.
 dependencyManagement {
     imports {
         mavenBom("org.testcontainers:testcontainers-bom:${libs.versions.testcontainers.get()}")
+        mavenBom("org.springframework.ai:spring-ai-bom:${libs.versions.spring.ai.get()}")
     }
 }
 
@@ -24,6 +23,10 @@ dependencies {
     implementation(libs.spring.boot.starter.actuator)
     implementation(libs.spring.boot.starter.data.jpa)
     implementation(libs.spring.kafka)
+
+    // Spring AI 1.1.5 (Iter 4b.1 FR-A-COMMON, FR-A-R/C/RT). BOM imported above pins versions.
+    implementation(libs.spring.ai.starter.model.anthropic)
+    implementation(libs.spring.ai.starter.mcp.client)
 
     implementation(libs.flyway.core)
     implementation(libs.flyway.postgres)
