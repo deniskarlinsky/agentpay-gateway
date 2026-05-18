@@ -20,6 +20,8 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 /**
@@ -34,6 +36,15 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  */
 @SpringBootTest
 @Testcontainers
+@Import(NoOpMcpTestConfig.class)
+@TestPropertySource(
+    properties = {
+      "spring.autoconfigure.exclude="
+          + "org.springframework.ai.mcp.client.common.autoconfigure.McpClientAutoConfiguration,"
+          + "org.springframework.ai.mcp.client.common.autoconfigure.McpToolCallbackAutoConfiguration,"
+          + "org.springframework.ai.mcp.client.httpclient.autoconfigure.StreamableHttpHttpClientTransportAutoConfiguration,"
+          + "org.springframework.ai.mcp.client.httpclient.autoconfigure.SseHttpClientTransportAutoConfiguration"
+    })
 class ScenarioG_CrashRecoveryIT extends IntegrationTestBase {
 
   static final String CASE_ID = "case-G-recover";
