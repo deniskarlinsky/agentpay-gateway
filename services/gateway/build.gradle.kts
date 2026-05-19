@@ -31,6 +31,8 @@ dependencies {
     // auto-configures Micrometer Tracing when both deps are present.
     implementation(libs.micrometer.tracing.bridge.otel)
     implementation(libs.opentelemetry.exporter.otlp)
+    // Iter 7 fix (see orchestrator/build.gradle.kts for rationale).
+    implementation(libs.micrometer.registry.prometheus)
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.springframework.security:spring-security-test")

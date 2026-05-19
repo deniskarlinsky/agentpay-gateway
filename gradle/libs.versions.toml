@@ -63,6 +63,10 @@ wiremock                = { module = "org.wiremock:wiremock-standalone",        
 # Observability (Iter 6, NFR-O-001/002). Versions managed by Spring Boot 3.5.x BOM.
 micrometer-tracing-bridge-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
 opentelemetry-exporter-otlp    = { module = "io.opentelemetry:opentelemetry-exporter-otlp" }
+# Iter 7 (NFR-O-004 fix): the runtime that turns /actuator/prometheus into Prometheus
+# exposition format. Without it the endpoint silently 404s even when prometheus is in
+# management.endpoints.web.exposure.include. Version managed by Spring Boot 3.5.x BOM.
+micrometer-registry-prometheus = { module = "io.micrometer:micrometer-registry-prometheus" }
 # micrometer-context is pulled transitively by spring-boot-starter; declared here so the
 # Supervisor can reference it explicitly for virtual-thread ContextSnapshot propagation.
 micrometer-context             = { module = "io.micrometer:context-propagation" }

@@ -1,0 +1,17 @@
+apiVersion: 1
+
+# Grafana dashboard provisioning (Iter 7, NFR-O-004 fix).
+# Points the file provider at /var/lib/grafana/dashboards which docker-compose.yml
+# bind-mounts to ops/grafana/dashboards on the host. New JSON files dropped there
+# auto-load on Grafana restart.
+providers:
+  - name: agentpay
+    orgId: 1
+    folder: AgentPay
+    type: file
+    disableDeletion: false
+    updateIntervalSeconds: 30
+    allowUiUpdates: false
+    options:
+      path: /var/lib/grafana/dashboards
+      foldersFromFilesStructure: false

@@ -18,6 +18,8 @@ dependencies {
     // through the MCP tool invocation as a child span of the orchestrator's case span.
     implementation(libs.micrometer.tracing.bridge.otel)
     implementation(libs.opentelemetry.exporter.otlp)
+    // Iter 7 fix (see orchestrator/build.gradle.kts for rationale).
+    implementation(libs.micrometer.registry.prometheus)
 
     testImplementation(libs.spring.boot.starter.test)
 }

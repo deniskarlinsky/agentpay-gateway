@@ -123,6 +123,11 @@ services:
       LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse-events-local
       LANGFUSE_S3_MEDIA_UPLOAD_ENABLED: "false"
       LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse-media-local
+      # Iter 7: Langfuse 3.33.0's S3 config validator runs even when uploads are disabled
+      # and rejects boot with "Region is missing". Setting AWS_REGION to a placeholder
+      # satisfies the validator; no actual S3 calls are made because the *_ENABLED flags
+      # above are false. Documented in docs/known-issues.md.
+      AWS_REGION: us-east-1
     ports:
       - "3000:3000"
     healthcheck:
@@ -181,6 +186,10 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - ./ops/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      # Iter 7 (NFR-O-004 fix): datasource + dashboard provider definitions. Without these
+      # Grafana boots with no datasource and the agentplane.json file mounted above never
+      # loads into the dashboards index.
+      - ./ops/grafana/provisioning:/etc/grafana/provisioning:ro
     ports:
       - "3001:3000"
     healthcheck:

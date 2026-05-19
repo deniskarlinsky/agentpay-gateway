@@ -1,0 +1,15 @@
+apiVersion: 1
+
+# Grafana datasource provisioning (Iter 7, NFR-O-004 fix).
+# Without this file Grafana boots with zero datasources and the agentplane
+# dashboard renders panels with "No data source" — the symptom that prompted
+# the Iter 7 observability infrastructure fix.
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    url: http://prometheus:9090
+    isDefault: true
+    editable: false
+    jsonData:
+      timeInterval: 15s

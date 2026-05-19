@@ -14,6 +14,8 @@ dependencies {
     // Iter 6 (NFR-O-001): PSP charge spans participate in the case trace.
     implementation(libs.micrometer.tracing.bridge.otel)
     implementation(libs.opentelemetry.exporter.otlp)
+    // Iter 7 fix (see orchestrator/build.gradle.kts for rationale).
+    implementation(libs.micrometer.registry.prometheus)
 
     testImplementation(libs.spring.boot.starter.test)
 }

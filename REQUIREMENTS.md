@@ -699,18 +699,21 @@ and the ComplianceAgent verdict cites the matching `citation_id`.
 
 ### 11.4 Documentation
 
-- [ ] `README.md`
-- [ ] `docs/architecture.md`
-- [ ] `docs/adr/001-stable-stack-baseline.md`
-- [ ] `docs/adr/002-saga-coordinator-vs-state-machine.md`
-- [ ] `docs/adr/003-workflow-vs-agent-for-payment-decisioning.md`
-- [ ] `docs/adr/004-a2a-discovery-only.md`
-- [ ] `docs/adr/005-one-mcp-server.md`
-- [ ] `docs/adr/006-virtual-threads-no-preview.md`
-- [ ] `docs/adr/007-model-routing.md`
-- [ ] `docs/adr/008-evals-as-ci-gate.md`
-- [ ] `docs/threat-model.md`
-- [ ] `docs/saga-states.md`
+- [x] `README.md`
+- [x] `docs/architecture.md`
+- [x] `docs/adr/001-stable-stack-baseline.md`
+- [x] `docs/adr/002-saga-coordinator-vs-state-machine.md`
+- [x] `docs/adr/003-workflow-vs-agent-for-payment-decisioning.md`
+- [x] `docs/adr/004-a2a-discovery-only.md`
+- [x] `docs/adr/005-one-mcp-server.md`
+- [x] `docs/adr/006-virtual-threads-no-preview.md`
+- [x] `docs/adr/007-model-routing.md`
+- [x] `docs/adr/008-evals-as-ci-gate.md`
+- [x] `docs/adr/009-pgvector-canonical-schema.md`
+- [x] `docs/adr/010-transactional-outbox-vs-chained-kafka-tx-manager.md`
+- [x] `docs/threat-model.md`
+- [x] `docs/saga-states.md`
+- [x] `docs/known-issues.md`
 
 ---
 

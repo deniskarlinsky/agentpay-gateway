@@ -41,6 +41,9 @@ dependencies {
     implementation(libs.micrometer.tracing.bridge.otel)
     implementation(libs.opentelemetry.exporter.otlp)
     implementation(libs.micrometer.context)
+    // Iter 7 fix: turns /actuator/prometheus into the exposition format Prometheus scrapes.
+    // Missing in Iter 6 — the endpoint 404s without it even though application.yml lists it.
+    implementation(libs.micrometer.registry.prometheus)
 
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.springframework.kafka:spring-kafka-test")
