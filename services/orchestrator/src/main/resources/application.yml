@@ -112,6 +112,11 @@ agentpay:
     poll-interval-ms: 200
   events:
     topic: payment.events
+    # FR-O-005 (Scenario C): topics for human review escalation. Broker auto.create.topics.enable
+    # is on in docker-compose and Testcontainers KafkaContainer, so we don't pre-declare beans.
+    human-approval-requests-topic: human.approval.requests
+    human-approval-responses-topic: human.approval.responses
+    human-approval-responses-group-id: orchestrator-human-approvals
 
 logging:
   level:

@@ -100,7 +100,10 @@ class SupervisorTest {
     Decision d = supervisor.decide(ctx());
 
     assertThat(d.outcome()).isEqualTo(DecisionOutcome.REVIEW);
-    assertThat(d.route()).isEmpty();
+    // Iter 4b.3 (FR-O-005): REVIEW preserves the computed route so a human GRANTED can resume
+    // through ROUTED → commit without re-calling the routing agent.
+    assertThat(d.route()).isPresent();
+    assertThat(d.route().get().pspId()).isEqualTo("psp-c");
   }
 
   @Test

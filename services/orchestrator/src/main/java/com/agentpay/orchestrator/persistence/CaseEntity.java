@@ -1,6 +1,7 @@
 package com.agentpay.orchestrator.persistence;
 
 import com.agentpay.orchestrator.domain.SagaState;
+import com.fasterxml.jackson.databind.JsonNode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -9,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.Map;
 import java.util.UUID;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -51,6 +53,22 @@ public class CaseEntity {
 
   @Column(name = "cost_usd", precision = 10, scale = 6)
   private BigDecimal costUsd;
+
+  // Iter 4b.3 (FR-O-005, Scenario C): persistence for the Decision aggregated at REVIEW time.
+  // Stored as Jackson's native JsonNode so round-tripping through Hibernate's JsonFormatMapper
+  // preserves JSON shape exactly (arrays stay arrays, objects stay objects). PaymentSaga converts
+  // to/from Decision via valueToTree / treeToValue on the autowired ObjectMapper, which is the
+  // Spring Boot one with Jdk8Module so Optional<RouteRecommendation> serialises as unwrapped or
+  // null. EAGER by default.
+  @Column(name = "decision_jsonb")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private JsonNode decisionJsonb;
+
+  // Identity-namespaced metadata that arrived with the original PaymentContext. Written once at
+  // INITIATED (same transaction as the cases insert) so it survives any later restart.
+  @Column(name = "agent_metadata_jsonb")
+  @JdbcTypeCode(SqlTypes.JSON)
+  private Map<String, String> agentMetadataJsonb;
 
   protected CaseEntity() {}
 
@@ -121,5 +139,21 @@ public class CaseEntity {
 
   public void setCostUsd(BigDecimal costUsd) {
     this.costUsd = costUsd;
+  }
+
+  public JsonNode getDecisionJsonb() {
+    return decisionJsonb;
+  }
+
+  public void setDecisionJsonb(JsonNode decisionJsonb) {
+    this.decisionJsonb = decisionJsonb;
+  }
+
+  public Map<String, String> getAgentMetadataJsonb() {
+    return agentMetadataJsonb;
+  }
+
+  public void setAgentMetadataJsonb(Map<String, String> agentMetadataJsonb) {
+    this.agentMetadataJsonb = agentMetadataJsonb;
   }
 }

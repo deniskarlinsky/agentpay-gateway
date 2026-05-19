@@ -6,6 +6,10 @@ import java.util.Optional;
 /**
  * Aggregated decision-plane output (REQUIREMENTS.md §7.2.1). The Supervisor (Iter 4b.2) builds this
  * from the three specialist verdicts per FR-DP-002.
+ *
+ * <p>{@code route} is present when the RoutingAgent returned a recommendation — always on APPROVED,
+ * usually on REVIEW (so a SUSPENDED_FOR_REVIEW case can resume to ROUTED on human GRANTED without
+ * re-running the decision plane, Iter 4b.3 / FR-O-005), and empty on DECLINED.
  */
 public record Decision(
     DecisionOutcome outcome,
@@ -55,5 +59,20 @@ public record Decision(
   public static Decision review(
       int riskScore, ComplianceVerdict compliance, List<String> rationale) {
     return new Decision(DecisionOutcome.REVIEW, riskScore, compliance, Optional.empty(), rationale);
+  }
+
+  /**
+   * REVIEW variant that preserves a computed routing recommendation. Used by the Supervisor when
+   * the risk score or compliance verdict drives REVIEW but the RoutingAgent still produced a route;
+   * the orchestrator stores the route alongside the Decision so a human GRANTED response can resume
+   * through ROUTED → commit without re-calling the routing agent (Iter 4b.3 / FR-O-005).
+   */
+  public static Decision review(
+      int riskScore,
+      ComplianceVerdict compliance,
+      RouteRecommendation route,
+      List<String> rationale) {
+    return new Decision(
+        DecisionOutcome.REVIEW, riskScore, compliance, Optional.ofNullable(route), rationale);
   }
 }

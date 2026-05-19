@@ -1,0 +1,21 @@
+{
+  "type": "record",
+  "name": "HumanApprovalResponse",
+  "namespace": "com.agentpay.shared.events",
+  "doc": "Published by the on-call CLI to human.approval.responses. Consumed by the orchestrator to resume a SUSPENDED_FOR_REVIEW case (FR-O-005).",
+  "fields": [
+    { "name": "case_id",    "type": "string",                                                "doc": "Saga case identifier the decision applies to." },
+    {
+      "name": "decision",
+      "type": {
+        "type": "enum",
+        "name": "HumanApprovalDecision",
+        "symbols": ["GRANTED", "DENIED"]
+      },
+      "doc": "On-call operator's verdict."
+    },
+    { "name": "decided_by", "type": "string",                                                "doc": "Identifier of the operator who decided." },
+    { "name": "decided_at", "type": { "type": "long", "logicalType": "timestamp-millis" },  "doc": "Wall-clock time the decision was made." },
+    { "name": "reason",     "type": ["null", "string"], "default": null,                    "doc": "Optional free-text reason; expected when decision=DENIED." }
+  ]
+}

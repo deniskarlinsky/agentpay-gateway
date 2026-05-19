@@ -1,0 +1,16 @@
+{
+  "type": "record",
+  "name": "HumanApprovalRequest",
+  "namespace": "com.agentpay.shared.events",
+  "doc": "Published when a Saga enters SUSPENDED_FOR_REVIEW (FR-O-005). The on-call CLI consumes from human.approval.requests and emits a HumanApprovalResponse.",
+  "fields": [
+    { "name": "case_id",            "type": "string",                          "doc": "Saga case identifier." },
+    { "name": "risk_score",         "type": "int",                             "doc": "Aggregated RiskAssessment.score that triggered REVIEW (0-100)." },
+    { "name": "compliance_outcome", "type": "string",                          "doc": "ComplianceVerdict.outcome at REVIEW time (PASS | FAIL | REVIEW)." },
+    { "name": "agent_id",           "type": "string",                          "doc": "Acting buyer agent (intent token sub)." },
+    { "name": "merchant_id",        "type": "string",                          "doc": "Acting merchant (intent token aud)." },
+    { "name": "amount",             "type": "string",                          "doc": "Amount as canonical decimal string (e.g. \"42.50\"); avoids floating-point in event schemas." },
+    { "name": "currency",           "type": "string",                          "doc": "ISO 4217 alpha-3 code." },
+    { "name": "requested_at",       "type": { "type": "long", "logicalType": "timestamp-millis" }, "doc": "Wall-clock time the SUSPENDED_FOR_REVIEW transition was persisted." }
+  ]
+}

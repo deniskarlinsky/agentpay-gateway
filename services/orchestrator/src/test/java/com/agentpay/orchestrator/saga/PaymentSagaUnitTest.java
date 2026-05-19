@@ -23,6 +23,7 @@ import com.agentpay.orchestrator.persistence.EventOutboxRepository;
 import com.agentpay.orchestrator.persistence.SagaTransitionEntity;
 import com.agentpay.orchestrator.persistence.SagaTransitionRepository;
 import com.agentpay.orchestrator.psp.MockPspClient;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
@@ -63,9 +64,23 @@ class PaymentSagaUnitTest {
     psp = Mockito.mock(MockPspClient.class);
     Clock clock = Clock.fixed(Instant.parse("2026-05-15T10:00:00Z"), ZoneOffset.UTC);
     serializer = new PaymentEventSerializer(clock);
+    HumanApprovalRequestSerializer approvalRequestSerializer =
+        new HumanApprovalRequestSerializer(clock);
+    ObjectMapper objectMapper = new ObjectMapper();
+    objectMapper.registerModule(new com.fasterxml.jackson.datatype.jdk8.Jdk8Module());
     saga =
         new PaymentSaga(
-            cases, transitions, outbox, supervisor, psp, serializer, clock, "payment.events");
+            cases,
+            transitions,
+            outbox,
+            supervisor,
+            psp,
+            serializer,
+            approvalRequestSerializer,
+            objectMapper,
+            clock,
+            "payment.events",
+            "human.approval.requests");
     // In production Spring injects @Lazy self with the AOP proxy; in this unit test the
     // @Transactional semantics are irrelevant (repos are mocked), so direct self-reference is
     // sufficient to satisfy the self.xxx() invocations inside start()/stepOnce().

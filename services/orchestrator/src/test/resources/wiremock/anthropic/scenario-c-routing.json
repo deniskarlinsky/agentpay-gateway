@@ -1,0 +1,15 @@
+{
+  "id": "msg_test_c_routing",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-4-5-20251001",
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"pspId\":\"psp-a\",\"routeId\":\"route-eu-1\",\"expectedSuccessRate\":0.952,\"expectedCostBps\":30,\"rationale\":\"psp-a / route-eu-1 picked on cost — at 30bps it beats psp-c by 15bps while the success-rate delta is within the 1pp ignore band.\"}"
+    }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 290, "output_tokens": 58}
+}

@@ -99,7 +99,10 @@ public class Supervisor {
       return Decision.declined(risk.score(), compliance, rationale);
     }
     if (risk.score() >= 50 || compliance.outcome() == Outcome.REVIEW) {
-      return Decision.review(risk.score(), compliance, rationale);
+      // FR-O-005 (Iter 4b.3): preserve route on REVIEW so onApprovalGranted can resume through
+      // ROUTED → commit without re-calling the routing agent. route may be null if RoutingAgent
+      // failed; Decision.review then carries Optional.empty().
+      return Decision.review(risk.score(), compliance, route, rationale);
     }
     if (route == null) {
       List<String> routingUnavailable = List.of(riskLine, complianceLine, "routing: unavailable");
