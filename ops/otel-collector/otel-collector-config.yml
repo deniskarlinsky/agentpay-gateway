@@ -20,6 +20,15 @@ exporters:
     endpoint: http://langfuse:3000/api/public/otel
     headers:
       Authorization: "Basic ${env:LANGFUSE_OTEL_BASIC_AUTH:-bGYtcHViLWRldjpsZi1zZWMtZGV2}"
+  # Iter 6 (NFR-O-001): mirror every trace to disk so a local run leaves an inspectable
+  # JSONL artifact under ops/traces/ even when Langfuse is unhealthy. Rotation keeps the
+  # file bounded for long-running demo sessions.
+  file:
+    path: /etc/otelcol/traces/cases.jsonl
+    rotation:
+      max_megabytes: 10
+      max_days: 7
+      max_backups: 3
   # Prometheus exporter for own metrics
   prometheus:
     endpoint: "0.0.0.0:9464"
@@ -32,7 +41,7 @@ service:
     traces:
       receivers: [otlp]
       processors: [memory_limiter, batch]
-      exporters: [otlphttp/langfuse, debug]
+      exporters: [otlphttp/langfuse, file, debug]
     metrics:
       receivers: [otlp]
       processors: [memory_limiter, batch]

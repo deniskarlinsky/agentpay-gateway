@@ -86,7 +86,7 @@ services:
 
   # ── Langfuse 3 ────────────────────────────────────────────────────────────
   langfuse:
-    image: langfuse/langfuse:3
+    image: langfuse/langfuse:3.33.0
     container_name: agentpay-langfuse
     depends_on:
       postgres:
@@ -139,6 +139,9 @@ services:
     command: ["--config=/etc/otel-collector-config.yml"]
     volumes:
       - ./ops/otel-collector/otel-collector-config.yml:/etc/otel-collector-config.yml:ro
+      # Iter 6 (NFR-O-001): file exporter writes /etc/otelcol/traces/cases.jsonl — bind-mount
+      # exposes the JSONL artifacts at ./ops/traces on the host.
+      - ./ops/traces:/etc/otelcol/traces
     ports:
       - "4317:4317"   # OTLP gRPC
       - "4318:4318"   # OTLP HTTP

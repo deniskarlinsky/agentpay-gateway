@@ -77,6 +77,15 @@ management:
   endpoint:
     health:
       show-details: always
+  # Iter 6 (NFR-O-001/002, FR-DP-004): full sampling for the MVP; Spring AI 1.1 emits chat-model
+  # observations on the same registry, so configuring tracing here also routes GenAI spans through
+  # OTLP without any manual instrumentation.
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: ${OTLP_ENDPOINT:http://otel-collector:4318/v1/traces}
 
 agentpay:
   # Hand-rolled Voyage AI embedding client (Spring AI 1.1.5 ships no Voyage starter, see
@@ -101,6 +110,11 @@ agentpay:
     claude-haiku-4-5:
       input-per-mtok: 1.00
       output-per-mtok: 5.00
+  # NFR-COST-001 (Iter 6, Scenario F): per-case cost circuit breaker. Once the running sum of
+  # agent_verdicts.cost_usd breaches this budget, the Supervisor cancels the remaining specialists
+  # and the case is short-circuited to SUSPENDED_FOR_REVIEW + case.budget_exceeded.
+  budget:
+    per_case_usd: 0.10
   mock-psp:
     url: ${MOCK_PSP_URL:http://mock-psp:8091}
   saga:
@@ -121,6 +135,10 @@ agentpay:
     human-approval-requests-topic: human.approval.requests
     human-approval-responses-topic: human.approval.responses
     human-approval-responses-group-id: orchestrator-human-approvals
+    # NFR-COST-001 (Iter 6, Scenario F): published when the Supervisor short-circuits a case
+    # because the per-case budget was exceeded. Distinct topic so observability consumers can
+    # alert on it without subscribing to the on-call CLI's human-approval feed.
+    case-budget-exceeded-topic: case.budget_exceeded
 
 logging:
   level:

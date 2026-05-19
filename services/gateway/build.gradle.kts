@@ -27,6 +27,11 @@ dependencies {
     implementation(libs.bucket4j.core)
     implementation(libs.bucket4j.redis)
 
+    // Iter 6 (NFR-O-001/002): OTLP traces to the local otel-collector. Spring Boot 3.5 BOM
+    // auto-configures Micrometer Tracing when both deps are present.
+    implementation(libs.micrometer.tracing.bridge.otel)
+    implementation(libs.opentelemetry.exporter.otlp)
+
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation(libs.testcontainers.junit)

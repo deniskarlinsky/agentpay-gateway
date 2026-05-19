@@ -1,5 +1,6 @@
 package com.agentpay.orchestrator.agents.support;
 
+import com.agentpay.orchestrator.observability.SagaMetrics;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
@@ -28,13 +29,22 @@ public class AgentVerdictRecorder {
   private final ObjectMapper objectMapper;
   private final ModelRates rates;
   private final Clock clock;
+  private final CostTracker costTracker;
+  private final SagaMetrics sagaMetrics;
 
   public AgentVerdictRecorder(
-      AgentVerdictRepository repo, ObjectMapper objectMapper, ModelRates rates, Clock clock) {
+      AgentVerdictRepository repo,
+      ObjectMapper objectMapper,
+      ModelRates rates,
+      Clock clock,
+      CostTracker costTracker,
+      SagaMetrics sagaMetrics) {
     this.repo = repo;
     this.objectMapper = objectMapper;
     this.rates = rates;
     this.clock = clock;
+    this.costTracker = costTracker;
+    this.sagaMetrics = sagaMetrics;
   }
 
   @Transactional("transactionManager")
@@ -93,5 +103,10 @@ public class AgentVerdictRecorder {
             (int) latency.toMillis(),
             OffsetDateTime.ofInstant(clock.instant(), ZoneOffset.UTC));
     repo.save(entity);
+    // NFR-COST-001: pump per-call cost into the running per-case total so the Supervisor's
+    // whenComplete tally sees it as soon as the agent's CompletableFuture settles.
+    costTracker.add(caseId, cost);
+    // NFR-O-004 (specialist latency p95 panel).
+    sagaMetrics.recordSpecialistLatency(agentName, latency);
   }
 }

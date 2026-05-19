@@ -13,6 +13,13 @@ management:
   endpoint:
     health:
       show-details: always
+  # Iter 6 (NFR-O-001): POST /charge spans participate in the case trace.
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: ${OTLP_ENDPOINT:http://otel-collector:4318/v1/traces}
 
 mock-psp:
   profiles:

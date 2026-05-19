@@ -1,0 +1,15 @@
+{
+  "id": "msg_test_f_routing",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-4-5",
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"pspId\":\"psp-c\",\"routeId\":\"route-us-1\",\"expectedSuccessRate\":0.978,\"expectedCostBps\":45,\"rationale\":\"Scenario F routing choice; usage padded so this agent's cost alone exceeds the tightest budget variant.\"}"
+    }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 1000, "output_tokens": 200}
+}

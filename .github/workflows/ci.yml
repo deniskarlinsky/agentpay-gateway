@@ -38,6 +38,11 @@ jobs:
             echo "Unstable dependencies found:" && echo "$result" && exit 1
           fi
 
+  # Iter 6 (FR-E-002): evals run as a required job. Live Anthropic calls (Sonnet for the
+  # specialist agents, Haiku for the LLM-as-judge) need ANTHROPIC_API_KEY as a repo secret. PRs
+  # from forks cannot access secrets and will skip this job per @EnabledIfEnvironmentVariable on
+  # EvalsRunner; same-repo PRs and push-to-main fail the pipeline on a threshold miss
+  # (FR-E-005).
   eval:
     runs-on: ubuntu-latest
     needs: test
@@ -48,5 +53,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: gradle
-      - name: Evals
-        run: echo "Evals not implemented yet — available in Iteration 6"
+      - name: Run eval suite
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: ./gradlew :evals:test
+      - name: Upload eval results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eval-results
+          path: evals/results/*.json
+          if-no-files-found: warn

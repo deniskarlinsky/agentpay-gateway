@@ -17,6 +17,15 @@ management:
   endpoint:
     health:
       show-details: always
+  # Iter 6 (NFR-O-001): sample every trace in the MVP — volume is tiny. OTLP_ENDPOINT defaults
+  # to the docker-compose service name; tests/local runs override via env var or fall through to
+  # the no-op when otel-collector isn't reachable (Spring Boot logs one warning and continues).
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: ${OTLP_ENDPOINT:http://otel-collector:4318/v1/traces}
 
 agentpay:
   gateway:

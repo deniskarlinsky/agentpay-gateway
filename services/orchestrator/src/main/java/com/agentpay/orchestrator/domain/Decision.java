@@ -1,5 +1,7 @@
 package com.agentpay.orchestrator.domain;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,15 +12,29 @@ import java.util.Optional;
  * <p>{@code route} is present when the RoutingAgent returned a recommendation — always on APPROVED,
  * usually on REVIEW (so a SUSPENDED_FOR_REVIEW case can resume to ROUTED on human GRANTED without
  * re-running the decision plane, Iter 4b.3 / FR-O-005), and empty on DECLINED.
+ *
+ * <p>{@code budgetExceeded} (Iter 6, NFR-COST-001): set to true when the Supervisor short-circuited
+ * fan-out because the running per-case cost exceeded {@code agentpay.budget.per_case_usd}. The
+ * PaymentSaga branches on this flag in the REVIEW path to publish {@code case.budget_exceeded}
+ * instead of {@code human.approval.requested}. Existing decision_jsonb rows (Iter 4b.3) written
+ * without the field deserialize as {@code false} — Jackson defaults absent boolean primitives.
  */
 public record Decision(
     DecisionOutcome outcome,
     int riskScore,
     ComplianceVerdict compliance,
     Optional<RouteRecommendation> route,
-    List<String> rationale) {
+    List<String> rationale,
+    boolean budgetExceeded) {
 
-  public Decision {
+  @JsonCreator
+  public Decision(
+      @JsonProperty("outcome") DecisionOutcome outcome,
+      @JsonProperty("riskScore") int riskScore,
+      @JsonProperty("compliance") ComplianceVerdict compliance,
+      @JsonProperty("route") Optional<RouteRecommendation> route,
+      @JsonProperty("rationale") List<String> rationale,
+      @JsonProperty(value = "budgetExceeded", defaultValue = "false") boolean budgetExceeded) {
     if (outcome == null) {
       throw new IllegalArgumentException("outcome must be non-null");
     }
@@ -34,6 +50,12 @@ public record Decision(
     if (rationale == null) {
       throw new IllegalArgumentException("rationale must be non-null (empty list allowed)");
     }
+    this.outcome = outcome;
+    this.riskScore = riskScore;
+    this.compliance = compliance;
+    this.route = route;
+    this.rationale = rationale;
+    this.budgetExceeded = budgetExceeded;
   }
 
   /**
@@ -47,18 +69,19 @@ public record Decision(
       RouteRecommendation route,
       List<String> rationale) {
     return new Decision(
-        DecisionOutcome.APPROVED, riskScore, compliance, Optional.of(route), rationale);
+        DecisionOutcome.APPROVED, riskScore, compliance, Optional.of(route), rationale, false);
   }
 
   public static Decision declined(
       int riskScore, ComplianceVerdict compliance, List<String> rationale) {
     return new Decision(
-        DecisionOutcome.DECLINED, riskScore, compliance, Optional.empty(), rationale);
+        DecisionOutcome.DECLINED, riskScore, compliance, Optional.empty(), rationale, false);
   }
 
   public static Decision review(
       int riskScore, ComplianceVerdict compliance, List<String> rationale) {
-    return new Decision(DecisionOutcome.REVIEW, riskScore, compliance, Optional.empty(), rationale);
+    return new Decision(
+        DecisionOutcome.REVIEW, riskScore, compliance, Optional.empty(), rationale, false);
   }
 
   /**
@@ -73,6 +96,23 @@ public record Decision(
       RouteRecommendation route,
       List<String> rationale) {
     return new Decision(
-        DecisionOutcome.REVIEW, riskScore, compliance, Optional.ofNullable(route), rationale);
+        DecisionOutcome.REVIEW,
+        riskScore,
+        compliance,
+        Optional.ofNullable(route),
+        rationale,
+        false);
+  }
+
+  /**
+   * Budget short-circuit REVIEW (Iter 6, NFR-COST-001). The Supervisor returns this when the
+   * running per-case cost exceeded the configured budget; PaymentSaga reads {@link
+   * #budgetExceeded()} to publish {@code case.budget_exceeded} instead of the normal human-approval
+   * request.
+   */
+  public static Decision budgetReview(
+      int riskScore, ComplianceVerdict compliance, List<String> rationale) {
+    return new Decision(
+        DecisionOutcome.REVIEW, riskScore, compliance, Optional.empty(), rationale, true);
   }
 }

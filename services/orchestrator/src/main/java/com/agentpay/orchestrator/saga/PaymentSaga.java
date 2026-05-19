@@ -1,11 +1,14 @@
 package com.agentpay.orchestrator.saga;
 
+import com.agentpay.orchestrator.agents.support.AgentVerdictRepository;
 import com.agentpay.orchestrator.decision.Supervisor;
 import com.agentpay.orchestrator.domain.Decision;
 import com.agentpay.orchestrator.domain.Outcome;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.domain.RouteRecommendation;
 import com.agentpay.orchestrator.domain.SagaState;
+import com.agentpay.orchestrator.observability.CaseObservation;
+import com.agentpay.orchestrator.observability.SagaMetrics;
 import com.agentpay.orchestrator.persistence.CaseEntity;
 import com.agentpay.orchestrator.persistence.CaseRepository;
 import com.agentpay.orchestrator.persistence.EventOutboxEntity;
@@ -15,6 +18,7 @@ import com.agentpay.orchestrator.persistence.SagaTransitionRepository;
 import com.agentpay.orchestrator.psp.MockPspClient;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -51,14 +55,20 @@ public class PaymentSaga {
   private final CaseRepository cases;
   private final SagaTransitionRepository transitions;
   private final EventOutboxRepository outbox;
+  private final AgentVerdictRepository verdicts;
   private final Supervisor supervisor;
   private final MockPspClient psp;
   private final PaymentEventSerializer serializer;
   private final HumanApprovalRequestSerializer approvalRequestSerializer;
+  private final CaseObservation caseObservation;
+  private final SagaMetrics sagaMetrics;
+  private final BudgetExceededSerializer budgetExceededSerializer;
   private final ObjectMapper objectMapper;
   private final Clock clock;
+  private final java.math.BigDecimal perCaseBudgetUsd;
   private final String paymentEventsTopic;
   private final String humanApprovalRequestsTopic;
+  private final String caseBudgetExceededTopic;
 
   // Proxy reference to self. Required so the @Transactional methods below run inside an actual
   // JPA transaction even when invoked from another method on this class — direct `this.xxx()`
@@ -70,26 +80,37 @@ public class PaymentSaga {
       CaseRepository cases,
       SagaTransitionRepository transitions,
       EventOutboxRepository outbox,
+      AgentVerdictRepository verdicts,
       Supervisor supervisor,
       MockPspClient psp,
       PaymentEventSerializer serializer,
       HumanApprovalRequestSerializer approvalRequestSerializer,
+      BudgetExceededSerializer budgetExceededSerializer,
+      CaseObservation caseObservation,
+      SagaMetrics sagaMetrics,
       ObjectMapper objectMapper,
       Clock clock,
+      @Value("${agentpay.budget.per_case_usd:0.10}") java.math.BigDecimal perCaseBudgetUsd,
       @Value("${agentpay.events.topic}") String paymentEventsTopic,
-      @Value("${agentpay.events.human-approval-requests-topic}")
-          String humanApprovalRequestsTopic) {
+      @Value("${agentpay.events.human-approval-requests-topic}") String humanApprovalRequestsTopic,
+      @Value("${agentpay.events.case-budget-exceeded-topic}") String caseBudgetExceededTopic) {
     this.cases = cases;
     this.transitions = transitions;
     this.outbox = outbox;
+    this.verdicts = verdicts;
     this.supervisor = supervisor;
     this.psp = psp;
     this.serializer = serializer;
     this.approvalRequestSerializer = approvalRequestSerializer;
+    this.budgetExceededSerializer = budgetExceededSerializer;
+    this.caseObservation = caseObservation;
+    this.sagaMetrics = sagaMetrics;
     this.objectMapper = objectMapper;
     this.clock = clock;
+    this.perCaseBudgetUsd = perCaseBudgetUsd;
     this.paymentEventsTopic = paymentEventsTopic;
     this.humanApprovalRequestsTopic = humanApprovalRequestsTopic;
+    this.caseBudgetExceededTopic = caseBudgetExceededTopic;
   }
 
   @Autowired
@@ -105,18 +126,31 @@ public class PaymentSaga {
    * of what the decision plane sees.
    */
   public StartResult start(PaymentContext ctx, UUID intentTokenJti) {
-    var existing = cases.findById(ctx.caseId());
-    if (existing.isPresent()) {
-      log.info(
-          "idempotent duplicate POST case_id={} current_state={}",
-          ctx.caseId(),
-          existing.get().getState());
-      return new StartResult(ctx.caseId(), existing.get().getState(), true);
-    }
-    self.createInitiated(ctx, intentTokenJti);
-    driveForward(ctx.caseId());
-    SagaState terminal = cases.findById(ctx.caseId()).orElseThrow().getState();
-    return new StartResult(ctx.caseId(), terminal, false);
+    return caseObservation.observe(
+        ctx.caseId(),
+        ctx.agentId(),
+        ctx.merchantId(),
+        () -> {
+          var existing = cases.findById(ctx.caseId());
+          if (existing.isPresent()) {
+            log.info(
+                "idempotent duplicate POST case_id={} current_state={}",
+                ctx.caseId(),
+                existing.get().getState());
+            return new CaseObservation.Outcome<>(
+                new StartResult(ctx.caseId(), existing.get().getState(), true),
+                existing.get().getState().name(),
+                existing.get().getCostUsd());
+          }
+          self.createInitiated(ctx, intentTokenJti);
+          driveForward(ctx.caseId());
+          self.finalizeCost(ctx.caseId());
+          TerminalView view = self.readTerminalView(ctx.caseId());
+          return new CaseObservation.Outcome<>(
+              new StartResult(ctx.caseId(), view.state(), false),
+              view.state().name(),
+              view.costUsd());
+        });
   }
 
   /** Resume entry point for SagaRecoveryRunner (NFR-R-002) and human-approval handlers. */
@@ -139,18 +173,45 @@ public class PaymentSaga {
   /**
    * Entry point for HumanApprovalResponseListener on GRANTED. Idempotent: a redelivered response
    * for a case that has already left SUSPENDED_FOR_REVIEW is a silent no-op.
+   *
+   * <p>Opens a fresh {@code agentpay.case} observation — this is a <em>separate trace</em> from the
+   * one emitted by the original {@link #start} call (see {@link CaseObservation}); correlation via
+   * {@code case_id} is left to a future iteration.
    */
   public void onApprovalGranted(String caseId) {
-    self.markApprovalGranted(caseId);
-    driveForward(caseId);
+    var snap = self.loadSnapshot(caseId);
+    caseObservation.observe(
+        caseId,
+        snap.agentId(),
+        snap.merchantId(),
+        () -> {
+          self.markApprovalGranted(caseId);
+          driveForward(caseId);
+          self.finalizeCost(caseId);
+          TerminalView view = self.readTerminalView(caseId);
+          return new CaseObservation.Outcome<Void>(null, view.state().name(), view.costUsd());
+        });
   }
 
   /**
    * Entry point for HumanApprovalResponseListener on DENIED. Transitions SUSPENDED_FOR_REVIEW →
    * DECLINED with reason_class HUMAN_REVIEW_DENIED. Idempotent on already-terminal cases.
+   *
+   * <p>Opens a fresh {@code agentpay.case} observation — separate trace from the original; see
+   * {@link CaseObservation} for the deferred correlation note.
    */
   public void onApprovalDenied(String caseId, String reason) {
-    self.markApprovalDenied(caseId, reason);
+    var snap = self.loadSnapshot(caseId);
+    caseObservation.observe(
+        caseId,
+        snap.agentId(),
+        snap.merchantId(),
+        () -> {
+          self.markApprovalDenied(caseId, reason);
+          self.finalizeCost(caseId);
+          TerminalView view = self.readTerminalView(caseId);
+          return new CaseObservation.Outcome<Void>(null, view.state().name(), view.costUsd());
+        });
   }
 
   private void stepOnce(CaseSnapshot snap) {
@@ -317,17 +378,36 @@ public class PaymentSaga {
                 caseId, SagaState.REVIEWING, SagaState.DECLINED, reasonClass, now));
         byte[] payload = serializer.toBytes(c, SagaState.DECLINED, reasonClass);
         outbox.save(new EventOutboxEntity(caseId, paymentEventsTopic, caseId, payload, now));
+        sagaMetrics.countTerminal(SagaState.DECLINED);
       }
       case REVIEW -> {
         c.setState(SagaState.SUSPENDED_FOR_REVIEW, now);
-        // D3 (Iter 4b.3): no reason text on the REVIEW transition — null keeps the audit row
-        // consistent with how applyDecision's other branches encode their rationale.
-        transitions.save(
-            new SagaTransitionEntity(
-                caseId, SagaState.REVIEWING, SagaState.SUSPENDED_FOR_REVIEW, null, now));
-        byte[] payload = approvalRequestSerializer.toBytes(c, decision);
-        outbox.save(
-            new EventOutboxEntity(caseId, humanApprovalRequestsTopic, caseId, payload, now));
+        if (decision.budgetExceeded()) {
+          // Iter 6 (NFR-COST-001, Scenario F): supervisor short-circuited because running cost
+          // breached per_case_usd. Publish to case.budget_exceeded INSTEAD of
+          // human.approval.requests — observability owns this branch, not on-call. The audit
+          // reason on the transition row records the breach so the saga history is self-describing.
+          java.math.BigDecimal running = verdicts.sumCostByCaseId(caseId);
+          String reason =
+              "budget exceeded: running=$"
+                  + running.toPlainString()
+                  + " budget=$"
+                  + perCaseBudgetUsd.toPlainString();
+          transitions.save(
+              new SagaTransitionEntity(
+                  caseId, SagaState.REVIEWING, SagaState.SUSPENDED_FOR_REVIEW, reason, now));
+          byte[] payload = budgetExceededSerializer.toBytes(c, running, perCaseBudgetUsd);
+          outbox.save(new EventOutboxEntity(caseId, caseBudgetExceededTopic, caseId, payload, now));
+        } else {
+          // D3 (Iter 4b.3): no reason text on the REVIEW transition — null keeps the audit row
+          // consistent with how applyDecision's other branches encode their rationale.
+          transitions.save(
+              new SagaTransitionEntity(
+                  caseId, SagaState.REVIEWING, SagaState.SUSPENDED_FOR_REVIEW, null, now));
+          byte[] payload = approvalRequestSerializer.toBytes(c, decision);
+          outbox.save(
+              new EventOutboxEntity(caseId, humanApprovalRequestsTopic, caseId, payload, now));
+        }
       }
     }
   }
@@ -350,6 +430,7 @@ public class PaymentSaga {
     transitions.save(new SagaTransitionEntity(caseId, from, terminal, reasonClass, now));
     byte[] payload = serializer.toBytes(c, terminal, reasonClass);
     outbox.save(new EventOutboxEntity(caseId, paymentEventsTopic, caseId, payload, now));
+    sagaMetrics.countTerminal(terminal);
   }
 
   /**
@@ -406,7 +487,37 @@ public class PaymentSaga {
             caseId, SagaState.SUSPENDED_FOR_REVIEW, SagaState.DECLINED, reason, now));
     byte[] payload = serializer.toBytes(c, SagaState.DECLINED, reasonClass);
     outbox.save(new EventOutboxEntity(caseId, paymentEventsTopic, caseId, payload, now));
+    sagaMetrics.countTerminal(SagaState.DECLINED);
   }
+
+  /**
+   * Sums {@code agent_verdicts.cost_usd} for this case and persists the total on {@code
+   * cases.cost_usd} (NFR-O-003). Runs in its own transaction so a recompute is safe to call after
+   * any number of intermediate transitions; {@link AgentVerdictRepository#sumCostByCaseId} returns
+   * 0 when no verdicts exist (idempotent no-op for INITIATED→HELD-only flows).
+   */
+  @Transactional("transactionManager")
+  void finalizeCost(String caseId) {
+    BigDecimal total = verdicts.sumCostByCaseId(caseId);
+    cases.findById(caseId).ifPresent(c -> c.setCostUsd(total));
+    // NFR-O-004 (cost-per-case panel): emit the per-case cost as a DistributionSummary sample.
+    // Counter increment is post-write so a rollback would leave the counter slightly over-counted;
+    // acceptable trade-off — metrics are diagnostic, not authoritative.
+    sagaMetrics.recordCaseCost(total);
+  }
+
+  /**
+   * Read-only view used by {@link #start} and the approval entry points to populate span attributes
+   * after the saga has settled. Separate from {@link #loadSnapshot} because callers here only need
+   * the post-cost-finalize state and the persisted total.
+   */
+  @Transactional(value = "transactionManager", readOnly = true)
+  TerminalView readTerminalView(String caseId) {
+    CaseEntity c = cases.findById(caseId).orElseThrow();
+    return new TerminalView(c.getState(), c.getCostUsd());
+  }
+
+  record TerminalView(SagaState state, BigDecimal costUsd) {}
 
   private static PaymentContext toContext(CaseSnapshot snap) {
     return new PaymentContext(

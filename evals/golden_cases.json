@@ -1,0 +1,248 @@
+[
+  {
+    "case_id": "eval-risk-001-clean",
+    "agent": "risk",
+    "expected_outcome": "APPROVED",
+    "expected_reason_class": "RISK_CLEAN",
+    "payment_context": {
+      "case_id": "eval-risk-001-clean",
+      "agent_id": "agent-buyer-eval-1",
+      "merchant_id": "merchant-acme",
+      "amount": "18.00",
+      "currency": "USD",
+      "description": "monthly newsletter access",
+      "agent_metadata": {
+        "buyer.country": "US",
+        "merchant.country": "US"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "velocity_check", "args": {"agentId": "agent-buyer-eval-1"}, "result": {"requestsLastHour": 1, "requestsLast24h": 3, "distinctMerchants24h": 2, "firstSeenAt": "2026-01-12T08:00:00Z"}},
+      {"tool": "fraud_rules_lookup", "args": {"transactionPattern": "amountBand=small;currency=USD;crossBorder=false"}, "result": {"matchedRules": []}}
+    ],
+    "pii_keys_to_check_redacted": []
+  },
+  {
+    "case_id": "eval-risk-002-velocity-spike",
+    "agent": "risk",
+    "expected_outcome": "REVIEW",
+    "expected_reason_class": "RISK_VELOCITY_SPIKE",
+    "payment_context": {
+      "case_id": "eval-risk-002-velocity-spike",
+      "agent_id": "agent-buyer-eval-2",
+      "merchant_id": "merchant-acme",
+      "amount": "42.50",
+      "currency": "USD",
+      "description": "SKU-42 widget",
+      "agent_metadata": {
+        "buyer.country": "US",
+        "merchant.country": "US"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "velocity_check", "args": {"agentId": "agent-buyer-eval-2"}, "result": {"requestsLastHour": 9, "requestsLast24h": 27, "distinctMerchants24h": 14, "firstSeenAt": "2026-04-30T11:02:14Z"}},
+      {"tool": "fraud_rules_lookup", "args": {"transactionPattern": "amountBand=small;currency=USD;crossBorder=false"}, "result": {"matchedRules": [{"ruleId": "R-014", "ruleName": "high_merchant_fanout", "severity": "MEDIUM"}]}}
+    ],
+    "pii_keys_to_check_redacted": []
+  },
+  {
+    "case_id": "eval-risk-003-high-amount",
+    "agent": "risk",
+    "expected_outcome": "DECLINED",
+    "expected_reason_class": "RISK_HIGH",
+    "payment_context": {
+      "case_id": "eval-risk-003-high-amount",
+      "agent_id": "agent-buyer-eval-3",
+      "merchant_id": "merchant-unknown",
+      "amount": "9999.99",
+      "currency": "USD",
+      "description": "unusual one-off purchase, never-seen merchant",
+      "agent_metadata": {
+        "buyer.country": "US",
+        "merchant.country": "RU",
+        "buyer.pan": "4111-1111-1111-1111"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "velocity_check", "args": {"agentId": "agent-buyer-eval-3"}, "result": {"requestsLastHour": 1, "requestsLast24h": 1, "distinctMerchants24h": 1, "firstSeenAt": "2026-05-19T09:00:00Z"}},
+      {"tool": "fraud_rules_lookup", "args": {"transactionPattern": "amountBand=very-large;currency=USD;crossBorder=true;merchantFirstSeen=today"}, "result": {"matchedRules": [{"ruleId": "R-002", "ruleName": "amount_outlier_first_seen_merchant", "severity": "HIGH"}, {"ruleId": "R-007", "ruleName": "high_risk_geography", "severity": "HIGH"}]}}
+    ],
+    "pii_keys_to_check_redacted": ["buyer.pan"]
+  },
+  {
+    "case_id": "eval-risk-004-clean-low-amount",
+    "agent": "risk",
+    "expected_outcome": "APPROVED",
+    "expected_reason_class": "RISK_CLEAN",
+    "payment_context": {
+      "case_id": "eval-risk-004-clean-low-amount",
+      "agent_id": "agent-buyer-eval-4",
+      "merchant_id": "merchant-acme",
+      "amount": "5.00",
+      "currency": "USD",
+      "description": "coffee",
+      "agent_metadata": {
+        "buyer.country": "US",
+        "merchant.country": "US"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "velocity_check", "args": {"agentId": "agent-buyer-eval-4"}, "result": {"requestsLastHour": 0, "requestsLast24h": 2, "distinctMerchants24h": 1, "firstSeenAt": "2026-02-01T08:00:00Z"}},
+      {"tool": "fraud_rules_lookup", "args": {"transactionPattern": "amountBand=very-small;currency=USD;crossBorder=false"}, "result": {"matchedRules": []}}
+    ],
+    "pii_keys_to_check_redacted": []
+  },
+  {
+    "case_id": "eval-compliance-001-clean",
+    "agent": "compliance",
+    "expected_outcome": "PASS",
+    "expected_reason_class": "COMPLIANCE_CLEAN",
+    "payment_context": {
+      "case_id": "eval-compliance-001-clean",
+      "agent_id": "agent-buyer-eval-5",
+      "merchant_id": "merchant-acme",
+      "amount": "18.00",
+      "currency": "USD",
+      "description": "newsletter access",
+      "agent_metadata": {
+        "buyer.name": "Alice Buyer",
+        "buyer.country": "US",
+        "merchant.name": "Acme Widgets Ltd",
+        "merchant.country": "US"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "lookup_sanctions", "args": {"name": "Alice Buyer", "country": "US"}, "result": {"isMatch": false}},
+      {"tool": "lookup_sanctions", "args": {"name": "Acme Widgets Ltd", "country": "US"}, "result": {"isMatch": false}}
+    ],
+    "pii_keys_to_check_redacted": []
+  },
+  {
+    "case_id": "eval-compliance-002-sanctions-match",
+    "agent": "compliance",
+    "expected_outcome": "FAIL",
+    "expected_reason_class": "COMPLIANCE_SANCTIONS_MATCH",
+    "payment_context": {
+      "case_id": "eval-compliance-002-sanctions-match",
+      "agent_id": "agent-buyer-eval-6",
+      "merchant_id": "merchant-acme",
+      "amount": "42.50",
+      "currency": "USD",
+      "description": "SKU-42 widget",
+      "agent_metadata": {
+        "buyer.name": "Fictitious Bad Actor",
+        "buyer.country": "XX",
+        "merchant.name": "Acme Widgets Ltd",
+        "merchant.country": "US"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "lookup_sanctions", "args": {"name": "Fictitious Bad Actor", "country": "XX"}, "result": {"isMatch": true, "matchStrength": 1.0, "listName": "SYNTHETIC-SDN", "citationId": "SYN-021"}},
+      {"tool": "lookup_sanctions", "args": {"name": "Acme Widgets Ltd", "country": "US"}, "result": {"isMatch": false}}
+    ],
+    "expected_citation_id": "SYN-021",
+    "pii_keys_to_check_redacted": []
+  },
+  {
+    "case_id": "eval-compliance-003-pii-redaction",
+    "agent": "compliance",
+    "expected_outcome": "PASS",
+    "expected_reason_class": "COMPLIANCE_CLEAN",
+    "payment_context": {
+      "case_id": "eval-compliance-003-pii-redaction",
+      "agent_id": "agent-buyer-eval-7",
+      "merchant_id": "merchant-acme",
+      "amount": "42.50",
+      "currency": "USD",
+      "description": "ordinary widget purchase",
+      "agent_metadata": {
+        "buyer.name": "Bob Buyer",
+        "buyer.country": "US",
+        "merchant.name": "Acme Widgets Ltd",
+        "merchant.country": "US",
+        "buyer.pan": "4111-1111-1111-1111"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "lookup_sanctions", "args": {"name": "Bob Buyer", "country": "US"}, "result": {"isMatch": false}},
+      {"tool": "lookup_sanctions", "args": {"name": "Acme Widgets Ltd", "country": "US"}, "result": {"isMatch": false}}
+    ],
+    "pii_keys_to_check_redacted": ["buyer.pan"]
+  },
+  {
+    "case_id": "eval-compliance-004-merchant-match",
+    "agent": "compliance",
+    "expected_outcome": "FAIL",
+    "expected_reason_class": "COMPLIANCE_SANCTIONS_MATCH",
+    "payment_context": {
+      "case_id": "eval-compliance-004-merchant-match",
+      "agent_id": "agent-buyer-eval-8",
+      "merchant_id": "merchant-shady",
+      "amount": "99.00",
+      "currency": "USD",
+      "description": "SKU-22 widget",
+      "agent_metadata": {
+        "buyer.name": "Alice Buyer",
+        "buyer.country": "US",
+        "merchant.name": "Synthetic Embargo Holdings",
+        "merchant.country": "XX"
+      }
+    },
+    "mock_tool_evidence": [
+      {"tool": "lookup_sanctions", "args": {"name": "Alice Buyer", "country": "US"}, "result": {"isMatch": false}},
+      {"tool": "lookup_sanctions", "args": {"name": "Synthetic Embargo Holdings", "country": "XX"}, "result": {"isMatch": true, "matchStrength": 0.97, "listName": "SYNTHETIC-ENTITY", "citationId": "SYN-044"}}
+    ],
+    "expected_citation_id": "SYN-044",
+    "pii_keys_to_check_redacted": []
+  },
+  {
+    "case_id": "eval-routing-001-tie-break-cost",
+    "agent": "routing",
+    "expected_outcome": "ROUTE_SELECTED",
+    "expected_reason_class": "ROUTE_TIE_BROKEN_ON_COST",
+    "payment_context": {
+      "case_id": "eval-routing-001-tie-break-cost",
+      "agent_id": "agent-buyer-eval-9",
+      "merchant_id": "merchant-acme",
+      "amount": "42.50",
+      "currency": "USD",
+      "description": "SKU-42 widget",
+      "agent_metadata": {
+        "buyer.country": "US",
+        "merchant.country": "US"
+      }
+    },
+    "mock_rag_candidates": [
+      {"pspId": "psp-a", "routeId": "route-us-1", "successRate7d": 0.978, "costBps": 30, "p95LatencyMs": 320},
+      {"pspId": "psp-b", "routeId": "route-us-2", "successRate7d": 0.978, "costBps": 20, "p95LatencyMs": 410},
+      {"pspId": "psp-c", "routeId": "route-us-1", "successRate7d": 0.978, "costBps": 45, "p95LatencyMs": 290}
+    ],
+    "expected_psp_id": "psp-b",
+    "pii_keys_to_check_redacted": []
+  },
+  {
+    "case_id": "eval-routing-002-prefer-success-rate",
+    "agent": "routing",
+    "expected_outcome": "ROUTE_SELECTED",
+    "expected_reason_class": "ROUTE_PREFERS_HIGH_SUCCESS",
+    "payment_context": {
+      "case_id": "eval-routing-002-prefer-success-rate",
+      "agent_id": "agent-buyer-eval-10",
+      "merchant_id": "merchant-acme",
+      "amount": "120.00",
+      "currency": "USD",
+      "description": "SKU-99 premium widget",
+      "agent_metadata": {
+        "buyer.country": "US",
+        "merchant.country": "US"
+      }
+    },
+    "mock_rag_candidates": [
+      {"pspId": "psp-a", "routeId": "route-us-1", "successRate7d": 0.880, "costBps": 30, "p95LatencyMs": 320},
+      {"pspId": "psp-b", "routeId": "route-us-2", "successRate7d": 0.901, "costBps": 20, "p95LatencyMs": 410},
+      {"pspId": "psp-c", "routeId": "route-us-1", "successRate7d": 0.978, "costBps": 45, "p95LatencyMs": 290}
+    ],
+    "expected_psp_id": "psp-c",
+    "pii_keys_to_check_redacted": []
+  }
+]

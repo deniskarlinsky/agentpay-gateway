@@ -9,6 +9,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.agentpay.orchestrator.agents.support.AgentVerdictRepository;
 import com.agentpay.orchestrator.decision.Supervisor;
 import com.agentpay.orchestrator.domain.ComplianceVerdict;
 import com.agentpay.orchestrator.domain.Decision;
@@ -16,6 +17,8 @@ import com.agentpay.orchestrator.domain.Outcome;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.domain.RouteRecommendation;
 import com.agentpay.orchestrator.domain.SagaState;
+import com.agentpay.orchestrator.observability.CaseObservation;
+import com.agentpay.orchestrator.observability.SagaMetrics;
 import com.agentpay.orchestrator.persistence.CaseEntity;
 import com.agentpay.orchestrator.persistence.CaseRepository;
 import com.agentpay.orchestrator.persistence.EventOutboxEntity;
@@ -24,6 +27,8 @@ import com.agentpay.orchestrator.persistence.SagaTransitionEntity;
 import com.agentpay.orchestrator.persistence.SagaTransitionRepository;
 import com.agentpay.orchestrator.psp.MockPspClient;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
+import io.micrometer.observation.ObservationRegistry;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
@@ -44,6 +49,7 @@ class PaymentSagaUnitTest {
   private CaseRepository cases;
   private SagaTransitionRepository transitions;
   private EventOutboxRepository outbox;
+  private AgentVerdictRepository verdicts;
   private Supervisor supervisor;
   private MockPspClient psp;
   private PaymentEventSerializer serializer;
@@ -60,27 +66,38 @@ class PaymentSagaUnitTest {
     cases = Mockito.mock(CaseRepository.class);
     transitions = Mockito.mock(SagaTransitionRepository.class);
     outbox = Mockito.mock(EventOutboxRepository.class);
+    verdicts = Mockito.mock(AgentVerdictRepository.class);
     supervisor = Mockito.mock(Supervisor.class);
     psp = Mockito.mock(MockPspClient.class);
     Clock clock = Clock.fixed(Instant.parse("2026-05-15T10:00:00Z"), ZoneOffset.UTC);
     serializer = new PaymentEventSerializer(clock);
     HumanApprovalRequestSerializer approvalRequestSerializer =
         new HumanApprovalRequestSerializer(clock);
+    BudgetExceededSerializer budgetExceededSerializer = new BudgetExceededSerializer(clock);
+    CaseObservation caseObservation = new CaseObservation(ObservationRegistry.NOOP);
+    SagaMetrics sagaMetrics = new SagaMetrics(new SimpleMeterRegistry());
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.registerModule(new com.fasterxml.jackson.datatype.jdk8.Jdk8Module());
+    lenient().when(verdicts.sumCostByCaseId(any())).thenReturn(BigDecimal.ZERO.setScale(6));
     saga =
         new PaymentSaga(
             cases,
             transitions,
             outbox,
+            verdicts,
             supervisor,
             psp,
             serializer,
             approvalRequestSerializer,
+            budgetExceededSerializer,
+            caseObservation,
+            sagaMetrics,
             objectMapper,
             clock,
+            new BigDecimal("100.00"),
             "payment.events",
-            "human.approval.requests");
+            "human.approval.requests",
+            "case.budget_exceeded");
     // In production Spring injects @Lazy self with the AOP proxy; in this unit test the
     // @Transactional semantics are irrelevant (repos are mocked), so direct self-reference is
     // sufficient to satisfy the self.xxx() invocations inside start()/stepOnce().

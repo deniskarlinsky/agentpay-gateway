@@ -17,5 +17,10 @@ dependencies {
     // (NFR-S-005). Already pinned at the catalog level.
     implementation(libs.nimbus.jose.jwt)
 
+    // Iter 6 (NFR-O-001): the CLI starts the trace; the outgoing HTTP call to the gateway carries
+    // W3C trace context so Langfuse sees one continuous span tree from buyer → gateway → ... .
+    implementation(libs.micrometer.tracing.bridge.otel)
+    implementation(libs.opentelemetry.exporter.otlp)
+
     testImplementation(libs.spring.boot.starter.test)
 }

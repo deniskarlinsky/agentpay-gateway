@@ -23,10 +23,12 @@ build/
 Thumbs.db
 
 # ── Docker / ops ──────────────────────────────────────────────────────────────
-ops/traces/
+ops/traces/*
+!ops/traces/.gitkeep
 
 # ── Evals output ──────────────────────────────────────────────────────────────
-evals/results/
+evals/results/*
+!evals/results/.gitkeep
 
 # ── Claude Code ───────────────────────────────────────────────────────────────
 .claude/

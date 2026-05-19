@@ -2,7 +2,7 @@
   "title": "AgentPay — Decision Plane",
   "uid": "agentplane-v1",
   "schemaVersion": 38,
-  "version": 1,
+  "version": 2,
   "refresh": "30s",
   "panels": [
     {
@@ -12,11 +12,19 @@
       "gridPos": { "h": 8, "w": 12, "x": 0, "y": 0 },
       "targets": [
         {
-          "expr": "agentpay_case_cost_usd",
-          "legendFormat": "cost"
+          "expr": "histogram_quantile(0.50, sum(rate(agentpay_case_cost_usd_bucket[5m])) by (le))",
+          "legendFormat": "median"
+        },
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(agentpay_case_cost_usd_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        },
+        {
+          "expr": "max_over_time(agentpay_case_cost_usd_max[5m])",
+          "legendFormat": "max"
         }
       ],
-      "description": "Populated in Iteration 6 when cost tracking is wired."
+      "description": "Per-case total cost recorded by SagaMetrics.recordCaseCost on terminal/suspend transitions (NFR-O-003)."
     },
     {
       "id": 2,
@@ -29,7 +37,7 @@
           "legendFormat": "{{outcome}}"
         }
       ],
-      "description": "Populated in Iteration 6."
+      "description": "Counter incremented by Supervisor.decide() at aggregation time, tagged by FR-DP-002 outcome."
     },
     {
       "id": 3,
@@ -38,11 +46,11 @@
       "gridPos": { "h": 4, "w": 6, "x": 0, "y": 8 },
       "targets": [
         {
-          "expr": "sum(agentpay_saga_compensated_total) / sum(agentpay_saga_terminal_total)",
+          "expr": "sum(agentpay_saga_compensated_total) / clamp_min(sum(agentpay_saga_terminal_total), 1)",
           "legendFormat": "rate"
         }
       ],
-      "description": "Populated in Iteration 6."
+      "description": "Share of terminal cases that reached COMPENSATED. clamp_min(...,1) avoids divide-by-zero before the first terminal lands."
     },
     {
       "id": 4,
@@ -51,11 +59,11 @@
       "gridPos": { "h": 8, "w": 12, "x": 6, "y": 8 },
       "targets": [
         {
-          "expr": "histogram_quantile(0.95, sum(rate(agentpay_specialist_latency_ms_bucket[5m])) by (agent, le))",
+          "expr": "1000 * histogram_quantile(0.95, sum(rate(agentpay_specialist_latency_seconds_bucket[5m])) by (agent, le))",
           "legendFormat": "{{agent}}"
         }
       ],
-      "description": "Populated in Iteration 6."
+      "description": "p95 of Timer(agentpay.specialist.latency) per agent, multiplied by 1000 so the y-axis reads as ms."
     },
     {
       "id": 5,
@@ -68,7 +76,7 @@
           "legendFormat": "rate"
         }
       ],
-      "description": "Populated in Iteration 6."
+      "description": "Populated when a Prometheus textfile collector is wired in a future iteration; until then the eval runner writes evals/results/latest.json and prints a summary line to stdout. Panel intentionally left in place so the dashboard schema stays stable across iterations."
     }
   ]
 }

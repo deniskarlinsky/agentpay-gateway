@@ -36,6 +36,12 @@ dependencies {
     implementation(libs.flyway.postgres)
     runtimeOnly(libs.postgresql)
 
+    // Iter 6 (NFR-O-001/002, FR-DP-004): OTLP traces to otel-collector + virtual-thread context
+    // propagation across CompletableFuture.supplyAsync in the Supervisor.
+    implementation(libs.micrometer.tracing.bridge.otel)
+    implementation(libs.opentelemetry.exporter.otlp)
+    implementation(libs.micrometer.context)
+
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation(libs.testcontainers.junit)

@@ -15,6 +15,8 @@ spotless                   = "7.0.3"
 avro                       = "1.11.3"
 # WireMock for orchestrator integration tests (real local HTTP, no docker).
 wiremock                   = "3.10.0"
+# Observability: Iter 6. Versions are managed by Spring Boot 3.5.x BOM — declared with no
+# version.ref so the BOM pins them. Bumping spring-boot changes them in lockstep.
 # Avro Gradle plugin — see [plugins].avro below for context + revisit TODO.
 avro-plugin                = "1.9.1"
 
@@ -58,6 +60,12 @@ avro                    = { module = "org.apache.avro:avro",                   v
 # WireMock 3.x standalone — relocated deps avoid Jetty version conflicts with Spring Boot.
 # JUnit 5 extension is built in (com.github.tomakehurst.wiremock.junit5.WireMockExtension).
 wiremock                = { module = "org.wiremock:wiremock-standalone",        version.ref = "wiremock" }
+# Observability (Iter 6, NFR-O-001/002). Versions managed by Spring Boot 3.5.x BOM.
+micrometer-tracing-bridge-otel = { module = "io.micrometer:micrometer-tracing-bridge-otel" }
+opentelemetry-exporter-otlp    = { module = "io.opentelemetry:opentelemetry-exporter-otlp" }
+# micrometer-context is pulled transitively by spring-boot-starter; declared here so the
+# Supervisor can reference it explicitly for virtual-thread ContextSnapshot propagation.
+micrometer-context             = { module = "io.micrometer:context-propagation" }
 
 [plugins]
 spring-boot               = { id = "org.springframework.boot",      version.ref = "spring-boot" }

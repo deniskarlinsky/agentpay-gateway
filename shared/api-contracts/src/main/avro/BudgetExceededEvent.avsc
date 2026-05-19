@@ -1,0 +1,14 @@
+{
+  "type": "record",
+  "name": "BudgetExceededEvent",
+  "namespace": "com.agentpay.shared.events",
+  "doc": "Published when the Supervisor short-circuits a case because the running per-case cost exceeded agentpay.budget.per_case_usd (NFR-COST-001, Scenario F). The case enters SUSPENDED_FOR_REVIEW; consumers route this to observability rather than the on-call CLI.",
+  "fields": [
+    { "name": "case_id",         "type": "string", "doc": "Saga case identifier." },
+    { "name": "agent_id",        "type": "string", "doc": "Acting buyer agent (intent token sub)." },
+    { "name": "merchant_id",     "type": "string", "doc": "Acting merchant (intent token aud)." },
+    { "name": "running_cost_usd","type": "string", "doc": "Running per-case cost at the moment of short-circuit, as canonical decimal string." },
+    { "name": "budget_usd",      "type": "string", "doc": "Configured per-case budget at the moment of short-circuit, as canonical decimal string." },
+    { "name": "occurred_at",     "type": { "type": "long", "logicalType": "timestamp-millis" }, "doc": "Wall-clock time the budget was breached." }
+  ]
+}

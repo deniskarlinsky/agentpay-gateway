@@ -45,7 +45,8 @@ class OutboxPublisherTest {
             "case-2", "payment.events", "case-2", new byte[] {2}, OffsetDateTime.now(clock));
     when(outbox.findUnpublished(any(Pageable.class))).thenReturn(List.of(row1, row2));
 
-    new OutboxPublisher(outbox, kafkaTemplate, clock).drain();
+    OutboxPublisher publisher = new OutboxPublisher(outbox, kafkaTemplate, clock, 200L, null);
+    publisher.drain();
 
     verify(ops, times(1)).send("payment.events", "case-1", new byte[] {1});
     verify(ops, times(1)).send("payment.events", "case-2", new byte[] {2});
@@ -60,7 +61,7 @@ class OutboxPublisherTest {
     KafkaTemplate<String, byte[]> kafkaTemplate = mock(KafkaTemplate.class);
     when(outbox.findUnpublished(any(Pageable.class))).thenReturn(List.of());
 
-    new OutboxPublisher(outbox, kafkaTemplate, Clock.systemUTC()).drain();
+    new OutboxPublisher(outbox, kafkaTemplate, Clock.systemUTC(), 200L, null).drain();
 
     verify(kafkaTemplate, never()).executeInTransaction(any());
   }

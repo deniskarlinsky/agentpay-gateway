@@ -12,6 +12,14 @@ management:
     web:
       exposure:
         include: health,info
+  # Iter 6 (NFR-O-001): CLI starts the trace; the outgoing RestClient call to the gateway carries
+  # W3C trace context so the buyer→gateway→orchestrator span tree is unbroken in Langfuse.
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: ${OTLP_ENDPOINT:http://localhost:4318/v1/traces}
 
 logging:
   pattern:

@@ -1,0 +1,2 @@
+# Holds otel-collector file-exporter output (cases.jsonl + rotated backups). Created in
+# Iter 6 for NFR-O-001 — the .gitkeep tracks the directory; the JSONL files are gitignored.

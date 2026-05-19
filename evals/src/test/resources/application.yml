@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: evals
+  ai:
+    # Iter 6: ChatClient.Builder wired by spring-ai-starter-model-anthropic. The runner's
+    # @EnabledIfEnvironmentVariable guard skips every test when ANTHROPIC_API_KEY is missing, so an
+    # empty default here is safe.
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY:}
+
+logging:
+  level:
+    com.agentpay.evals: INFO

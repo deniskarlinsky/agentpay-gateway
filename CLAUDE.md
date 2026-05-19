@@ -1,5 +1,6 @@
 # CLAUDE.md
 
+**Actually run the affected test target.** Not "compile passes", not "build -x test". Run the tests. If they need Docker that isn't available, say so explicitly in the summary — don't substitute a lesser verification and call it done. Skipping tests is acceptable only with named justification (Docker absent, network required, API key missing).
 Read on every session. Keep this file short. If a rule isn't here, you don't have it.
 
 ## 1. Mission

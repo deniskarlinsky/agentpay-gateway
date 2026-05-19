@@ -3,20 +3,26 @@ package com.agentpay.orchestrator.decision;
 import com.agentpay.orchestrator.agents.ComplianceAgent;
 import com.agentpay.orchestrator.agents.RiskAgent;
 import com.agentpay.orchestrator.agents.RoutingAgent;
+import com.agentpay.orchestrator.agents.support.CostTracker;
 import com.agentpay.orchestrator.domain.ComplianceVerdict;
 import com.agentpay.orchestrator.domain.Decision;
 import com.agentpay.orchestrator.domain.Outcome;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.domain.RiskAssessment;
 import com.agentpay.orchestrator.domain.RouteRecommendation;
+import com.agentpay.orchestrator.observability.SagaMetrics;
+import io.micrometer.context.ContextSnapshotFactory;
 import jakarta.annotation.PreDestroy;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,6 +30,21 @@ import org.springframework.stereotype.Service;
  * virtual threads, applies per-call 10-second timeouts, and aggregates the verdicts per FR-DP-002.
  * The Supervisor makes no external calls of its own (FR-DP-005) — observability is emitted by
  * Spring AI inside the agent ChatClient layer.
+ *
+ * <p>Virtual-thread context propagation (FR-DP-004, Iter 6): {@code
+ * Executors.newVirtualThreadPerTaskExecutor()} does NOT carry Micrometer Observation /
+ * OpenTelemetry context across {@code supplyAsync}. We capture a {@link ContextSnapshot} on the
+ * calling thread and wrap each task with it so chat-model spans become children of the case
+ * observation opened in {@code PaymentSaga.start}.
+ *
+ * <p>Budget circuit breaker (Iter 6, NFR-COST-001): {@link CostTracker} accumulates per-call cost
+ * as each agent's {@link com.agentpay.orchestrator.agents.support.AgentVerdictRecorder} persists
+ * its row. Each future's {@code whenComplete} reads the running total; once {@code
+ * agentpay.budget.per_case_usd} is breached, the remaining futures are {@code cancel(true)}'d and
+ * {@link Decision#budgetReview} is returned. Note: {@code CompletableFuture.cancel(true)} does NOT
+ * interrupt the supplyAsync worker — the in-flight Anthropic call may still complete in the
+ * background; we just stop waiting for it. That's acceptable for MVP; documenting here so future
+ * iterations know where to add real cancellation if needed.
  */
 @Service
 public class Supervisor {
@@ -34,18 +55,56 @@ public class Supervisor {
   private final RiskAgent risk;
   private final ComplianceAgent compliance;
   private final RoutingAgent routing;
+  private final CostTracker costTracker;
+  private final SagaMetrics sagaMetrics;
+  private final BigDecimal perCaseBudgetUsd;
   private final ExecutorService executor;
+  private final ContextSnapshotFactory snapshotFactory;
 
-  public Supervisor(RiskAgent risk, ComplianceAgent compliance, RoutingAgent routing) {
+  @org.springframework.beans.factory.annotation.Autowired
+  public Supervisor(
+      RiskAgent risk,
+      ComplianceAgent compliance,
+      RoutingAgent routing,
+      CostTracker costTracker,
+      SagaMetrics sagaMetrics,
+      @Value("${agentpay.budget.per_case_usd:0.10}") BigDecimal perCaseBudgetUsd) {
     this.risk = risk;
     this.compliance = compliance;
     this.routing = routing;
+    this.costTracker = costTracker;
+    this.sagaMetrics = sagaMetrics;
+    this.perCaseBudgetUsd = perCaseBudgetUsd;
     this.executor = Executors.newVirtualThreadPerTaskExecutor();
+    this.snapshotFactory = ContextSnapshotFactory.builder().build();
+  }
+
+  /**
+   * Test-only convenience constructor (public so cross-package E2E tests can subclass): defaults
+   * the budget to a value that won't trip in unit tests and binds a no-op metrics registry so the
+   * supervisor can run without a Spring context.
+   */
+  public Supervisor(RiskAgent risk, ComplianceAgent compliance, RoutingAgent routing) {
+    this(
+        risk,
+        compliance,
+        routing,
+        new CostTracker(),
+        new SagaMetrics(new io.micrometer.core.instrument.simple.SimpleMeterRegistry()),
+        new BigDecimal("100.00"));
   }
 
   public Decision decide(PaymentContext ctx) {
+    AtomicBoolean budgetExceeded = new AtomicBoolean(false);
+    // ContextSnapshot.wrapExecutor returns an Executor that captures the calling-thread context
+    // (including the active Micrometer Observation) and installs it inside each task. This is the
+    // path supported for Supplier-shaped CompletableFuture.supplyAsync — the alternate
+    // snapshot.wrap(Callable) yields a Callable that supplyAsync can't accept directly.
+    java.util.concurrent.Executor wrappedExecutor =
+        snapshotFactory.captureAll().wrapExecutor(executor);
+
     CompletableFuture<RiskAssessment> riskFut =
-        CompletableFuture.supplyAsync(() -> risk.assess(ctx), executor)
+        CompletableFuture.supplyAsync(() -> risk.assess(ctx), wrappedExecutor)
             .orTimeout(SPECIALIST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .exceptionally(
                 e -> {
@@ -54,7 +113,7 @@ public class Supervisor {
                 });
 
     CompletableFuture<ComplianceVerdict> complianceFut =
-        CompletableFuture.supplyAsync(() -> compliance.check(ctx), executor)
+        CompletableFuture.supplyAsync(() -> compliance.check(ctx), wrappedExecutor)
             .orTimeout(SPECIALIST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .exceptionally(
                 e -> {
@@ -63,7 +122,7 @@ public class Supervisor {
                 });
 
     CompletableFuture<RouteRecommendation> routingFut =
-        CompletableFuture.supplyAsync(() -> routing.route(ctx), executor)
+        CompletableFuture.supplyAsync(() -> routing.route(ctx), wrappedExecutor)
             .orTimeout(SPECIALIST_TIMEOUT_SECONDS, TimeUnit.SECONDS)
             .exceptionally(
                 e -> {
@@ -71,8 +130,53 @@ public class Supervisor {
                   return null;
                 });
 
-    CompletableFuture.allOf(riskFut, complianceFut, routingFut).join();
-    return aggregate(riskFut.join(), complianceFut.join(), routingFut.join());
+    List<CompletableFuture<?>> all = List.of(riskFut, complianceFut, routingFut);
+    for (CompletableFuture<?> f : all) {
+      f.whenComplete(
+          (ignored, ignoredErr) -> {
+            BigDecimal running = costTracker.totalFor(ctx.caseId());
+            if (running.compareTo(perCaseBudgetUsd) > 0
+                && budgetExceeded.compareAndSet(false, true)) {
+              log.info(
+                  "budget exceeded for case {}: running=${} > budget=${} — cancelling siblings",
+                  ctx.caseId(),
+                  running.toPlainString(),
+                  perCaseBudgetUsd.toPlainString());
+              for (CompletableFuture<?> other : all) {
+                if (other != f) {
+                  other.cancel(true);
+                }
+              }
+            }
+          });
+    }
+
+    try {
+      CompletableFuture.allOf(riskFut, complianceFut, routingFut).exceptionally(e -> null).join();
+
+      if (budgetExceeded.get()) {
+        BigDecimal running = costTracker.totalFor(ctx.caseId());
+        List<String> rationale =
+            List.of(
+                "budget exceeded: running=$"
+                    + running.toPlainString()
+                    + " budget=$"
+                    + perCaseBudgetUsd.toPlainString());
+        // Risk score 50 keeps the Decision record valid and signals "indeterminate" — the saga
+        // routes this to SUSPENDED_FOR_REVIEW via the REVIEW outcome regardless of score.
+        Decision d =
+            Decision.budgetReview(50, ComplianceVerdict.review("budget short-circuit"), rationale);
+        sagaMetrics.countDecision(d.outcome());
+        return d;
+      }
+
+      Decision aggregated =
+          aggregate(safeJoin(riskFut), safeJoin(complianceFut), safeJoin(routingFut));
+      sagaMetrics.countDecision(aggregated.outcome());
+      return aggregated;
+    } finally {
+      costTracker.clear(ctx.caseId());
+    }
   }
 
   /**
@@ -109,6 +213,21 @@ public class Supervisor {
       return Decision.review(risk.score(), compliance, routingUnavailable);
     }
     return Decision.approved(risk.score(), compliance, route, rationale);
+  }
+
+  /**
+   * Resolves a future that may have been cancelled by the budget circuit breaker. Cancellation
+   * propagates as {@link java.util.concurrent.CancellationException}; we treat the agent as
+   * unavailable and return a REVIEW-band sentinel so {@link #aggregate} stays simple.
+   */
+  @SuppressWarnings("unchecked")
+  private static <T> T safeJoin(CompletableFuture<T> future) {
+    try {
+      return future.getNow(null);
+    } catch (java.util.concurrent.CancellationException
+        | java.util.concurrent.CompletionException e) {
+      return null;
+    }
   }
 
   @PreDestroy

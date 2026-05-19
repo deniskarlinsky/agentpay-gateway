@@ -1,0 +1,2 @@
+# Holds eval-runner output (one JSON file per run, plus latest.json). Iter 6 — tracked
+# directory only; the JSON artifacts are gitignored.
