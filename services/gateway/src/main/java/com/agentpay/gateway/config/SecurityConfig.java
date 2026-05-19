@@ -28,6 +28,8 @@ public class SecurityConfig {
                     .permitAll()
                     .requestMatchers(HttpMethod.POST, "/intent-tokens")
                     .permitAll()
+                    .requestMatchers(HttpMethod.GET, "/cases/*")
+                    .permitAll()
                     .requestMatchers(HttpMethod.POST, "/payments")
                     .authenticated()
                     .anyRequest()

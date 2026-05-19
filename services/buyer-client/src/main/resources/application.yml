@@ -2,10 +2,32 @@ spring:
   application:
     name: buyer-client
   main:
+    # No embedded server — buyer-client is a CLI driver. ApplicationRunner exits the JVM once the
+    # payment lifecycle is observed (FR-B-001..003).
     web-application-type: none
+    banner-mode: "off"
 
 management:
   endpoints:
     web:
       exposure:
         include: health,info
+
+logging:
+  pattern:
+    console: "%-5level %logger{0} - %msg%n"
+  level:
+    root: WARN
+    com.agentpay.buyer: INFO
+
+agentpay:
+  gateway:
+    url: ${GATEWAY_URL:http://localhost:8080}
+  # Independent of the orchestrator's case.trace-url-template — buyer-client always renders the
+  # Langfuse URL itself from this env var (FR-B-003 wording: "Langfuse trace URL").
+  langfuse:
+    base-url: ${LANGFUSE_BASE_URL:http://localhost:3000}
+  buyer:
+    agent-id: ${BUYER_AGENT_ID:agent-buyer-001}
+    intent-ttl-seconds: 300
+    key-path: ${BUYER_KEY_PATH:${user.home}/.agentpay/buyer-key.pem}

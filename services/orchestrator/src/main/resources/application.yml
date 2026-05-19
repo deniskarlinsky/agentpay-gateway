@@ -110,6 +110,10 @@ agentpay:
   outbox:
     # See OutboxPublisher TODO for tuning context (Iter 6, observability).
     poll-interval-ms: 200
+  case:
+    # Iter 5 (FR-B-003, §7.1.3): trace URL surfaced by GET /internal/cases/{id}. Gateway proxies
+    # this verbatim. Substituted token: {case_id}.
+    trace-url-template: ${LANGFUSE_TRACE_URL_TEMPLATE:http://localhost:3000/trace/{case_id}}
   events:
     topic: payment.events
     # FR-O-005 (Scenario C): topics for human review escalation. Broker auto.create.topics.enable

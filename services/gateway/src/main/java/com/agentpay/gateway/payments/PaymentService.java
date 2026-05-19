@@ -93,7 +93,9 @@ public class PaymentService {
 
     String caseId = resolveCaseId(request.caseId());
 
-    // Body has already passed through the PII redaction filter at this point.
+    // Body has already passed through the PII redaction filter at this point — agent_metadata
+    // values are part of that JSON, so any PAN/IBAN substrings have been masked before they reach
+    // here.
     OrchestratorClient.Response forwarded =
         orchestrator.forward(
             new OrchestratorClient.Request(
@@ -103,7 +105,8 @@ public class PaymentService {
                 request.amount(),
                 request.currency(),
                 UUID.fromString(jti),
-                request.description()));
+                request.description(),
+                request.agentMetadata()));
 
     String traceUrl = properties.traceUrlTemplate().replace("{case_id}", caseId);
     return new PaymentResponse(caseId, forwarded.status(), traceUrl);
