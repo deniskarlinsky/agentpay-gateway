@@ -30,4 +30,9 @@ dependencies {
     testImplementation(libs.spring.boot.starter.test)
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation(libs.testcontainers.junit)
+    // Iter 5 hotfix: GatewayOrchestratorIntegrationIT pins the gateway↔orchestrator HTTP contract
+    // (request body in snake_case, response surface propagated verbatim, unreachable → 502 not a
+    // fake success). The existing GatewayApplicationTest stubs OrchestratorClient at the bean
+    // level, so it could not have caught the live-demo wire bug.
+    testImplementation(libs.wiremock)
 }

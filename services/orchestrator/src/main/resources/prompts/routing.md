@@ -165,3 +165,5 @@ Output:
   "rationale": "psp-a / route-us-1 wins on success rate (0.970) with cost tiebreaker over 2 candidates within 0.01 of the top (psp-c at 0.975)."
 }
 ```
+
+OUTPUT FORMAT: Respond with ONLY a single JSON object matching the schema. No prose before or after. No code fences. No tool calls. If you cannot score confidently, still return valid JSON with rationale explaining the uncertainty.

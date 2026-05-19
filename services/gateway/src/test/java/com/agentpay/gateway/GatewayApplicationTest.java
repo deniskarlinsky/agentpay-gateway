@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Base64;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -220,6 +221,38 @@ class GatewayApplicationTest {
         .andExpect(status().isTooManyRequests())
         .andExpect(header().exists("Retry-After"))
         .andExpect(jsonPath("$.error_code").value("RATE_LIMIT_EXCEEDED"));
+  }
+
+  @Test
+  void caseStatusWithoutAuthReturnsBodyWhenCaseExists() throws Exception {
+    // Iter 5 hotfix: GET /cases/{id} sits in the public SecurityFilterChain. A missing
+    // Authorization header MUST NOT produce 401 — the oauth2 resource server only binds to
+    // /payments and the default-matched chain now.
+    when(orchestratorClient.getCaseStatus("case-known"))
+        .thenReturn(
+            Optional.of(
+                new OrchestratorClient.CaseStatus(
+                    "case-known",
+                    "COMMITTED",
+                    null,
+                    null,
+                    "http://localhost:3000/trace/case-known")));
+
+    mvc.perform(get("/cases/case-known"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.case_id").value("case-known"))
+        .andExpect(jsonPath("$.state").value("COMMITTED"))
+        .andExpect(jsonPath("$.trace_url").value("http://localhost:3000/trace/case-known"));
+  }
+
+  @Test
+  void caseStatusWithoutAuthReturns404WhenCaseMissing() throws Exception {
+    when(orchestratorClient.getCaseStatus("case-unknown")).thenReturn(Optional.empty());
+
+    // The key assertion is "not 401" — 404 (unknown case) is the right answer here, and proves
+    // the request reached the controller rather than being short-circuited by the OAuth2 entry
+    // point.
+    mvc.perform(get("/cases/case-unknown")).andExpect(status().isNotFound());
   }
 
   @Test

@@ -42,4 +42,9 @@ dependencies {
     testImplementation(libs.testcontainers.postgres)
     testImplementation(libs.testcontainers.kafka)
     testImplementation(libs.wiremock)
+    // Iter 5 hotfix: lets MockPspWireContractIT spin up the real mock-psp Spring Boot app on a
+    // random port in the same JVM, so the orchestrator's MockPspClient hits a real handler that
+    // validates the snake_case JSON contract. WireMock didn't, which is how the COMPENSATED-on-
+    // every-payment bug shipped.
+    testImplementation(project(":services:mock-psp"))
 }
