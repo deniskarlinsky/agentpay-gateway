@@ -156,9 +156,10 @@ class PaymentSagaUnitTest {
     // No new transitions or outbox rows on the duplicate call.
     assertThat(transitionRows).hasSize(rowsAfterFirst);
     assertThat(outboxRows).hasSize(outboxAfterFirst);
-    verify(supervisor, times(2)).decide(any()); // first run: REVIEWING + ROUTED; duplicate: 0 extra
-    // (decide was called twice across the first start: once in applyDecision (REVIEWING),
-    // once in commitOrCompensate (ROUTED). Second start short-circuits → still 2.)
+    // Iter 4b.2 added a per-case decision cache: supervisor.decide is called exactly once on the
+    // REVIEWING step; commitOrCompensate reuses the cached Decision instead of re-calling.
+    // Duplicate start short-circuits at the findById guard → still 1 invocation total.
+    verify(supervisor, times(1)).decide(any());
   }
 
   @Test

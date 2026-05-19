@@ -6,6 +6,15 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
+import com.agentpay.orchestrator.agents.ComplianceAgent;
+import com.agentpay.orchestrator.agents.RiskAgent;
+import com.agentpay.orchestrator.agents.RoutingAgent;
+import com.agentpay.orchestrator.decision.Supervisor;
+import com.agentpay.orchestrator.domain.ComplianceVerdict;
+import com.agentpay.orchestrator.domain.Decision;
+import com.agentpay.orchestrator.domain.Outcome;
+import com.agentpay.orchestrator.domain.PaymentContext;
+import com.agentpay.orchestrator.domain.RouteRecommendation;
 import com.agentpay.orchestrator.domain.SagaState;
 import com.agentpay.orchestrator.persistence.CaseEntity;
 import com.agentpay.orchestrator.persistence.CaseRepository;
@@ -16,11 +25,15 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.List;
 import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Primary;
 import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -36,7 +49,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  */
 @SpringBootTest
 @Testcontainers
-@Import(NoOpMcpTestConfig.class)
+@Import({NoOpMcpTestConfig.class, ScenarioG_CrashRecoveryIT.StubSupervisorConfig.class})
 @TestPropertySource(
     properties = {
       "spring.autoconfigure.exclude="
@@ -71,6 +84,32 @@ class ScenarioG_CrashRecoveryIT extends IntegrationTestBase {
 
   @Autowired private CaseRepository cases;
   @Autowired private SagaTransitionRepository transitions;
+
+  /**
+   * Iter 4b.2: the real {@link Supervisor} would call the three agents at SagaRecoveryRunner
+   * startup time, which would hit Anthropic. This test exercises the saga state-machine + recovery
+   * path, not the decision plane. {@link MockitoBean} would not work because the mock's default
+   * return is null at startup (before any test method's @BeforeEach can stub it), so the recovery
+   * would crash on a null Decision. A @Primary @Bean subclass is set up from the moment the context
+   * loads.
+   */
+  @TestConfiguration
+  static class StubSupervisorConfig {
+    @Bean
+    @Primary
+    Supervisor stubSupervisor(RiskAgent risk, ComplianceAgent compliance, RoutingAgent routing) {
+      return new Supervisor(risk, compliance, routing) {
+        @Override
+        public Decision decide(PaymentContext ctx) {
+          return Decision.approved(
+              10,
+              new ComplianceVerdict(Outcome.PASS, List.of(), "stubbed for scenario G"),
+              new RouteRecommendation("psp-c", "route-us-1", 0.978f, 45, "stubbed safe pick"),
+              List.of("recovery stub"));
+        }
+      };
+    }
+  }
 
   @Test
   void seededHeldCaseConvergesToCommittedOnStartup() {

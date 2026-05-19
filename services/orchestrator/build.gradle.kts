@@ -27,6 +27,10 @@ dependencies {
     // Spring AI 1.1.5 (Iter 4b.1 FR-A-COMMON, FR-A-R/C/RT). BOM imported above pins versions.
     implementation(libs.spring.ai.starter.model.anthropic)
     implementation(libs.spring.ai.starter.mcp.client)
+    // FR-A-RT-002: routing-metrics RAG over pgvector. The starter pulls the autoconfig, which
+    // wires PgVectorStore off the existing DataSource + our hand-rolled VoyageEmbeddingModel
+    // (Spring AI 1.1.5 ships no Voyage starter).
+    implementation(libs.spring.ai.starter.vector.store.pgvector)
 
     implementation(libs.flyway.core)
     implementation(libs.flyway.postgres)

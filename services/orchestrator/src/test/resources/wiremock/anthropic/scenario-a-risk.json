@@ -1,0 +1,15 @@
+{
+  "id": "msg_test_a_risk",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-sonnet-4-6",
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"score\":10,\"signals\":[],\"rationale\":\"No significant signal observed in the payment context: amount within typical band, single domestic acquiring case, no velocity anomalies in the agentMetadata.\"}"
+    }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 220, "output_tokens": 48}
+}

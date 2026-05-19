@@ -45,7 +45,19 @@ public abstract class IntegrationTestBase {
     r.add("spring.datasource.password", POSTGRES::getPassword);
     r.add("spring.kafka.bootstrap-servers", KAFKA::getBootstrapServers);
     r.add("agentpay.mock-psp.url", () -> WIREMOCK.baseUrl());
-    // Keep outbox poll fast so tests don't wait long for events.
+    // Route both Anthropic and Voyage through the WireMock instance. Scenario tests register
+    // additional Anthropic stubs in their test methods; the default Voyage stub below covers the
+    // RouteMetricsSeed run at app startup (which happens before any test method body).
+    r.add("spring.ai.anthropic.base-url", () -> WIREMOCK.baseUrl());
+    r.add("spring.ai.anthropic.api-key", () -> "test-key-not-real");
+    r.add("agentpay.voyage.base-url", () -> WIREMOCK.baseUrl());
+    r.add("agentpay.voyage.api-key", () -> "test-voyage-key-not-real");
     r.add("agentpay.outbox.poll-interval-ms", () -> "50");
+
+    // Side-effect: register a default Voyage stub so RouteMetricsSeed succeeds at startup. The
+    // WireMockExtension's beforeAll lifecycle has already started its server by this point
+    // (JUnit5 extension callbacks precede Spring's context customization). Per-test Anthropic
+    // stubs are registered inside the test method body and take precedence on /v1/messages.
+    AnthropicWireMockStubs.registerVoyageStub(WIREMOCK);
   }
 }

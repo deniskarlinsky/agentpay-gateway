@@ -11,6 +11,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.agentpay.orchestrator.agents.support.AgentVerdictRecorder;
+import com.agentpay.orchestrator.agents.support.PiiRedactionAdvisor;
 import com.agentpay.orchestrator.domain.ComplianceVerdict;
 import com.agentpay.orchestrator.domain.Outcome;
 import com.agentpay.orchestrator.domain.PaymentContext;
@@ -47,13 +48,22 @@ class ComplianceAgentTest {
     builder = mock(ChatClient.Builder.class);
     when(builder.defaultOptions(any())).thenReturn(builder);
     when(builder.defaultToolCallbacks(any(ToolCallback[].class))).thenReturn(builder);
+    when(builder.defaultAdvisors(any(PiiRedactionAdvisor.class))).thenReturn(builder);
     when(builder.build()).thenReturn(chatClient);
     ToolCallbackProvider provider = mock(ToolCallbackProvider.class);
     when(provider.getToolCallbacks()).thenReturn(new ToolCallback[0]);
     recorder = mock(AgentVerdictRecorder.class);
     Resource promptResource = new ByteArrayResource("test compliance prompt".getBytes());
     Clock clock = Clock.fixed(Instant.parse("2026-05-15T10:00:00Z"), ZoneOffset.UTC);
-    agent = new ComplianceAgent(builder, provider, promptResource, MODEL, recorder, clock);
+    agent =
+        new ComplianceAgent(
+            builder,
+            provider,
+            promptResource,
+            MODEL,
+            recorder,
+            clock,
+            mock(PiiRedactionAdvisor.class));
   }
 
   @Test

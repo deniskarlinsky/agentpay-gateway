@@ -47,6 +47,7 @@ spring-ai-starter-model-anthropic  = { module = "org.springframework.ai:spring-a
 spring-ai-starter-mcp-server-webmvc = { module = "org.springframework.ai:spring-ai-starter-mcp-server-webmvc" }
 spring-ai-starter-mcp-client       = { module = "org.springframework.ai:spring-ai-starter-mcp-client" }
 spring-ai-pgvector-store           = { module = "org.springframework.ai:spring-ai-pgvector-store" }
+spring-ai-starter-vector-store-pgvector = { module = "org.springframework.ai:spring-ai-starter-vector-store-pgvector" }
 # Testcontainers
 testcontainers-bom      = { module = "org.testcontainers:testcontainers-bom",  version.ref = "testcontainers" }
 testcontainers-junit    = { module = "org.testcontainers:testcontainers-junit-jupiter" }

@@ -249,6 +249,14 @@ services:
         condition: service_healthy
       mock-psp:
         condition: service_healthy
+      # sanctions-mcp must be healthy before orchestrator starts: the Spring AI MCP client
+      # autoconfig calls client.initialize() during Spring context startup (lifecycle hook in
+      # McpClientAutoConfiguration). Without this dependency, the streamable-http connection to
+      # sanctions-mcp:8090 races against the sanctions-mcp container's Spring Boot startup and
+      # fails. Tests handle this via Testcontainers' explicit start ordering; docker-compose
+      # needs the depends_on equivalent.
+      sanctions-mcp:
+        condition: service_healthy
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
@@ -257,6 +265,9 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-agentpay}
       KAFKA_BOOTSTRAP: kafka:9092
       MOCK_PSP_URL: http://mock-psp:8091
+      SANCTIONS_MCP_URL: http://sanctions-mcp:8090
+      VOYAGE_API_KEY: ${VOYAGE_API_KEY}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
     ports:
       - "8081:8081"
     healthcheck:

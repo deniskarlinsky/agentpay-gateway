@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import com.agentpay.orchestrator.agents.support.AgentVerdictRecorder;
+import com.agentpay.orchestrator.agents.support.PiiRedactionAdvisor;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.domain.RiskAssessment;
 import java.math.BigDecimal;
@@ -42,11 +43,14 @@ class RiskAgentTest {
     chatClient = mock(ChatClient.class, RETURNS_DEEP_STUBS);
     builder = mock(ChatClient.Builder.class);
     when(builder.defaultOptions(any())).thenReturn(builder);
+    when(builder.defaultAdvisors(any(PiiRedactionAdvisor.class))).thenReturn(builder);
     when(builder.build()).thenReturn(chatClient);
     recorder = mock(AgentVerdictRecorder.class);
     Resource promptResource = new ByteArrayResource("test risk prompt".getBytes());
     Clock clock = Clock.fixed(Instant.parse("2026-05-15T10:00:00Z"), ZoneOffset.UTC);
-    agent = new RiskAgent(builder, promptResource, MODEL, recorder, clock);
+    agent =
+        new RiskAgent(
+            builder, promptResource, MODEL, recorder, clock, mock(PiiRedactionAdvisor.class));
   }
 
   @Test

@@ -2,6 +2,7 @@ package com.agentpay.orchestrator.saga;
 
 import com.agentpay.orchestrator.decision.Supervisor;
 import com.agentpay.orchestrator.domain.Decision;
+import com.agentpay.orchestrator.domain.Outcome;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.domain.SagaState;
 import com.agentpay.orchestrator.persistence.CaseEntity;
@@ -14,7 +15,9 @@ import com.agentpay.orchestrator.psp.MockPspClient;
 import java.time.Clock;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +54,17 @@ public class PaymentSaga {
   // calls bypass the AOP proxy and the annotation has no effect, which leaves entity changes
   // unflushed and spins driveForward()'s while-loop forever.
   private PaymentSaga self;
+
+  // Per-case in-memory cache. agentMetadata flows from the controller into PaymentContext but is
+  // NOT persisted (Iter 4b.2 scope: no schema column). The Decision cache prevents a second
+  // (expensive, non-deterministic) supervisor.decide() in commitOrCompensate after applyDecision
+  // already produced one. Both maps are evicted on terminal-state transitions.
+  //
+  // Crash-recovery behavior (Scenario G, NFR-R-002): after restart the maps are empty. A resumed
+  // case picks up with agentMetadata=Map.of() (degraded prompt input) and re-runs the decision
+  // plane (extra cost). Persisting these is roadmap Iter 6.
+  private final Map<String, Map<String, String>> agentMetadataByCase = new ConcurrentHashMap<>();
+  private final Map<String, Decision> decisionByCase = new ConcurrentHashMap<>();
 
   public PaymentSaga(
       CaseRepository cases,
@@ -92,6 +106,9 @@ public class PaymentSaga {
           existing.get().getState());
       return new StartResult(ctx.caseId(), existing.get().getState(), true);
     }
+    if (ctx.agentMetadata() != null && !ctx.agentMetadata().isEmpty()) {
+      agentMetadataByCase.put(ctx.caseId(), Map.copyOf(ctx.agentMetadata()));
+    }
     self.createInitiated(ctx, intentTokenJti);
     driveForward(ctx.caseId());
     SagaState terminal = cases.findById(ctx.caseId()).orElseThrow().getState();
@@ -131,15 +148,15 @@ public class PaymentSaga {
   }
 
   private void applyDecision(CaseEntity c) {
-    // TODO (Iter 4b.2): persist the Decision (route + scores) so resume after crash uses the same
-    // route. Stub supervisor is deterministic so re-derivation is currently safe.
-    Decision d = supervisor.decide(toContext(c));
+    Decision d = decideAndCache(c);
     switch (d.outcome()) {
       case APPROVED ->
           self.recordTransition(
               c.getCaseId(), SagaState.REVIEWING, SagaState.APPROVED, joinRationale(d.rationale()));
-      case DECLINED ->
-          self.recordTerminal(c, SagaState.REVIEWING, SagaState.DECLINED, "DECISION_DECLINED");
+      case DECLINED -> {
+        self.recordTerminal(c, SagaState.REVIEWING, SagaState.DECLINED, reasonClassFor(d));
+        evictCache(c.getCaseId());
+      }
       case REVIEW ->
           self.recordTransition(
               c.getCaseId(),
@@ -150,7 +167,7 @@ public class PaymentSaga {
   }
 
   private void commitOrCompensate(CaseEntity c) {
-    Decision d = supervisor.decide(toContext(c));
+    Decision d = decideAndCache(c);
     // route is present iff outcome == APPROVED; commitOrCompensate is only reached from ROUTED
     // which is only reached from APPROVED, so unwrap is safe.
     var route = d.route().orElseThrow(() -> new IllegalStateException("ROUTED case missing route"));
@@ -164,6 +181,31 @@ public class PaymentSaga {
       // FR-O-006: PSP failure → COMPENSATED. Reason class carries the ISO 20022 code.
       self.recordTerminal(c, SagaState.ROUTED, SagaState.COMPENSATED, response.reasonCode());
     }
+    evictCache(c.getCaseId());
+  }
+
+  private Decision decideAndCache(CaseEntity c) {
+    return decisionByCase.computeIfAbsent(c.getCaseId(), id -> supervisor.decide(toContext(c)));
+  }
+
+  /**
+   * Maps a DECLINED Decision to the reason_class string surfaced on the Kafka payment.declined
+   * event (REQUIREMENTS §10.2). Compliance-driven declines must carry COMPLIANCE_SANCTIONS_MATCH so
+   * the on-call eval pipeline can branch on it; risk-driven declines carry RISK_HIGH.
+   */
+  private static String reasonClassFor(Decision d) {
+    if (d.compliance() != null && d.compliance().outcome() == Outcome.FAIL) {
+      return "COMPLIANCE_SANCTIONS_MATCH";
+    }
+    if (d.riskScore() >= 80) {
+      return "RISK_HIGH";
+    }
+    return "DECISION_DECLINED";
+  }
+
+  private void evictCache(String caseId) {
+    decisionByCase.remove(caseId);
+    agentMetadataByCase.remove(caseId);
   }
 
   private static String joinRationale(java.util.List<String> rationale) {
@@ -228,8 +270,8 @@ public class PaymentSaga {
   }
 
   private PaymentContext toContext(CaseEntity c) {
-    // Iter 4b.2 will populate agentMetadata (buyer.name/country, merchant.name/country, etc.)
-    // during a CaseEnrichment step. Empty map for now keeps the Iter 3 stub Supervisor happy.
+    Map<String, String> metadata =
+        agentMetadataByCase.getOrDefault(c.getCaseId(), java.util.Map.of());
     return new PaymentContext(
         c.getCaseId(),
         c.getAgentId(),
@@ -237,7 +279,7 @@ public class PaymentSaga {
         c.getAmount(),
         c.getCurrency(),
         null,
-        java.util.Map.of());
+        metadata);
   }
 
   public record StartResult(String caseId, SagaState state, boolean duplicate) {}

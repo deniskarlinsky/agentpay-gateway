@@ -10,13 +10,17 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.agentpay.orchestrator.agents.routing.RouteCandidate;
+import com.agentpay.orchestrator.agents.routing.RouteMetricsRetriever;
 import com.agentpay.orchestrator.agents.support.AgentVerdictRecorder;
+import com.agentpay.orchestrator.agents.support.PiiRedactionAdvisor;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.domain.RouteRecommendation;
 import java.math.BigDecimal;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneOffset;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,6 +39,7 @@ class RoutingAgentTest {
   private ChatClient chatClient;
   private ChatClient.Builder builder;
   private AgentVerdictRecorder recorder;
+  private RouteMetricsRetriever retriever;
   private RoutingAgent agent;
 
   @BeforeEach
@@ -42,11 +47,37 @@ class RoutingAgentTest {
     chatClient = mock(ChatClient.class, RETURNS_DEEP_STUBS);
     builder = mock(ChatClient.Builder.class);
     when(builder.defaultOptions(any())).thenReturn(builder);
+    when(builder.defaultAdvisors(any(PiiRedactionAdvisor.class))).thenReturn(builder);
     when(builder.build()).thenReturn(chatClient);
     recorder = mock(AgentVerdictRecorder.class);
+    retriever = mock(RouteMetricsRetriever.class);
+    List<RouteCandidate> stubCandidates =
+        List.of(
+            new RouteCandidate(
+                "psp-a", "route-us-1", 0.952, 30, 1240, "2026-05-10T00:00:00Z", "stable"),
+            new RouteCandidate(
+                "psp-b",
+                "route-us-1",
+                0.881,
+                20,
+                980,
+                "2026-05-10T00:00:00Z",
+                "cheaper, lower success"),
+            new RouteCandidate(
+                "psp-c", "route-us-1", 0.978, 45, 520, "2026-05-10T00:00:00Z", "premium cost"));
+    when(retriever.retrieveTopK(any(), eq(3))).thenReturn(stubCandidates);
+    when(retriever.renderAsKeyValueBlock(stubCandidates)).thenReturn("pspId=psp-a\n...stub...");
     Resource promptResource = new ByteArrayResource("test routing prompt".getBytes());
     Clock clock = Clock.fixed(Instant.parse("2026-05-15T10:00:00Z"), ZoneOffset.UTC);
-    agent = new RoutingAgent(builder, promptResource, MODEL, recorder, clock);
+    agent =
+        new RoutingAgent(
+            builder,
+            promptResource,
+            MODEL,
+            recorder,
+            clock,
+            retriever,
+            mock(PiiRedactionAdvisor.class));
   }
 
   @Test

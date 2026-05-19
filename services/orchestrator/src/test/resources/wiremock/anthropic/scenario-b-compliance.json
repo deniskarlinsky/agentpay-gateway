@@ -1,0 +1,15 @@
+{
+  "id": "msg_test_b_compliance",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-sonnet-4-6",
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"outcome\":\"FAIL\",\"citations\":[\"SYN-021\",\"list:SYNTHETIC-SDN\"],\"rationale\":\"Buyer (Fictitious Bad Actor, XX) matched citation SYN-021 on the synthetic SDN-style list via sanctions-mcp; merchant cleared. Per FR-A-C-003 the verdict is FAIL on the buyer match.\"}"
+    }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 340, "output_tokens": 80}
+}

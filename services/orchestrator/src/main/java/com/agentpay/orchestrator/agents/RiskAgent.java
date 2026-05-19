@@ -1,6 +1,7 @@
 package com.agentpay.orchestrator.agents;
 
 import com.agentpay.orchestrator.agents.support.AgentVerdictRecorder;
+import com.agentpay.orchestrator.agents.support.PiiRedactionAdvisor;
 import com.agentpay.orchestrator.agents.support.StructuredOutputRetry;
 import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.domain.RiskAssessment;
@@ -46,11 +47,13 @@ public class RiskAgent {
       @Value("classpath:prompts/risk.md") Resource promptResource,
       @Value("${agentpay.models.risk}") String model,
       AgentVerdictRecorder recorder,
-      Clock clock) {
+      Clock clock,
+      PiiRedactionAdvisor piiRedactionAdvisor) {
     this.model = model;
     this.chatClient =
         chatClientBuilder
             .defaultOptions(AnthropicChatOptions.builder().model(model).temperature(0.0).build())
+            .defaultAdvisors(piiRedactionAdvisor)
             .build();
     this.systemPrompt = loadPrompt(promptResource);
     this.recorder = recorder;

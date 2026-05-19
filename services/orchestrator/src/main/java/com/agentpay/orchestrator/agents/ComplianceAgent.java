@@ -1,6 +1,7 @@
 package com.agentpay.orchestrator.agents;
 
 import com.agentpay.orchestrator.agents.support.AgentVerdictRecorder;
+import com.agentpay.orchestrator.agents.support.PiiRedactionAdvisor;
 import com.agentpay.orchestrator.agents.support.StructuredOutputRetry;
 import com.agentpay.orchestrator.domain.ComplianceVerdict;
 import com.agentpay.orchestrator.domain.PaymentContext;
@@ -48,12 +49,14 @@ public class ComplianceAgent {
       @Value("classpath:prompts/compliance.md") Resource promptResource,
       @Value("${agentpay.models.compliance}") String model,
       AgentVerdictRecorder recorder,
-      Clock clock) {
+      Clock clock,
+      PiiRedactionAdvisor piiRedactionAdvisor) {
     this.model = model;
     this.chatClient =
         chatClientBuilder
             .defaultOptions(AnthropicChatOptions.builder().model(model).temperature(0.0).build())
             .defaultToolCallbacks(mcpToolCallbackProvider.getToolCallbacks())
+            .defaultAdvisors(piiRedactionAdvisor)
             .build();
     this.systemPrompt = loadPrompt(promptResource);
     this.recorder = recorder;

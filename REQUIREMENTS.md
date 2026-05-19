@@ -625,11 +625,13 @@ Each scenario MUST be implemented as an end-to-end integration test under `servi
 **when** it requests an intent token for $42.50 at `merchant-acme` and submits a `POST /payments`,
 **then** the case reaches state `COMMITTED`, the mock PSP records the charge, exactly one `payment.completed` Kafka event is published, and the Langfuse trace contains a root span with three parallel agent child spans.
 
-### 10.2 Scenario B — Compliance failure → compensation
+### 10.2 Scenario B — Compliance failure → declined
 
 **Given** a buyer agent whose name matches a sanctions fixture entry,
 **when** it submits a payment,
-**then** the case reaches state `COMPENSATED`, exactly one `payment.declined` Kafka event is published with `reason_class = COMPLIANCE_SANCTIONS_MATCH`, and the ComplianceAgent verdict cites the matching `citation_id`.
+**then** the case reaches state `DECLINED` (no funds were held, no compensation needed),
+exactly one `payment.declined` Kafka event is published with `reason_class = COMPLIANCE_SANCTIONS_MATCH`,
+and the ComplianceAgent verdict cites the matching `citation_id`.
 
 ### 10.3 Scenario C — Risk review → human approval
 

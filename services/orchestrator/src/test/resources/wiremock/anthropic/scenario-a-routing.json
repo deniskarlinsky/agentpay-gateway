@@ -1,0 +1,15 @@
+{
+  "id": "msg_test_a_routing",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-haiku-4-5-20251001",
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"pspId\":\"psp-c\",\"routeId\":\"route-us-1\",\"expectedSuccessRate\":0.978,\"expectedCostBps\":45,\"rationale\":\"psp-c / route-us-1 wins on highest success rate (0.978); cost tiebreaker not invoked since next candidate is more than 1pp behind.\"}"
+    }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 280, "output_tokens": 60}
+}

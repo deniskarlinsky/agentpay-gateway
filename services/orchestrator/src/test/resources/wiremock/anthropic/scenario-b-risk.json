@@ -1,0 +1,15 @@
+{
+  "id": "msg_test_b_risk",
+  "type": "message",
+  "role": "assistant",
+  "model": "claude-sonnet-4-6",
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"score\":30,\"signals\":[\"description:adversarial-token\"],\"rationale\":\"Description contains an adversarial token resembling jailbreak phrasing, but amount and channel are otherwise typical; net low risk on the score scale.\"}"
+    }
+  ],
+  "stop_reason": "end_turn",
+  "stop_sequence": null,
+  "usage": {"input_tokens": 220, "output_tokens": 60}
+}

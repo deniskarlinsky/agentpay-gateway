@@ -4,6 +4,7 @@ import com.agentpay.orchestrator.domain.PaymentContext;
 import com.agentpay.orchestrator.saga.PaymentSaga;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ public class InternalPaymentsController {
 
   @PostMapping
   public ResponseEntity<InternalPaymentResponse> create(@RequestBody InternalPaymentRequest req) {
+    Map<String, String> metadata = req.agentMetadata == null ? Map.of() : req.agentMetadata;
     PaymentSaga.StartResult result =
         saga.start(
             new PaymentContext(
@@ -32,7 +34,7 @@ public class InternalPaymentsController {
                 req.amount,
                 req.currency,
                 req.description,
-                java.util.Map.of()),
+                metadata),
             req.intentTokenJti);
     // FR-O-007 idempotency: HTTP 202 in both cases (new + duplicate). The `duplicate` flag in the
     // body distinguishes "we just started this" from "you already started this and here's where
@@ -64,6 +66,10 @@ public class InternalPaymentsController {
 
     @JsonProperty("description")
     public String description;
+
+    /** Identity-namespaced fields (buyer.name, buyer.country, merchant.name, ...). Never PII. */
+    @JsonProperty("agent_metadata")
+    public Map<String, String> agentMetadata;
   }
 
   public record InternalPaymentResponse(

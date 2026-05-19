@@ -6,14 +6,33 @@ spring:
     # FR-A-COMMON: Anthropic provider for the three specialist agents (Iter 4b.1).
     anthropic:
       api-key: ${ANTHROPIC_API_KEY:}
+      # Empty unless overridden — tests point this at WireMock via @DynamicPropertySource.
+      base-url: ${ANTHROPIC_BASE_URL:https://api.anthropic.com}
     # FR-A-C-002: MCP client wires the sanctions tool consumed by ComplianceAgent.
     # NFR-S-007: allowlist by URL; the only configured server here is the local sanctions-mcp.
+    # initialized=false defers client.initialize() (and the streamable-http handshake) until
+    # the first tool call. Combined with docker-compose's depends_on:sanctions-mcp:service_healthy
+    # this gives two layers of protection against the orchestrator failing to start when the
+    # sanctions-mcp container is still warming up.
     mcp:
       client:
+        initialized: false
         streamable-http:
           connections:
             sanctions:
               url: ${SANCTIONS_MCP_URL:http://sanctions-mcp:8090}
+    # FR-A-RT-002: pgvector store autoconfig owns route_metrics directly. Flyway owns DDL
+    # (V2__route_metrics_voyage_dims.sql); initialize-schema=false prevents the store from
+    # re-creating the table. dimensions=512 matches voyage-3-lite output; HNSW + cosine
+    # matches the index in V2.
+    vectorstore:
+      pgvector:
+        initialize-schema: false
+        schema-name: public
+        table-name: route_metrics
+        dimensions: 512
+        distance-type: COSINE_DISTANCE
+        index-type: HNSW
 
   datasource:
     url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:agentpay}
@@ -60,6 +79,14 @@ management:
       show-details: always
 
 agentpay:
+  # Hand-rolled Voyage AI embedding client (Spring AI 1.1.5 ships no Voyage starter, see
+  # VoyageEmbeddingModel javadoc). voyage-3-lite is 512-dim by default; the dimensions on
+  # spring.ai.vectorstore.pgvector and V2__route_metrics_voyage_dims.sql must match.
+  voyage:
+    api-key: ${VOYAGE_API_KEY:}
+    base-url: ${VOYAGE_BASE_URL:https://api.voyageai.com}
+    model: voyage-3-lite
+    dimensions: 512
   # FR-A-COMMON-003: per-agent model selection. Sonnet 4.6 for reasoning, Haiku 4.5 for routing.
   # ADR-007: no Opus.
   models:
