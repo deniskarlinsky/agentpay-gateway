@@ -31,4 +31,7 @@ evals/results/*
 !evals/results/.gitkeep
 
 # ── Claude Code ───────────────────────────────────────────────────────────────
-.claude/
+# Ignore .claude/ contents but re-include the hooks dir so shared hook scripts
+# (cross-platform jq guards, stack-policy checks) can be tracked.
+.claude/*
+!.claude/hooks/
