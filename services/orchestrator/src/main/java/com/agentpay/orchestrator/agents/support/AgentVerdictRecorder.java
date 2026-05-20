@@ -47,7 +47,7 @@ public class AgentVerdictRecorder {
     this.sagaMetrics = sagaMetrics;
   }
 
-  @Transactional("transactionManager")
+  @Transactional
   public void record(
       String caseId,
       String agentName,

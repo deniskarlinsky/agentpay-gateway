@@ -108,11 +108,10 @@ public class OutboxPublisher {
     }
   }
 
-  // Qualify: spring-kafka's auto-configured kafkaTransactionManager is also a TransactionManager
-  // bean, so an unqualified @Transactional can't resolve. The drain wraps JPA reads + the
-  // markPublished writes; the Kafka send is its own transaction via
-  // kafkaTemplate.executeInTransaction.
-  @Transactional("transactionManager")
+  // The drain wraps JPA reads + the markPublished writes; the Kafka send is its own
+  // transaction via kafkaTemplate.executeInTransaction. The @Primary JPA tx manager
+  // (see JpaTransactionConfig) resolves the ambiguity with kafkaTransactionManager.
+  @Transactional
   public void drain() {
     List<EventOutboxEntity> batch = outbox.findUnpublished(PageRequest.of(0, BATCH_SIZE));
     if (batch.isEmpty()) {

@@ -42,7 +42,7 @@ public class InternalCasesController {
   }
 
   @GetMapping("/{caseId}")
-  @Transactional(value = "transactionManager", readOnly = true)
+  @Transactional(readOnly = true)
   public ResponseEntity<CaseStatusResponse> get(@PathVariable String caseId) {
     return cases
         .findById(caseId)

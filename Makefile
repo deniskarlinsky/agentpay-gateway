@@ -1,7 +1,9 @@
+SHELL := /usr/bin/bash
+.SHELLFLAGS := -c
 .PHONY: up down demo test eval eval-watch logs langfuse grafana trace build
 
 COMPOSE = docker compose
-GRADLEW = ./gradlew
+GRADLEW = bash gradlew
 
 # ── Infrastructure ────────────────────────────────────────────────────────────
 

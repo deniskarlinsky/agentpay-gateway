@@ -22,7 +22,7 @@ import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
@@ -51,8 +51,10 @@ public class RateLimitFilter extends OncePerRequestFilter {
 
   private static final RequestMatcher WHITELIST =
       request ->
-          new AntPathRequestMatcher("/actuator/**").matches(request)
-              || new AntPathRequestMatcher("/.well-known/**").matches(request)
+          PathPatternRequestMatcher.withDefaults().matcher("/actuator/**").matches(request)
+              || PathPatternRequestMatcher.withDefaults()
+                  .matcher("/.well-known/**")
+                  .matches(request)
               || "/error".equals(request.getRequestURI());
 
   private final BucketRegistry buckets;

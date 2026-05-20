@@ -79,18 +79,18 @@ class PaymentSagaUnitTest {
     ObjectMapper objectMapper = new ObjectMapper();
     objectMapper.registerModule(new com.fasterxml.jackson.datatype.jdk8.Jdk8Module());
     lenient().when(verdicts.sumCostByCaseId(any())).thenReturn(BigDecimal.ZERO.setScale(6));
-    saga =
-        new PaymentSaga(
+    // SagaPersistence owns every @Transactional persistence step. No Spring context here, so the
+    // annotations are inert; mocked repos drive the same observable behavior the saga had before
+    // the Iter 6 split.
+    SagaPersistence persistence =
+        new SagaPersistence(
             cases,
             transitions,
             outbox,
             verdicts,
-            supervisor,
-            psp,
             serializer,
             approvalRequestSerializer,
             budgetExceededSerializer,
-            caseObservation,
             sagaMetrics,
             objectMapper,
             clock,
@@ -98,10 +98,7 @@ class PaymentSagaUnitTest {
             "payment.events",
             "human.approval.requests",
             "case.budget_exceeded");
-    // In production Spring injects @Lazy self with the AOP proxy; in this unit test the
-    // @Transactional semantics are irrelevant (repos are mocked), so direct self-reference is
-    // sufficient to satisfy the self.xxx() invocations inside start()/stepOnce().
-    saga.setSelf(saga);
+    saga = new PaymentSaga(cases, supervisor, psp, caseObservation, objectMapper, persistence);
 
     when(cases.save(any(CaseEntity.class)))
         .thenAnswer(

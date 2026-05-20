@@ -1,6 +1,6 @@
 # AgentPay Gateway
 
-> An agent-native payment gateway pet/portfolio project: authenticates AI agents as clients,
+> An agent-native payment gateway — reference architecture for FinTech teams building AI agent integrations: authenticates AI agents as clients,
 > authorizes payments via scoped JWTs, and runs risk decisions through a multi-agent decision
 > plane on a stable, pinned stack. **The architecture is the artifact.**
 

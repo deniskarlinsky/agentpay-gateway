@@ -35,3 +35,10 @@ evals/results/*
 # (cross-platform jq guards, stack-policy checks) can be tracked.
 .claude/*
 !.claude/hooks/
+
+# ── Stray run/test logs at repo root ──────────────────────────────────────────
+/combinedTest.log
+/fullOrch.log
+/scenarioA.log
+/tmp_handoff_status.txt
+*.log.bak
