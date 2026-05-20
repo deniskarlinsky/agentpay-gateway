@@ -15,8 +15,8 @@ import org.springframework.transaction.PlatformTransactionManager;
  *
  * <p>The bean is registered under the exact name {@code transactionManager}: Spring Data JPA's
  * auto-configuration wires every repository's transactional advice with the default qualifier
- * {@code "transactionManager"}, so {@code CrudRepository.findById} et al. look the bean up by
- * that name — {@link Primary} alone is not enough.
+ * {@code "transactionManager"}, so {@code CrudRepository.findById} et al. look the bean up by that
+ * name — {@link Primary} alone is not enough.
  */
 @Configuration
 public class JpaTransactionConfig {
