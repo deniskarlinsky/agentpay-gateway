@@ -10,6 +10,7 @@ quick start.
 ## Quick start
 
 **Prerequisites.** Docker Desktop, Java 21 LTS, an `ANTHROPIC_API_KEY` in `.env`.
+Copy `.env.example` → `.env` and fill in `ANTHROPIC_API_KEY` (and `VOYAGE_API_KEY` if running the routing-RAG path). `.env` is gitignored — never commit real keys.
 
 ```bash
 # 1. Bring up the full stack (Postgres, Kafka, Redis, ClickHouse, Langfuse,
