@@ -18,10 +18,13 @@ flowchart LR
     Orchestrator --> Routing
     Compliance --> Sanctions[Sanctions MCP]
     Orchestrator --> PSP[Mock PSP]
-    Orchestrator --> Postgres[(Postgres)]
-    Orchestrator --> Redis[(Redis)]
-    Orchestrator --> Kafka[(Kafka)]
-    Orchestrator -.-> Langfuse
+    subgraph Infra[Infrastructure]
+        Postgres[(Postgres)]
+        Redis[(Redis)]
+        Kafka[(Kafka)]
+        Langfuse
+    end
+    Orchestrator --> Infra
 ```
 
 `REQUIREMENTS.md` is the contract. `docs/architecture.md` is the rationale. This file is the
