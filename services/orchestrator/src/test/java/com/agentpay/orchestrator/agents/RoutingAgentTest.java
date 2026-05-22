@@ -120,6 +120,59 @@ class RoutingAgentTest {
     verify(recorder).record(eq("case-1"), eq("routing"), eq(MODEL), eq(r), eq(null), any());
   }
 
+  @Test
+  void retrievalFailureDegradesGracefullyAndReturnsValidRoute() {
+    // Voyage embeddings unavailable: retriever throws. route() must NOT throw — it must still
+    // proceed with an empty candidates list so the LLM call (or its fallback) yields a valid
+    // RouteRecommendation. Otherwise a clean happy-path payment is sent to REVIEW just because
+    // an embeddings service was unreachable.
+    when(retriever.retrieveTopK(any(), eq(3)))
+        .thenThrow(new RuntimeException("Voyage embeddings call failed"));
+    when(retriever.renderAsKeyValueBlock(List.of())).thenReturn("");
+    when(chatClient.prompt().system(anyString()).user(anyString()).call().chatResponse())
+        .thenReturn(AgentTestSupport.stubResponse(VALID_JSON, 350, 60));
+
+    RouteRecommendation r = agent.route(ctx());
+
+    assertThat(r).isNotNull();
+    assertThat(r.pspId()).isNotNull();
+  }
+
+  @Test
+  void retrievalSucceedsButLlmFailsTwiceFallsBackToHighestSuccessRateCandidate() {
+    // When the LLM fails after retries but the retrieved candidates are available, the
+    // deterministic fallback should pick the candidate with the highest expectedSuccessRate
+    // rather than a hardcoded id — the data is right there.
+    when(chatClient.prompt().system(anyString()).user(anyString()).call().chatResponse())
+        .thenThrow(new RuntimeException("first"))
+        .thenThrow(new RuntimeException("second"));
+
+    RouteRecommendation r = agent.route(ctx());
+
+    // setUp() stubs psp-c at 0.978 (highest of psp-a 0.952, psp-b 0.881, psp-c 0.978).
+    assertThat(r.pspId()).isEqualTo("psp-c");
+    assertThat(r.routeId()).isEqualTo("route-us-1");
+    assertThat(r.expectedSuccessRate()).isEqualTo(0.978f);
+    assertThat(r.expectedCostBps()).isEqualTo(45);
+  }
+
+  @Test
+  void retrievalAndLlmBothFailEmitsHardcodedSafePick() {
+    // When retrieval also failed (no candidates at all), the original hardcoded safe pick
+    // remains the last resort.
+    when(retriever.retrieveTopK(any(), eq(3)))
+        .thenThrow(new RuntimeException("Voyage embeddings call failed"));
+    when(retriever.renderAsKeyValueBlock(List.of())).thenReturn("");
+    when(chatClient.prompt().system(anyString()).user(anyString()).call().chatResponse())
+        .thenThrow(new RuntimeException("first"))
+        .thenThrow(new RuntimeException("second"));
+
+    RouteRecommendation r = agent.route(ctx());
+
+    assertThat(r.pspId()).isEqualTo("psp-c");
+    assertThat(r.rationale()).contains("retry exhausted");
+  }
+
   private PaymentContext ctx() {
     return new PaymentContext(
         "case-1",

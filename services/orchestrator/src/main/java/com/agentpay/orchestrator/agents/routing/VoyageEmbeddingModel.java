@@ -33,14 +33,13 @@ import org.springframework.ai.embedding.EmbeddingResponseMetadata;
  */
 public class VoyageEmbeddingModel implements EmbeddingModel {
 
-  private static final Duration REQUEST_TIMEOUT = Duration.ofSeconds(30);
-
   private final HttpClient http;
   private final ObjectMapper mapper;
   private final String apiKey;
   private final String baseUrl;
   private final String model;
   private final int dimensions;
+  private final Duration requestTimeout;
 
   public VoyageEmbeddingModel(
       HttpClient http,
@@ -48,13 +47,19 @@ public class VoyageEmbeddingModel implements EmbeddingModel {
       String apiKey,
       String baseUrl,
       String model,
-      int dimensions) {
+      int dimensions,
+      Duration requestTimeout) {
     this.http = http;
     this.mapper = mapper;
     this.apiKey = apiKey;
     this.baseUrl = stripTrailingSlash(baseUrl);
     this.model = model;
     this.dimensions = dimensions;
+    this.requestTimeout = requestTimeout;
+  }
+
+  Duration requestTimeout() {
+    return requestTimeout;
   }
 
   @Override
@@ -83,7 +88,7 @@ public class VoyageEmbeddingModel implements EmbeddingModel {
       req =
           HttpRequest.newBuilder()
               .uri(URI.create(baseUrl + "/v1/embeddings"))
-              .timeout(REQUEST_TIMEOUT)
+              .timeout(requestTimeout)
               .header("Authorization", "Bearer " + apiKey)
               .header("Content-Type", "application/json")
               .POST(HttpRequest.BodyPublishers.ofString(mapper.writeValueAsString(body)))

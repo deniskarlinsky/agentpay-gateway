@@ -13,7 +13,10 @@ import java.nio.charset.StandardCharsets;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.ai.anthropic.AnthropicChatOptions;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
@@ -27,6 +30,7 @@ import org.springframework.util.StreamUtils;
 @Service
 public class RoutingAgent {
 
+  private static final Logger log = LoggerFactory.getLogger(RoutingAgent.class);
   static final String AGENT_NAME = "routing";
   private static final int RAG_TOP_K = 3;
 
@@ -60,7 +64,21 @@ public class RoutingAgent {
   }
 
   public RouteRecommendation route(PaymentContext ctx) {
-    List<RouteCandidate> candidates = retriever.retrieveTopK(ctx, RAG_TOP_K);
+    // Retrieval is a ranking convenience for the LLM prompt, not a decision gate. If the
+    // embeddings backend (Voyage) is slow or unreachable, degrade to an empty candidates
+    // list and let the LLM (or its deterministic fallback) still produce a route — sending a
+    // clean payment to REVIEW just because an embeddings service blipped is the wrong default.
+    List<RouteCandidate> candidates;
+    try {
+      candidates = retriever.retrieveTopK(ctx, RAG_TOP_K);
+    } catch (Exception ex) {
+      log.warn(
+          "routing RAG retrieval degraded, falling back: case={} cause={}",
+          ctx.caseId(),
+          ex.toString());
+      candidates = List.of();
+    }
+    final List<RouteCandidate> finalCandidates = candidates;
     String ragBlock = retriever.renderAsKeyValueBlock(candidates);
     String user = PaymentContextRenderer.render(ctx) + "\n" + ragBlock;
     String system = systemPrompt + "\n\n" + converter.getFormat();
@@ -78,18 +96,28 @@ public class RoutingAgent {
           return verdict;
         },
         () -> {
-          // No review-fallback record type for routing — routing failure is handled upstream by
-          // the Supervisor returning Decision with route=Optional.empty(). For Iter 4b.1 we still
-          // surface a deterministic safe pick (psp-c, highest success rate) so tests can exercise
-          // the both-attempts-fail path; the Supervisor in 4b.2 treats any agent-level failure
-          // path as REVIEW per FR-DP-002 regardless of what we return here.
-          RouteRecommendation fallback =
-              new RouteRecommendation(
-                  "psp-c", "route-us-1", 0.978f, 45, "RoutingAgent retry exhausted; safe pick");
+          // Prefer the highest-success-rate candidate from RAG when we have it; only fall back
+          // to the hardcoded safe pick when retrieval also failed and the list is empty.
+          RouteRecommendation fallback = safeFallback(finalCandidates);
           Duration latency = Duration.between(start, clock.instant());
           recorder.record(ctx.caseId(), AGENT_NAME, model, fallback, null, latency);
           return fallback;
         });
+  }
+
+  private static RouteRecommendation safeFallback(List<RouteCandidate> candidates) {
+    if (candidates.isEmpty()) {
+      return new RouteRecommendation(
+          "psp-c", "route-us-1", 0.978f, 45, "RoutingAgent retry exhausted; safe pick");
+    }
+    RouteCandidate best =
+        candidates.stream().max(Comparator.comparingDouble(RouteCandidate::expectedSuccessRate)).get();
+    return new RouteRecommendation(
+        best.pspId(),
+        best.routeId(),
+        (float) best.expectedSuccessRate(),
+        best.expectedCostBps(),
+        "RoutingAgent retry exhausted; safe pick from RAG (highest expectedSuccessRate)");
   }
 
   private static String loadPrompt(Resource r) {

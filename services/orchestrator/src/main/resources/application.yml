@@ -96,6 +96,10 @@ agentpay:
     base-url: ${VOYAGE_BASE_URL:https://api.voyageai.com}
     model: voyage-3-lite
     dimensions: 512
+    # Well under Supervisor.SPECIALIST_TIMEOUT_SECONDS (10s) so a slow/unreachable Voyage
+    # backend fails fast and RoutingAgent can degrade to an empty RAG block + LLM call
+    # within the specialist budget instead of timing out the whole routing future.
+    request-timeout: 4s
   # FR-A-COMMON-003: per-agent model selection. Sonnet 4.6 for reasoning, Haiku 4.5 for routing.
   # ADR-007: no Opus.
   models:

@@ -20,8 +20,10 @@ public class VoyageEmbeddingConfig {
       @Value("${agentpay.voyage.api-key:}") String apiKey,
       @Value("${agentpay.voyage.base-url:https://api.voyageai.com}") String baseUrl,
       @Value("${agentpay.voyage.model:voyage-3-lite}") String model,
-      @Value("${agentpay.voyage.dimensions:512}") int dimensions) {
+      @Value("${agentpay.voyage.dimensions:512}") int dimensions,
+      @Value("${agentpay.voyage.request-timeout:4s}") Duration requestTimeout) {
     HttpClient http = HttpClient.newBuilder().connectTimeout(Duration.ofSeconds(5)).build();
-    return new VoyageEmbeddingModel(http, objectMapper, apiKey, baseUrl, model, dimensions);
+    return new VoyageEmbeddingModel(
+        http, objectMapper, apiKey, baseUrl, model, dimensions, requestTimeout);
   }
 }
