@@ -1,8 +1,6 @@
 # AgentPay Gateway
 
-> An agent-native payment gateway — reference architecture for FinTech teams building AI agent integrations: authenticates AI agents as clients,
-> authorizes payments via scoped JWTs, and runs risk decisions through a multi-agent decision
-> plane on a stable, pinned stack. **The architecture is the artifact.**
+When an AI agent initiates a payment on behalf of a human, three things break at once: there is no OAuth client to authenticate, no human-in-the-loop to approve risk, and no clean way to compensate if a downstream check fails after the funds are held. AgentPay Gateway is a reference architecture for that problem — a Java 21 / Spring Boot 3.5 payment gateway that authenticates agents via scoped JWT intent tokens, decides each case through a parallel multi-agent risk-and-compliance plane on Spring AI 1.1.5, and unwinds cleanly via an explicit Saga with a transactional outbox to Kafka.
 
 `REQUIREMENTS.md` is the contract. `docs/architecture.md` is the rationale. This file is the
 quick start.
@@ -51,33 +49,7 @@ make down
 **Stack policy (non-negotiable):** see `CLAUDE.md`. No preview Java features. No
 `-M`/`-RC`/`-SNAPSHOT` deps. No Opus. No reactive Spring. No Spring State Machine.
 
-## Demo evidence
-
-The Iter 7 verification run produced:
-
-```
-=== Prometheus targets ===
-  gateway: up       mock-psp: up       orchestrator: up
-  otel-collector: up    sanctions-mcp: up
-
-=== agentpay_decision_total ===
-  APPROVED: 1      DECLINED: 1
-=== agentpay_saga_terminal_total ===
-  COMMITTED: 1     DECLINED: 1
-=== agentpay_specialist_latency_seconds_count ===
-  risk: 2   compliance: 2   routing: 2          # parallel fan-out, FR-DP-001
-=== ops/traces/cases.jsonl ===
-  1072 lines  (1.3 MB — Langfuse fallback file exporter, NFR-O-001)
-```
-
-That is: one happy-path case reached `COMMITTED`, one compliance-fail case reached `DECLINED`,
-and the three specialists were exercised in parallel on each case (`risk: 2, compliance: 2,
-routing: 2` sample counts). Trace JSONL fallback wrote 1,072 lines so the audit trail exists
-even when Langfuse is unavailable.
-
-Known gaps in the dashboard: the **cost panel** and **eval-pass-rate panel** render no data —
-both pre-existing tech debt logged in [`docs/known-issues.md`](docs/known-issues.md) (items #2
-and #3). The other three panels render correctly.
+See [docs/architecture.md](docs/architecture.md) for the full system walkthrough and [docs/adr/](docs/adr/) for design decisions.
 
 ## ADR index
 
@@ -108,4 +80,4 @@ and #3). The other three panels render correctly.
 
 ## License
 
-Pet/portfolio project. No license declared. If you have a specific use in mind, ask.
+Licensed under the MIT License — see [LICENSE](LICENSE) for details.
