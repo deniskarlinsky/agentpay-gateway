@@ -21,6 +21,12 @@ management:
     tracing:
       endpoint: ${OTLP_ENDPOINT:http://otel-collector:4318/v1/traces}
 
+logging:
+  structured:
+    format:
+      console: ecs
+  include-application-name: true
+
 mock-psp:
   profiles:
     psp-a:

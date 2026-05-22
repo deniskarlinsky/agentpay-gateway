@@ -44,5 +44,9 @@ agentpay:
       - http://localhost:3002
 
 logging:
+  structured:
+    format:
+      console: ecs
+  include-application-name: true
   level:
     com.agentpay.gateway: INFO

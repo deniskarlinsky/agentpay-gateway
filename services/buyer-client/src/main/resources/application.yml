@@ -22,8 +22,10 @@ management:
       endpoint: ${OTLP_ENDPOINT:http://localhost:4318/v1/traces}
 
 logging:
-  pattern:
-    console: "%-5level %logger{0} - %msg%n"
+  structured:
+    format:
+      console: ecs
+  include-application-name: true
   level:
     root: WARN
     com.agentpay.buyer: INFO

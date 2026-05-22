@@ -145,6 +145,10 @@ agentpay:
     case-budget-exceeded-topic: case.budget_exceeded
 
 logging:
+  structured:
+    format:
+      console: ecs
+  include-application-name: true
   level:
     com.agentpay.orchestrator: INFO
     org.flywaydb: INFO
