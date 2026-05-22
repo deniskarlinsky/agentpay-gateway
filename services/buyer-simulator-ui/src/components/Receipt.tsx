@@ -42,8 +42,8 @@ export function Receipt({
   }
 
   const totalElapsedSeconds =
-    startedAt !== null && transitions.length > 0
-      ? secondsBetween(startedAt, lastTransitionTimestamp(transitions))
+    transitions.length >= 2
+      ? secondsBetweenTransitions(transitions)
       : startedAt !== null && status
         ? secondsSince(startedAt)
         : null
@@ -286,14 +286,9 @@ function secondsSince(startMs: number): number {
   return (Date.now() - startMs) / 1000
 }
 
-function secondsBetween(startMs: number, endIso: string | null): number | null {
-  if (!endIso) return secondsSince(startMs)
-  const end = Date.parse(endIso)
-  if (Number.isNaN(end)) return secondsSince(startMs)
-  return Math.max(0, (end - startMs) / 1000)
-}
-
-function lastTransitionTimestamp(transitions: Transition[]): string | null {
-  if (transitions.length === 0) return null
-  return transitions[transitions.length - 1].createdAt
+function secondsBetweenTransitions(transitions: Transition[]): number | null {
+  const start = Date.parse(transitions[0].createdAt)
+  const end = Date.parse(transitions[transitions.length - 1].createdAt)
+  if (Number.isNaN(start) || Number.isNaN(end)) return null
+  return Math.max(0, (end - start) / 1000)
 }
