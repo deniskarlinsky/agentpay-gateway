@@ -165,6 +165,37 @@ services:
       timeout: 5s
       retries: 5
 
+  # ── Loki ─────────────────────────────────────────────────────────────────
+  loki:
+    image: grafana/loki:3.2.1
+    container_name: agentpay-loki
+    command: ["-config.file=/etc/loki/loki-config.yml"]
+    volumes:
+      - ./ops/loki/loki-config.yml:/etc/loki/loki-config.yml:ro
+      - loki-data:/loki
+    ports:
+      - "3100:3100"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3100/ready | grep -q 'ready' || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  # ── Promtail ─────────────────────────────────────────────────────────────
+  promtail:
+    image: grafana/promtail:3.2.1
+    container_name: agentpay-promtail
+    command: ["-config.file=/etc/promtail/promtail-config.yml"]
+    depends_on:
+      loki:
+        condition: service_healthy
+    volumes:
+      - ./ops/promtail/promtail-config.yml:/etc/promtail/promtail-config.yml:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - promtail-data:/tmp
+
   # ── Grafana ───────────────────────────────────────────────────────────────
   grafana:
     image: grafana/grafana:11.3.0
@@ -301,3 +332,5 @@ volumes:
   prometheus-data:
   grafana-data:
   gateway-data:
+  loki-data:
+  promtail-data:
