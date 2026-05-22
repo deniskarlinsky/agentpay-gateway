@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.PathPatternRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -28,6 +29,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
  * response — even though authorizeHttpRequests had permitAll on the path. Splitting the chains
  * keeps the bearer-token filter scoped to {@code /payments} (and anything that falls through to the
  * default-matched chain).
+ *
+ * <p>Task 4 hotfix: public-chain matchers go through {@link PathPatternRequestMatcher} rather than
+ * the string-overload of {@code requestMatchers(...)}, which Spring resolves to a handler-aware
+ * {@code MvcRequestMatcher} — and that matcher silently NO-MATCHes any path without a registered
+ * MVC handler, leaking unrouted paths under {@code /cases/**} into the protected chain and 401ing.
  */
 @Configuration
 public class SecurityConfig {
@@ -41,13 +47,14 @@ public class SecurityConfig {
   @Bean
   @Order(1)
   public SecurityFilterChain publicChain(HttpSecurity http) throws Exception {
+    PathPatternRequestMatcher.Builder pathPatterns = PathPatternRequestMatcher.withDefaults();
     return http.securityMatchers(
             matchers ->
                 matchers
-                    .requestMatchers("/actuator/**")
-                    .requestMatchers("/.well-known/**")
-                    .requestMatchers(HttpMethod.POST, "/intent-tokens")
-                    .requestMatchers(HttpMethod.GET, "/cases/**"))
+                    .requestMatchers(pathPatterns.matcher("/actuator/**"))
+                    .requestMatchers(pathPatterns.matcher("/.well-known/**"))
+                    .requestMatchers(pathPatterns.matcher(HttpMethod.POST, "/intent-tokens"))
+                    .requestMatchers(pathPatterns.matcher(HttpMethod.GET, "/cases/**")))
         .cors(Customizer.withDefaults())
         .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
