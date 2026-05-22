@@ -1,6 +1,6 @@
 SHELL := /usr/bin/bash
 .SHELLFLAGS := -c
-.PHONY: up down demo test eval logs langfuse grafana trace build
+.PHONY: up down demo demo-cli test eval logs langfuse grafana trace build
 
 COMPOSE = docker compose
 GRADLEW = bash gradlew
@@ -25,10 +25,14 @@ build:
 
 BUYER_CLIENT_JAR = services/buyer-client/build/libs/buyer-client.jar
 
+demo:
+	@echo "Buyer simulator → http://localhost:3002 — open in browser"
+	@start http://localhost:3002 2>/dev/null || open http://localhost:3002 2>/dev/null || true
+
 # Iter 5 (FR-B-001..004, NFR-DX-002): drives Scenario A (happy) and Scenario B (compliance-fail)
 # back-to-back through the live stack. The --scenario=review path is supported by the CLI but
-# kept out of `make demo` — its outcome is best-effort against the live Sonnet 4.6 model.
-demo: $(BUYER_CLIENT_JAR)
+# kept out of `make demo-cli` — its outcome is best-effort against the live Sonnet 4.6 model.
+demo-cli: $(BUYER_CLIENT_JAR)
 	@echo "── Scenario A (happy) ────────────────────────────────────────────────"
 	java -jar $(BUYER_CLIENT_JAR) --merchant=merchant-acme --amount=42.50 --scenario=happy
 	@echo

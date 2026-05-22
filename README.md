@@ -41,9 +41,10 @@ Copy `.env.example` → `.env` and fill in `ANTHROPIC_API_KEY` (and `VOYAGE_API_
 make up                           # ≤ 5 minutes from a clean checkout
 open http://localhost:3002        # buyer simulator UI
 
-# 2. Run the end-to-end demo. Issues an intent token, submits a payment,
-#    polls for terminal state, prints the Langfuse trace URL.
-make demo                         # Scenario A (happy) + Scenario B (compliance-fail)
+# 2. Run the end-to-end demo. Opens the buyer simulator in your browser;
+#    drive Scenario A (happy) and Scenario B (compliance-fail) from there.
+make demo                         # opens http://localhost:3002
+make demo-cli                     # scripted CLI fallback (no browser)
 
 # 3. Watch the dashboards.
 open http://localhost:3001        # Grafana — AgentPay/AgentPay — Decision Plane
