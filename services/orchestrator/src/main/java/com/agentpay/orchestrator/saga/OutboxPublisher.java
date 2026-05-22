@@ -46,6 +46,7 @@ public class OutboxPublisher {
   private final OutboxPublisher self;
   private final ScheduledExecutorService scheduler;
   private volatile ScheduledFuture<?> task;
+  private volatile boolean shuttingDown = false;
 
   public OutboxPublisher(
       EventOutboxRepository outbox,
@@ -82,6 +83,7 @@ public class OutboxPublisher {
    */
   @PreDestroy
   void shutdown() {
+    shuttingDown = true;
     if (task != null) {
       task.cancel(false);
     }
@@ -98,12 +100,22 @@ public class OutboxPublisher {
 
   /**
    * Catches RuntimeException so a single failed drain does not cancel the schedule ({@code
-   * ScheduledExecutorService} suppresses further executions on an unchecked throw).
+   * ScheduledExecutorService} suppresses further executions on an unchecked throw). When {@link
+   * #shuttingDown} is set, a tick already past the {@code shutdownNow} interrupt may still be
+   * unwinding through a broken JDBC/Kafka connection; that's expected and gets logged at DEBUG.
+   * Unpublished rows are replayed on next startup (NFR-R-003).
    */
   void drainQuietly() {
+    if (shuttingDown) {
+      return;
+    }
     try {
       self.drain();
     } catch (RuntimeException e) {
+      if (shuttingDown) {
+        log.debug("outbox drain interrupted during shutdown; rows will replay on next startup", e);
+        return;
+      }
       log.warn("outbox drain failed; will retry on next tick", e);
     }
   }
