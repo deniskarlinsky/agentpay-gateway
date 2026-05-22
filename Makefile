@@ -1,6 +1,6 @@
 SHELL := /usr/bin/bash
 .SHELLFLAGS := -c
-.PHONY: up down demo test eval eval-watch logs langfuse grafana trace build
+.PHONY: up down demo test eval logs langfuse grafana trace build
 
 COMPOSE = docker compose
 GRADLEW = bash gradlew
@@ -47,9 +47,6 @@ test:
 
 eval:
 	$(GRADLEW) :evals:test
-
-eval-watch:
-	@echo "(not implemented yet — available in Iteration 6)"
 
 # ── Logs ─────────────────────────────────────────────────────────────────────
 

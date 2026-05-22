@@ -691,7 +691,7 @@ and the ComplianceAgent verdict cites the matching `citation_id`.
 
 - [ ] `build.gradle.kts`, `settings.gradle.kts`, `gradle/libs.versions.toml`
 - [ ] `docker-compose.yml` (Postgres 16, Bitnami Kafka 3.7, Redis 7, Langfuse 3, OTel collector, all services)
-- [ ] `Makefile`: up / down / demo / test / eval / eval-watch / logs / langfuse / grafana / trace
+- [ ] `Makefile`: up / down / demo / test / eval / logs / langfuse / grafana / trace
 - [x] `.github/workflows/ci.yml`: build / unit-test / integration-test / eval jobs
 - [ ] `ops/grafana/dashboards/agentplane.json`
 - [ ] `ops/prometheus/prometheus.yml`
