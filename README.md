@@ -39,6 +39,7 @@ Copy `.env.example` → `.env` and fill in `ANTHROPIC_API_KEY` (and `VOYAGE_API_
 # 1. Bring up the full stack (Postgres, Kafka, Redis, ClickHouse, Langfuse,
 #    Prometheus, Grafana, OTel collector, and the five services).
 make up                           # ≤ 5 minutes from a clean checkout
+open http://localhost:3002        # buyer simulator UI
 
 # 2. Run the end-to-end demo. Issues an intent token, submits a payment,
 #    polls for terminal state, prints the Langfuse trace URL.

@@ -280,6 +280,20 @@ services:
       retries: 5
       start_period: 40s
 
+  # ── Buyer Simulator UI ───────────────────────────────────────────────────────
+  buyer-simulator-ui:
+    build:
+      context: services/buyer-simulator-ui
+      dockerfile: Dockerfile
+      args:
+        VITE_GATEWAY_BASE_URL: http://localhost:8080
+    container_name: agentpay-buyer-simulator-ui
+    depends_on:
+      gateway:
+        condition: service_healthy
+    ports:
+      - "3002:8080"
+
 volumes:
   postgres-data:
   kafka-data:
