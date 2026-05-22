@@ -54,8 +54,11 @@ wires an nginx container around that directory and adds it to
 
 ## What's in scope vs. what isn't
 
-This directory is the **scaffold only**. The components described in the UX
-doc (`Ticket`, `ScenarioChip`, `SagaStateMachine`, `FanOutTriangle`,
-`SpecialistCard`, `Receipt`) and the `src/api/agentpay.ts` client are
-implemented in Task 3. `App.tsx` currently renders a placeholder so reviewers
-can eyeball the theme and font stack before any real UI lands.
+The full UI is implemented under `src/components/` and `src/lib/`:
+`IntentTicket`, `ScenarioChips`, `SagaStateMachine`, `DecisionPlane`
+(horizontal row of three `SpecialistCard`s), `Receipt`, `ErrorBanner`,
+`HonestyNote`, plus the `src/api/agentpay.ts` client and the Web Crypto
+keypair helpers under `src/lib/`. Backend `GET /cases/{id}/transitions`
+lands in Task 4 — until then the saga history panel and per-agent verdict
+cards degrade gracefully (clear caption, working retry); the state machine
+and receipt remain fully functional against the existing `GET /cases/{id}`.
