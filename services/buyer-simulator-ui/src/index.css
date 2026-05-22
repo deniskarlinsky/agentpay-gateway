@@ -1,0 +1,143 @@
+/*
+ * Buyer simulator — global styles.
+ *
+ * Aesthetic: "Precision broadsheet." Warm-black ink, bone-white text,
+ * single brass accent. Source-of-truth: docs/buyer-simulator-ux.md §4.
+ *
+ * Typography: Geist (sans), Geist Mono, Instrument Serif. Self-hosted via
+ * @fontsource so the build has zero runtime font requests — no FOUT in the
+ * screencast, works offline in the nginx deploy.
+ *
+ * Subset: latin only. The UI is English-only; latin-ext / cyrillic carry
+ * no rendered glyphs in this build. Weights kept minimal — 400 for body,
+ * 500 for labels / small-caps headings / button text. Instrument Serif
+ * ships only at weight 400 (regular + italic). Add more weights here if
+ * a future panel requires them; do not pre-load on speculation.
+ */
+
+@import '@fontsource/geist/latin-400.css';
+@import '@fontsource/geist/latin-500.css';
+@import '@fontsource/geist-mono/latin-400.css';
+@import '@fontsource/geist-mono/latin-500.css';
+@import '@fontsource/instrument-serif/latin-400.css';
+@import '@fontsource/instrument-serif/latin-400-italic.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /*
+   * shadcn theme variables, remapped wholesale to the APG palette. Values are
+   * given as raw H S L triples (no hsl() wrapper) so Tailwind's
+   * `hsl(var(--token) / <alpha-value>)` pattern works.
+   *
+   * Dark mode is the ONLY mode. `<html class="dark">` is set in index.html,
+   * but we set the variables on :root too so unstyled fallbacks still render
+   * correctly.
+   */
+  :root,
+  :root.dark,
+  .dark {
+    /* apg-ink #0A0A0B */
+    --background: 240 7% 5%;
+    /* apg-bone #F4F4F2 */
+    --foreground: 60 11% 95%;
+
+    /* apg-surface #131316 */
+    --card: 240 6% 9%;
+    --card-foreground: 60 11% 95%;
+
+    /* apg-surface-2 #1B1B1F */
+    --popover: 240 7% 12%;
+    --popover-foreground: 60 11% 95%;
+
+    /* brand primary is the brass accent — used for focus chrome and selection
+     * rules, NEVER for semantic state. */
+    --primary: 48 78% 60%;
+    /* primary-foreground sits on brass, so it must be inky */
+    --primary-foreground: 240 7% 5%;
+
+    /* secondary: surface-2 for hover / chip-selected backgrounds */
+    --secondary: 240 7% 12%;
+    --secondary-foreground: 60 11% 95%;
+
+    /* muted: rule color for de-emphasised backgrounds */
+    --muted: 240 7% 16%;
+    /* apg-ash #7C7C82 — labels and secondary copy */
+    --muted-foreground: 240 4% 50%;
+
+    /* accent mirrors muted for shadcn's hover states; semantic accent is brass */
+    --accent: 240 7% 16%;
+    --accent-foreground: 60 11% 95%;
+
+    /* apg-rose #FF6B7A — destructive / DECLINED / FAIL / COMPENSATED */
+    --destructive: 354 100% 71%;
+    --destructive-foreground: 240 7% 5%;
+
+    /* apg-rule #26262B — every hairline 1px border in the build */
+    --border: 240 7% 16%;
+    --input: 240 7% 16%;
+    /* focus ring picks up the brass accent */
+    --ring: 48 78% 60%;
+
+    /*
+     * Radii — hero structural panels render with zero radius. Interactive
+     * controls (buttons, focus rings) get 4px. Set here for any shadcn
+     * component that reads --radius directly.
+     */
+    --radius: 4px;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    /* Disable smooth scroll — saga state machine animations supply all the motion. */
+    scroll-behavior: auto;
+  }
+
+  body {
+    margin: 0;
+    background: #0a0a0b;
+    color: #f4f4f2;
+    font-family: Geist, system-ui, sans-serif;
+    font-variant-numeric: tabular-nums lining-nums;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent overscroll bounce revealing white on macOS browsers. */
+    overscroll-behavior: none;
+    /* Anchor for the noise overlay ::before pseudo-element. */
+    position: relative;
+    min-height: 100vh;
+  }
+
+  /*
+   * Newsprint noise overlay — feTurbulence SVG primitive inlined as a data URI
+   * so it ships with the CSS bundle and avoids a second HTTP request. The
+   * overlay sits above the page background at 1.5% opacity with
+   * `mix-blend-mode: overlay` so it modulates whatever's underneath without
+   * tinting it. `pointer-events: none` keeps clicks flowing through to the UI.
+   */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    opacity: 0.015;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  }
+
+  /*
+   * Hairline-underline utility for amounts and other "load-bearing" data —
+   * a 1px brass underline at 30% opacity. Apply with `.apg-loadbearing` to
+   * any inline text node.
+   */
+  .apg-loadbearing {
+    border-bottom: 1px solid rgb(232 197 71 / 0.3);
+    padding-bottom: 1px;
+  }
+}
