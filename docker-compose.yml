@@ -123,19 +123,15 @@ services:
       LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse-events-local
       LANGFUSE_S3_MEDIA_UPLOAD_ENABLED: "false"
       LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse-media-local
-      # Iter 7: Langfuse 3.33.0's S3 config validator runs even when uploads are disabled
-      # and rejects boot with "Region is missing". Setting AWS_REGION to a placeholder
-      # satisfies the validator; no actual S3 calls are made because the *_ENABLED flags
-      # above are false. Documented in docs/known-issues.md.
       AWS_REGION: us-east-1
     ports:
       - "3000:3000"
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://$(hostname -i | awk '{print $1}'):3000/api/public/health || exit 1"]
-      interval: 20s
-      timeout: 10s
-      retries: 10
-      start_period: 60s
+      test: [ "CMD-SHELL", "wget -qO- http://127.0.0.1:3000/api/public/health || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
   # ── OpenTelemetry Collector ───────────────────────────────────────────────
   otel-collector:
@@ -144,8 +140,6 @@ services:
     command: ["--config=/etc/otel-collector-config.yml"]
     volumes:
       - ./ops/otel-collector/otel-collector-config.yml:/etc/otel-collector-config.yml:ro
-      # Iter 6 (NFR-O-001): file exporter writes /etc/otelcol/traces/cases.jsonl — bind-mount
-      # exposes the JSONL artifacts at ./ops/traces on the host.
       - ./ops/traces:/etc/otelcol/traces
     ports:
       - "4317:4317"   # OTLP gRPC
@@ -186,9 +180,6 @@ services:
     volumes:
       - grafana-data:/var/lib/grafana
       - ./ops/grafana/dashboards:/var/lib/grafana/dashboards:ro
-      # Iter 7 (NFR-O-004 fix): datasource + dashboard provider definitions. Without these
-      # Grafana boots with no datasource and the agentplane.json file mounted above never
-      # loads into the dashboards index.
       - ./ops/grafana/provisioning:/etc/grafana/provisioning:ro
     ports:
       - "3001:3000"
@@ -219,6 +210,7 @@ services:
       context: services/gateway
       dockerfile: Dockerfile
     container_name: agentpay-gateway
+    user: "root"
     depends_on:
       redis:
         condition: service_healthy
@@ -227,6 +219,8 @@ services:
       REDIS_PORT: 6379
       GATEWAY_SIGNING_KEY_PEM: ${GATEWAY_SIGNING_KEY_PEM:-}
       ORCHESTRATOR_URL: http://orchestrator:8081
+    volumes:
+      - gateway-data:/app/.local
     ports:
       - "8080:8080"
     healthcheck:
@@ -264,12 +258,6 @@ services:
         condition: service_healthy
       mock-psp:
         condition: service_healthy
-      # sanctions-mcp must be healthy before orchestrator starts: the Spring AI MCP client
-      # autoconfig calls client.initialize() during Spring context startup (lifecycle hook in
-      # McpClientAutoConfiguration). Without this dependency, the streamable-http connection to
-      # sanctions-mcp:8090 races against the sanctions-mcp container's Spring Boot startup and
-      # fails. Tests handle this via Testcontainers' explicit start ordering; docker-compose
-      # needs the depends_on equivalent.
       sanctions-mcp:
         condition: service_healthy
     environment:
@@ -298,3 +286,4 @@ volumes:
   clickhouse-data:
   prometheus-data:
   grafana-data:
+  gateway-data:

@@ -3,6 +3,8 @@ package com.agentpay.gateway.orchestrator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import java.math.BigDecimal;
+import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -74,6 +76,32 @@ public class OrchestratorClient {
     }
   }
 
+  /**
+   * Task 4: proxy GET for case transitions + agent verdicts. Same empty/non-2xx semantics as {@link
+   * #getCaseStatus}.
+   */
+  public Optional<CaseTransitions> getCaseTransitions(String caseId) {
+    try {
+      CaseTransitions body =
+          restClient
+              .get()
+              .uri("/internal/cases/{caseId}/transitions", caseId)
+              .retrieve()
+              .body(CaseTransitions.class);
+      return Optional.ofNullable(body);
+    } catch (RestClientResponseException e) {
+      HttpStatusCode code = e.getStatusCode();
+      if (code.value() == 404) {
+        return Optional.empty();
+      }
+      log.warn("orchestrator case-transitions non-2xx case_id={} status={}", caseId, code);
+      throw new OrchestratorUnavailableException("orchestrator returned " + code.value());
+    } catch (ResourceAccessException e) {
+      log.warn("orchestrator unreachable case_id={} error={}", caseId, e.getMessage());
+      throw new OrchestratorUnavailableException("orchestrator unreachable: " + e.getMessage());
+    }
+  }
+
   public record Request(
       @JsonProperty("case_id") String caseId,
       @JsonProperty("agent_id") String agentId,
@@ -97,4 +125,25 @@ public class OrchestratorClient {
       @JsonProperty("decision") JsonNode decision,
       @JsonProperty("psp_outcome") JsonNode pspOutcome,
       @JsonProperty("trace_url") String traceUrl) {}
+
+  /** Task 4: mirrors orchestrator's CaseTransitionsResponse (buyer-simulator-ux §5). */
+  public record CaseTransitions(
+      @JsonProperty("case_id") String caseId,
+      @JsonProperty("current_state") String currentState,
+      @JsonProperty("transitions") List<Transition> transitions,
+      @JsonProperty("verdicts") List<Verdict> verdicts) {}
+
+  public record Transition(
+      @JsonProperty("state_from") String stateFrom,
+      @JsonProperty("state_to") String stateTo,
+      @JsonProperty("reason") String reason,
+      @JsonProperty("created_at") OffsetDateTime createdAt) {}
+
+  public record Verdict(
+      @JsonProperty("agent_name") String agentName,
+      @JsonProperty("model") String model,
+      @JsonProperty("verdict_json") JsonNode verdictJson,
+      @JsonProperty("latency_ms") int latencyMs,
+      @JsonProperty("cost_usd") BigDecimal costUsd,
+      @JsonProperty("created_at") OffsetDateTime createdAt) {}
 }

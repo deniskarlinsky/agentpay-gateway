@@ -256,6 +256,61 @@ class GatewayApplicationTest {
   }
 
   @Test
+  void transitionsWithoutAuthReturnsBodyWhenCaseExists() throws Exception {
+    JsonNode verdictJson = json.readTree("{\"risk_score\":42,\"reasons\":[\"stub\"]}");
+    OrchestratorClient.CaseTransitions body =
+        new OrchestratorClient.CaseTransitions(
+            "case-known",
+            "ROUTED",
+            java.util.List.of(
+                new OrchestratorClient.Transition(
+                    null,
+                    "INITIATED",
+                    "case created",
+                    java.time.OffsetDateTime.parse("2026-05-22T10:00:00.123Z")),
+                new OrchestratorClient.Transition(
+                    "INITIATED",
+                    "HELD",
+                    "funds held",
+                    java.time.OffsetDateTime.parse("2026-05-22T10:00:00.187Z"))),
+            java.util.List.of(
+                new OrchestratorClient.Verdict(
+                    "RiskAgent",
+                    "claude-sonnet-4-6",
+                    verdictJson,
+                    1234,
+                    new java.math.BigDecimal("0.0024"),
+                    java.time.OffsetDateTime.parse("2026-05-22T10:00:01.421Z"))));
+    when(orchestratorClient.getCaseTransitions("case-known")).thenReturn(Optional.of(body));
+
+    mvc.perform(get("/cases/case-known/transitions"))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.case_id").value("case-known"))
+        .andExpect(jsonPath("$.current_state").value("ROUTED"))
+        .andExpect(jsonPath("$.transitions[0].state_from").value(org.hamcrest.Matchers.nullValue()))
+        .andExpect(jsonPath("$.transitions[0].state_to").value("INITIATED"))
+        .andExpect(jsonPath("$.transitions[0].reason").value("case created"))
+        .andExpect(jsonPath("$.transitions[0].created_at").exists())
+        .andExpect(jsonPath("$.transitions[1].state_from").value("INITIATED"))
+        .andExpect(jsonPath("$.transitions[1].state_to").value("HELD"))
+        .andExpect(jsonPath("$.verdicts[0].agent_name").value("RiskAgent"))
+        .andExpect(jsonPath("$.verdicts[0].model").value("claude-sonnet-4-6"))
+        .andExpect(jsonPath("$.verdicts[0].verdict_json.risk_score").value(42))
+        .andExpect(jsonPath("$.verdicts[0].latency_ms").value(1234))
+        .andExpect(jsonPath("$.verdicts[0].cost_usd").value(0.0024))
+        .andExpect(jsonPath("$.verdicts[0].created_at").exists());
+  }
+
+  @Test
+  void transitionsWithoutAuthReturns404WhenCaseMissing() throws Exception {
+    when(orchestratorClient.getCaseTransitions("case-unknown")).thenReturn(Optional.empty());
+
+    // Same security-chain assertion as caseStatusWithoutAuthReturns404WhenCaseMissing: 404 (not
+    // 401) proves the path is on the public chain.
+    mvc.perform(get("/cases/case-unknown/transitions")).andExpect(status().isNotFound());
+  }
+
+  @Test
   void ttlOverFiveMinutesIsRejected() throws Exception {
     String body =
         json.writeValueAsString(

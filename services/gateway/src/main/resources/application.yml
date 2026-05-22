@@ -38,6 +38,10 @@ agentpay:
     url: ${ORCHESTRATOR_URL:http://orchestrator:8081}
   rate-limit:
     requests-per-minute-per-agent: 60
+  cors:
+    allowed-origins:
+      - http://localhost:5173
+      - http://localhost:3002
 
 logging:
   level:

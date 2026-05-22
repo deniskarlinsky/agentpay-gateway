@@ -2,6 +2,8 @@ package com.agentpay.gateway.config;
 
 import com.nimbusds.jose.jwk.RSAKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
+import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -14,6 +16,9 @@ import org.springframework.security.oauth2.jose.jws.SignatureAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 /**
  * Two security chains so the OAuth2 resource server's BearerTokenAuthenticationEntryPoint only
@@ -43,6 +48,7 @@ public class SecurityConfig {
                     .requestMatchers("/.well-known/**")
                     .requestMatchers(HttpMethod.POST, "/intent-tokens")
                     .requestMatchers(HttpMethod.GET, "/cases/**"))
+        .cors(Customizer.withDefaults())
         .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
@@ -58,7 +64,8 @@ public class SecurityConfig {
   @Bean
   @Order(2)
   public SecurityFilterChain protectedChain(HttpSecurity http) throws Exception {
-    return http.csrf(AbstractHttpConfigurer::disable)
+    return http.cors(Customizer.withDefaults())
+        .csrf(AbstractHttpConfigurer::disable)
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(
             auth ->
@@ -74,5 +81,38 @@ public class SecurityConfig {
   public JwtDecoder jwtDecoder(RSAKey signingKey) throws Exception {
     RSAPublicKey pub = signingKey.toRSAPublicKey();
     return NimbusJwtDecoder.withPublicKey(pub).signatureAlgorithm(SignatureAlgorithm.RS256).build();
+  }
+
+  /**
+   * Task 3.5: CORS for the browser-based buyer-simulator-ui. Both filter chains call {@code
+   * http.cors(Customizer.withDefaults())} which resolves this bean by name; Spring Security
+   * recognises preflight (OPTIONS + Origin + Access-Control-Request-Method) and bypasses
+   * authentication so the protected {@code POST /payments} preflight doesn't 401.
+   *
+   * <p>Origins are an explicit allow-list (no wildcard — rejected at startup). Methods are limited
+   * to {@code GET/POST/OPTIONS} since the UI uses no others. Credentials disabled because the
+   * bearer token is carried in {@code Authorization} on the response body of {@code POST
+   * /intent-tokens} and echoed back per-request — no cookies, no session.
+   */
+  @Bean
+  public CorsConfigurationSource corsConfigurationSource(CorsProperties properties) {
+    List<String> origins = properties.allowedOrigins();
+    if (origins == null || origins.isEmpty()) {
+      throw new IllegalArgumentException(
+          "agentpay.cors.allowed-origins must be configured with at least one origin");
+    }
+    if (origins.contains("*")) {
+      throw new IllegalArgumentException(
+          "agentpay.cors.allowed-origins must not contain wildcard '*' — list explicit origins");
+    }
+    CorsConfiguration configuration = new CorsConfiguration();
+    configuration.setAllowedOrigins(origins);
+    configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS"));
+    configuration.setAllowedHeaders(List.of("Content-Type", "Accept", "Authorization"));
+    configuration.setAllowCredentials(false);
+    configuration.setMaxAge(Duration.ofHours(1));
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", configuration);
+    return source;
   }
 }

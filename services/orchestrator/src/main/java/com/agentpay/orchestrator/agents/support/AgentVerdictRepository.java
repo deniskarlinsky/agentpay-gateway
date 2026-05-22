@@ -1,6 +1,7 @@
 package com.agentpay.orchestrator.agents.support;
 
 import java.math.BigDecimal;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,6 @@ public interface AgentVerdictRepository extends JpaRepository<AgentVerdict, Long
    */
   @Query("select coalesce(sum(v.costUsd), 0) from AgentVerdict v where v.caseId = :caseId")
   BigDecimal sumCostByCaseId(@Param("caseId") String caseId);
+
+  List<AgentVerdict> findByCaseIdOrderByCreatedAtAsc(String caseId);
 }
