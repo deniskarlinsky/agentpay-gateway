@@ -2,6 +2,8 @@
 
 When an AI agent initiates a payment on behalf of a human, three things break at once: there is no OAuth client to authenticate, no human-in-the-loop to approve risk, and no clean way to compensate if a downstream check fails after the funds are held. AgentPay Gateway is a reference architecture for that problem — a Java 21 / Spring Boot 3.5 payment gateway that authenticates agents via scoped JWT intent tokens, decides each case through a parallel multi-agent risk-and-compliance plane on Spring AI 1.1.5, and unwinds cleanly via an explicit Saga with a transactional outbox to Kafka.
 
+[![CI](https://github.com/deniskarlinsky/agentpay-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/deniskarlinsky/agentpay-gateway/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ```mermaid
 flowchart LR
     Agent[AI Agent] --> Gateway
