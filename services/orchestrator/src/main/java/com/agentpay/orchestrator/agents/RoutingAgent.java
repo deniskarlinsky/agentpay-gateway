@@ -111,7 +111,9 @@ public class RoutingAgent {
           "psp-c", "route-us-1", 0.978f, 45, "RoutingAgent retry exhausted; safe pick");
     }
     RouteCandidate best =
-        candidates.stream().max(Comparator.comparingDouble(RouteCandidate::expectedSuccessRate)).get();
+        candidates.stream()
+            .max(Comparator.comparingDouble(RouteCandidate::expectedSuccessRate))
+            .get();
     return new RouteRecommendation(
         best.pspId(),
         best.routeId(),
