@@ -13,6 +13,19 @@ processors:
   memory_limiter:
     check_interval: 1s
     limit_mib: 256
+  # Spring AI / Micrometer emit gen_ai.usage.*_tokens as STRING attributes (Micrometer
+  # KeyValues are string-only). Langfuse 3.33's ingestion schema requires usageDetails to be
+  # numbers and silently rejects the generation event for string usage — so LLM "chat {model}"
+  # spans never become GENERATION observations and token usage shows 0. Cast the three token
+  # counts to int so Langfuse stores the generations with input/output/total usage.
+  transform/langfuse_usage:
+    error_mode: ignore
+    trace_statements:
+      - context: span
+        statements:
+          - set(attributes["gen_ai.usage.input_tokens"], Int(attributes["gen_ai.usage.input_tokens"])) where attributes["gen_ai.usage.input_tokens"] != nil
+          - set(attributes["gen_ai.usage.output_tokens"], Int(attributes["gen_ai.usage.output_tokens"])) where attributes["gen_ai.usage.output_tokens"] != nil
+          - set(attributes["gen_ai.usage.total_tokens"], Int(attributes["gen_ai.usage.total_tokens"])) where attributes["gen_ai.usage.total_tokens"] != nil
 
 exporters:
   # Langfuse receives traces via OTLP HTTP
@@ -40,7 +53,9 @@ service:
   pipelines:
     traces:
       receivers: [otlp]
-      processors: [memory_limiter, batch]
+      # transform/langfuse_usage runs before batch so the int-cast usage reaches every exporter
+      # (Langfuse needs numeric usage; numeric is equally valid for the file/debug sinks).
+      processors: [memory_limiter, transform/langfuse_usage, batch]
       exporters: [otlphttp/langfuse, file, debug]
     metrics:
       receivers: [otlp]
