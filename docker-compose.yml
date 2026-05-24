@@ -176,6 +176,48 @@ services:
       retries: 5
       start_period: 30s
 
+  # ── Langfuse 3 worker ─────────────────────────────────────────────────────
+  # In Langfuse v3 the worker (not web) drains the Redis ingestion queue, reads
+  # raw events from S3/MinIO, runs the ClickHouse migrations, and writes the
+  # processed traces into ClickHouse that the web UI reads. Without it, events
+  # land in MinIO but never complete ("trace is still being processed").
+  # Image tag MUST match the web service (3.33.0). Env mirrors web's backing
+  # services verbatim, minus web-only keys (auth / org-init / HTTP port).
+  langfuse-worker:
+    image: langfuse/langfuse-worker:3.33.0
+    container_name: agentpay-langfuse-worker
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      clickhouse:
+        condition: service_healthy
+      minio-init:
+        condition: service_completed_successfully
+    environment:
+      DATABASE_URL: postgresql://agentpay:${POSTGRES_PASSWORD:-agentpay}@postgres:5432/langfuse
+      DIRECT_URL: postgresql://agentpay:${POSTGRES_PASSWORD:-agentpay}@postgres:5432/langfuse
+      REDIS_URL: redis://redis:6379
+      REDIS_CONNECTION_STRING: redis://redis:6379
+      CLICKHOUSE_URL: http://clickhouse:8123
+      CLICKHOUSE_USER: langfuse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-langfuse}
+      CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+      SALT: ${LANGFUSE_SALT:-dev-salt-change-in-prod}
+      ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY:-0000000000000000000000000000000000000000000000000000000000000000}
+      TELEMETRY_ENABLED: "false"
+      LANGFUSE_S3_EVENT_UPLOAD_ENABLED: "true"
+      LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse-events-local
+      LANGFUSE_S3_EVENT_UPLOAD_REGION: us-east-1
+      LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-minioadmin}
+      LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+      LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+      LANGFUSE_S3_MEDIA_UPLOAD_ENABLED: "false"
+      LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: langfuse-media-local
+      AWS_REGION: us-east-1
+
   # ── OpenTelemetry Collector ───────────────────────────────────────────────
   otel-collector:
     image: otel/opentelemetry-collector-contrib:0.110.0
