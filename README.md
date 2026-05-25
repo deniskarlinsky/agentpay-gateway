@@ -1,31 +1,23 @@
 # AgentPay Gateway
 
+<div align="center">
+  <img src=".github/images/agentpay_cover.png" alt="AgentPay Gateway" width="800">
+</div>
+
 When an AI agent initiates a payment on behalf of a human, three things break at once: there is no OAuth client to authenticate, no human-in-the-loop to approve risk, and no clean way to compensate if a downstream check fails after the funds are held. AgentPay Gateway is a reference architecture for that problem — a Java 21 / Spring Boot 3.5 payment gateway that authenticates agents via scoped JWT intent tokens, decides each case through a parallel multi-agent risk-and-compliance plane on Spring AI 1.1.5, and unwinds cleanly via an explicit Saga with a transactional outbox to Kafka.
 
 [![CI](https://github.com/deniskarlinsky/agentpay-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/deniskarlinsky/agentpay-gateway/actions/workflows/ci.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-```mermaid
-flowchart LR
-    Agent[AI Agent] --> Gateway
-    Gateway --> Orchestrator
-    subgraph DecisionPlane[Decision Plane]
-        Risk
-        Compliance
-        Routing
-    end
-    Orchestrator --> Risk
-    Orchestrator --> Compliance
-    Orchestrator --> Routing
-    Compliance --> Sanctions[Sanctions MCP]
-    Orchestrator --> PSP[Mock PSP]
-    subgraph Infra[Infrastructure]
-        Postgres[(Postgres)]
-        Redis[(Redis)]
-        Kafka[(Kafka)]
-        Langfuse
-    end
-    Orchestrator --> Infra
-```
+<div align="center"><sub><b>System context</b></sub></div>
+<div align="center">
+  <img src=".github/images/c4_context.png" alt="C4 Context diagram — AgentPay Gateway" width="800"><br>
+</div>
+
+<div align="center"><sub><b>Container view</b></sub></div>
+<div align="center">
+  <img src=".github/images/c4_container.png" alt="C4 Container diagram — AgentPay Gateway" width="800"><br>
+
+</div>
 
 `REQUIREMENTS.md` is the contract. `docs/architecture.md` is the rationale. This file is the
 quick start.
